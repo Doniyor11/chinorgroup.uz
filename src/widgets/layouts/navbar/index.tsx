@@ -51,19 +51,18 @@ export const Navbar = () => {
         <Box className={s.navbarWrapperLogo}>
           <Logo />
         </Box>
-
+        <ul className={s.menu}>
+          {MenuData?.map((item, index) => (
+            <li
+              key={index}
+              className={cx(s.link, { [s.active]: item?.path_id === active })}
+              onClick={() => scrollTo(item?.path_id)}
+            >
+              {item?.text}
+            </li>
+          ))}
+        </ul>
         <Flex className={s.navbarLeft}>
-          <ul className={s.menu}>
-            {MenuData?.map((item, index) => (
-              <li
-                key={index}
-                className={cx(s.link, { [s.active]: item?.path_id === active })}
-                onClick={() => scrollTo(item?.path_id)}
-              >
-                {item?.text}
-              </li>
-            ))}
-          </ul>
           <Select
             className={s.lang}
             defaultValue={"Uz"}
@@ -72,13 +71,16 @@ export const Navbar = () => {
             leftSection={<FlagUz />}
             rightSection={<IconDown />}
             value={isLang}
+            classNames={{
+              input: s.inputSelect,
+            }}
             onChange={(e: any) => {
               setLanguage(e)
               setIsLang(e)
               localStorage.setItem("lang", e)
             }}
           />
-          <Button onClick={() => scrollTo("contacts")} className={s.submitBtn}>
+          <Button onClick={() => scrollTo("contacts")} className={'button-black'}>
             Оставить заявку
           </Button>
           {matches && (
@@ -114,7 +116,7 @@ export const Navbar = () => {
             {item?.text}
           </Text>
         ))}
-        <Button onClick={() => scrollTo("contacts")} className={s.submitBtn}>
+        <Button onClick={() => scrollTo("contacts")} className={'button-black'} w={'12.5rem'}>
           Оставить заявку
         </Button>
       </Drawer>
