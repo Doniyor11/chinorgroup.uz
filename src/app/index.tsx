@@ -12,7 +12,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Head>
-        <title>Aqua Flow</title>
+        <title>Chinorgroup</title>
         <link rel="icon" href="/favicon.ico" />
         <meta
           name="viewport"

@@ -6,58 +6,49 @@
   .footerTop {
     display: flex;
     justify-content: space-between;
-    padding: 0 60px 25px;
-    border-bottom: 1px solid #818896;
-
-    .box {
-      .logo {
-        width: 100%;
-        max-width: 270px;
-        height: 140px;
-        object-fit: contain;
-        margin-bottom: 50px;
-      }
-
-      .text {
-        color: #fff;
-        font-size: 24px;
-        font-weight: 400;
-        line-height: 32px;
-      }
-
-      .boxTitle,
-      .link {
-        color: #fff;
-        font-weight: 600;
-        line-height: 24px;
-      }
-
-      .boxTitle {
-        height: 50px;
-        font-size: 20px;
-        margin-bottom: 24px;
-      }
-
-      .link {
-        font-size: 16px;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-        column-gap: 10px;
-
-        &:last-child {
-          margin-bottom: 0;
-        }
-      }
-    }
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #70707B;
   }
 
-  .bottomText {
-    color: #fff;
-    font-size: 16px;
+  .leftTitle {
+    color: #FCFCFC;
+    font-size: 2rem;
+    font-style: normal;
     font-weight: 400;
-    line-height: 32px;
-    margin-top: 25px;
-    text-align: center;
+    line-height: 120%;
   }
+
+  .footerLeftLabel {
+    color: rgba(255, 255, 255, 0.60);
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 155%;
+  }
+
+  .footerText {
+    color: #FCFCFC;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 155%;
+  }
+
+  .menuTitle{
+    color: rgba(255, 255, 255, 0.60);
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 155%;
+  }
+
+  .bottomText{
+    color: rgba(255, 255, 255, 0.60);
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 155%;
+  }
+
+
 }
