@@ -1,0 +1,151 @@
+.filterRoom {
+  border-radius: 1rem;
+  background: #FFF;
+  padding: 5rem;
+  margin-bottom: 0.62rem;
+}
+
+.filterRoomTop {
+  margin-bottom: 3.5rem;
+}
+
+.filterHeadTitle {
+  color:  #18181B;
+  font-size: 3.25rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+  letter-spacing: -0.065rem;
+}
+
+.filterHeadDescription {
+  color: #70707B;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 155%;
+}
+
+.filterRoomInner {
+  border-radius: 1rem;
+  background: #F4F4F5;
+  padding: 1.5rem 1.25rem;
+  flex: 1;
+}
+
+.filterLabel {
+  color: #18181B;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.filterInput {
+  border-radius: 0.5rem;
+  border: 1px solid #E4E4E7;
+  background: #FFF;
+  padding: 0.625rem 0.875rem;
+  position: relative;
+}
+
+.filterSelect {
+  input {
+    border-radius: 0.5rem;
+    border: 1px solid #E4E4E7;
+    background: #FFF;
+    height: 2.9375rem;
+
+    &::placeholder {
+      color: #70707B;
+      font-size: 1rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 155%;
+    }
+  }
+}
+
+.filterInputSpan {
+  color: #26272B;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 155%;
+}
+
+.rangeSlider {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: -15.5%;
+  z-index: 2;
+}
+
+.list {
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.tab {
+  border-radius: 6.25rem;
+  background: #F4F4F5;
+  height: 2.9375rem;
+  padding: 0.5rem 0.75rem;
+  color: #70707B;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+
+  &[data-active] {
+    background: #009540;
+    color: #FFF;
+  }
+}
+
+.filterInfo {
+  padding: 2.25rem;
+  background-image: url('../../../shared/assets/images/filter-bg.svg');
+  background-color: #F4F4F5;
+  background-repeat: no-repeat;
+  background-position: right bottom;
+}
+
+.bgGreen {
+  background-image: url('../../../shared/assets/images/filter-bg-2.svg');
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  background-color: #04B14E;
+
+  .filterInfoTitle, .filterInfoLabel, .filterInfoNumber {
+    color: #fff !important;
+  }
+}
+
+.filterInfoTitle {
+  color: #18181B;
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%;
+  letter-spacing: -0.04rem;
+}
+
+.filterInfoLabel {
+  color: #26272B;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.02rem;
+}
+
+.filterInfoNumber {
+  color: #18181B;
+  font-size: 1.75rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.035rem;
+}
