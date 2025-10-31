@@ -1,3 +1,5 @@
 export { CarouselSection } from "./carousel"
 export { Contact } from "./contact"
 export { Blog } from "./blog"
+export { ChooseUs } from "./choose-us"
+export { Reviews } from "./reviews"

@@ -49,6 +49,7 @@ const slides = [
     title: "8 стильных идей дизайна открытой кухни типа 36",
   },
 ]
+
 export const Blog = () => {
   return (
     <>

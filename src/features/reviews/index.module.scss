@@ -1,0 +1,163 @@
+.reviews {
+  border-radius: 1rem;
+  background: #141414;
+  padding: 5rem;
+  margin-bottom: 0.62rem;
+}
+
+.reviewsTop {
+  margin-bottom: 3.5rem;
+}
+
+.reviewsHeadTitle {
+  color: #fff;
+  font-size: 3.25rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+  letter-spacing: -0.065rem;
+}
+
+.reviewsHeadDescription {
+  color: #70707B;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 155%;
+}
+
+.reviewsItem {
+  padding: 3.125rem;
+  border-radius: 0.75rem;
+  border: 1px solid #262626;
+  background: #18181B;
+}
+
+.reviewsItemStar {
+  height: 2.75rem;
+  width: 2.75rem;
+  border-radius: 6.25rem;
+  border: 1px solid #262626;
+  background: #1A1A1A;
+  padding: 0.625rem;
+}
+
+.reviewsDescription {
+  color: #fff;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+}
+
+.reviewsUserImage {
+  width: 3.75rem;
+  height: 3.75rem;
+  border-radius: 50%;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.reviewsAuthor{
+  color: #FFF;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+}
+
+.reviewsAuthorPosition{
+  color: #999;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+}
+
+/* Swiper Controls Container */
+.swiperControls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24px;
+  padding: 0 4px;
+}
+
+
+/* Custom Navigation */
+.swiperNavigation {
+  display: flex;
+  gap: 8px;
+}
+
+.swiperButtonPrev,
+.swiperButtonNext {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #262626;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  padding: 0;
+}
+
+.swiperButtonPrev svg,
+.swiperButtonNext svg {
+  width: 20px;
+  height: 20px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.swiperButtonPrev {
+  background: #262626;
+}
+
+.swiperButtonPrev:hover {
+  svg{
+    stroke: #FFFFFF;
+  }
+}
+.swiperButtonNext:hover {
+  svg{
+    stroke: #FFFFFF;
+  }
+}
+
+.swiperButtonNext {
+  color: #ffffff;
+}
+
+.swiperButtonNext:hover {
+  opacity: 0.9;
+}
+
+.swiperButtonPrev.swiper-button-disabled,
+.swiperButtonNext.swiper-button-disabled {
+  opacity: 0.9;
+  cursor: not-allowed !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .swiperContainer {
+    padding: 20px 16px;
+  }
+
+  .slideTitle {
+    font-size: 16px;
+  }
+
+  .slideMeta {
+    font-size: 13px;
+  }
+}
