@@ -56,7 +56,7 @@ export const Blog = () => {
       <Box className={s.blogContainer} mb={'0.63rem'}>
         <Flex justify={'space-between'} mb={'3.5rem'}>
           <Flex w={'50%'}>
-            <Text className={s.blogTitle} component={"h2"}>
+            <Text className={'title-section'} c={'#18181B'} component={"h2"}>
               Блог
             </Text>
           </Flex>

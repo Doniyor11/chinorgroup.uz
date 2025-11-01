@@ -19,7 +19,7 @@ export const FilterRoom = () => {
     <Box className={s.filterRoom}>
       <Flex align={'center'} className={s.filterRoomTop}>
         <Box w={"50%"}>
-          <Text className={s.filterHeadTitle}>Квартиры в <br/> рассрочку</Text>
+          <Text className={'title-section'} c={'#18181B'}>Квартиры в <br/> рассрочку</Text>
         </Box>
         <Box w={"50%"}>
           <Text className={s.filterHeadDescription}>
@@ -85,16 +85,16 @@ const Filter = () => {
     <>
       <Flex direction={"column"} gap={"1rem"} className={s.filterRoomInner}>
         <Flex direction={"column"} gap={"0.5rem"}>
-          <Text className={s.filterLabel}>Жилой комплекс</Text>
+          <Text className={'input-label'}>Жилой комплекс</Text>
           <Select
             placeholder={"Выберите"}
-            className={s.filterSelect}
+            className={'select'}
             rightSection={<IconDown />}
           />
         </Flex>
         <Flex direction={"column"} gap={"0.5rem"}>
           <Text className={s.filterLabel}>Стоимость квартиры</Text>
-          <Flex className={s.filterInput}>
+          <Flex className={'filterInput'}>
             <Flex justify={"space-between"} w={"100%"}>
               <Text className={s.filterInputSpan}>{value[0]} млн сум</Text>
             </Flex>
@@ -106,7 +106,7 @@ const Filter = () => {
               color="green"
               thumbSize={14}
               label={null}
-              className={s.rangeSlider}
+              className={'rangeSlider'}
               classNames={{
                 track: s.track,
               }}
@@ -128,7 +128,7 @@ const Filter = () => {
         </Flex>
         <Flex direction={"column"} gap={"0.5rem"}>
           <Text className={s.filterLabel}>Первоначальный взнос</Text>
-          <Flex className={s.filterInput}>
+          <Flex className={'filterInput'}>
             <Flex justify={"space-between"} w={"100%"}>
               <Text className={s.filterInputSpan}>{value[0]} млн сум</Text>
               <Text className={s.filterInputSpan} c={"#70707B"}>
@@ -143,7 +143,7 @@ const Filter = () => {
               color="green"
               thumbSize={14}
               label={null}
-              className={s.rangeSlider}
+              className={'rangeSlider'}
               classNames={{
                 track: s.track,
               }}
