@@ -11,7 +11,6 @@ import {
 import IconHome from "@/shared/assets/images/icons/home.svg"
 
 const PricePage = () => {
-
   return (
     <main>
       <BreadcrumbCustom
