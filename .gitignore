@@ -7,6 +7,8 @@
 .yarn/install-state.gz
 .pnpm-lock.yaml
 
+echo node_modules/ >> .gitignore
+
 # testing
 /coverage
 
