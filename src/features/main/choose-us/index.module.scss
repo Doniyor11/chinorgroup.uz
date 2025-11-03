@@ -1,38 +1,43 @@
 .choose {
   padding: 5rem 3.75rem 5rem 5rem;
   border-radius: 1rem;
-  background-color: #18181B;
+  background-color: #18181b;
   margin-bottom: 0.62rem;
   display: flex;
   flex-direction: column;
   gap: 3rem;
-  background-image: url("../../shared/assets/images/choose-us-bg.png"), url("../../shared/assets/images/choose-us-bg-2.png");
+  background-image: url("../../../shared/assets/images/choose-us-bg.png"),
+    url("../../../shared/assets/images/choose-us-bg-2.png");
   background-repeat: no-repeat, no-repeat;
-  background-position: top right, bottom left;
+  background-position:
+    top right,
+    bottom left;
 }
 
 .chooseBox {
+  background-image: url("../../../shared/assets/images/bg-gradient.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top left;
 }
 
 .chooseBoxTitle {
-  color: #FFF;
+  color: #fff;
   font-size: 1.25rem;
   font-style: normal;
   font-weight: 500;
   line-height: 150%;
   padding: 1rem 1.25rem;
-  border-left: 1px solid #06944C;
 }
 
 .chooseBoxInner {
   border-radius: 0 0.75rem 0.75rem 0.75rem;
-  border: 1px solid #262626;
-  background: linear-gradient(121deg, #06944C -49.01%, rgba(6, 148, 76, 0.00) 13.65%);
+  //border-right: 1px solid #262626;
   padding: 3.125rem;
 }
 
 .chooseBoxInnerTitle {
-  color: #FFF;
+  color: #fff;
   font-size: 1.625rem;
   font-style: normal;
   font-weight: 600;

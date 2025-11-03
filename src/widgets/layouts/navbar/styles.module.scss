@@ -4,18 +4,17 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #FFF;
+  background: #fff;
 
   .navbarWrapperLogo {
   }
-
 
   .menu {
     display: flex;
     align-items: center;
 
     .link {
-      color: #3F3F46;
+      color: #3f3f46;
       font-size: 0.875rem;
       font-style: normal;
       font-weight: 400;
@@ -27,12 +26,12 @@
       transition: 0.2s ease-in-out;
 
       &:hover {
-        background: #F4F4F5;
+        background: #f4f4f5;
         color: #009540;
       }
 
       &.active {
-        background: #F4F4F5;
+        background: #f4f4f5;
         color: #009540;
       }
     }
@@ -62,7 +61,7 @@
   input {
     border: none;
     height: 2.6875rem;
-    color: #4F4F4F;
+    color: #4f4f4f;
     font-size: 1.125rem;
     font-style: normal;
     font-weight: 500;
@@ -70,7 +69,7 @@
     letter-spacing: -0.045rem;
     border-radius: 3.125rem;
     text-transform: capitalize;
-    background: #F4F4F5;
+    background: #f4f4f5;
     width: 100%;
   }
 
@@ -79,5 +78,3 @@
     height: 1.25rem;
   }
 }
-
-

@@ -1,30 +1,26 @@
 export const MenuData = [
   {
     text: "Главная",
-    path_id: "main",
+    path: "/",
   },
   {
     text: "О компании",
-    path_id: "about",
-  },
-  {
-    text: "Услуги",
-    path_id: "ourProducts",
+    path: "/about",
   },
   {
     text: "Наши проекты",
-    path_id: "certificates",
+    path: "/project",
   },
   {
     text: "Цены",
-    path_id: "contacts",
+    path: "/price",
   },
   {
     text: "Блог",
-    path_id: "contacts",
+    path: "/blog",
   },
   {
     text: "Контакты",
-    path_id: "contacts",
+    path: "/contact",
   },
 ]

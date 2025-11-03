@@ -28,7 +28,9 @@ export const ChooseUs = () => {
   return (
     <>
       <Box className={s.choose}>
-        <Text className={'title-section'} c={'#FFF'} ta={'center'}>Почему выбирают нас</Text>
+        <Text className={"title-section"} c={"#FFF"} ta={"center"}>
+          Почему выбирают нас
+        </Text>
 
         <Flex gap={"1.87rem"}>
           {data.map((item, index) => (

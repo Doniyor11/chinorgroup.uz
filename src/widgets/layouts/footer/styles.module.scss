@@ -1,17 +1,16 @@
 .footerWrapper {
-  background-color: #18181B;
+  background-color: #18181b;
   padding: 3.75rem 3.5rem 1.25rem 3.5rem;
-
 
   .footerTop {
     display: flex;
     justify-content: space-between;
     padding-bottom: 1.5rem;
-    border-bottom: 1px solid #70707B;
+    border-bottom: 1px solid #70707b;
   }
 
   .leftTitle {
-    color: #FCFCFC;
+    color: #fcfcfc;
     font-size: 2rem;
     font-style: normal;
     font-weight: 400;
@@ -19,7 +18,7 @@
   }
 
   .footerLeftLabel {
-    color: rgba(255, 255, 255, 0.60);
+    color: rgba(255, 255, 255, 0.6);
     font-size: 0.875rem;
     font-style: normal;
     font-weight: 500;
@@ -27,28 +26,26 @@
   }
 
   .footerText {
-    color: #FCFCFC;
+    color: #fcfcfc;
     font-size: 1rem;
     font-style: normal;
     font-weight: 400;
     line-height: 155%;
   }
 
-  .menuTitle{
-    color: rgba(255, 255, 255, 0.60);
+  .menuTitle {
+    color: rgba(255, 255, 255, 0.6);
     font-size: 1rem;
     font-style: normal;
     font-weight: 400;
     line-height: 155%;
   }
 
-  .bottomText{
-    color: rgba(255, 255, 255, 0.60);
+  .bottomText {
+    color: rgba(255, 255, 255, 0.6);
     font-size: 0.875rem;
     font-style: normal;
     font-weight: 500;
     line-height: 155%;
   }
-
-
 }

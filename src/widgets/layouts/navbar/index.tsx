@@ -1,24 +1,18 @@
 import { Box, Burger, Button, Drawer, Flex, Select, Text } from "@mantine/core"
-import { useMediaQuery } from "@mantine/hooks";
-import cx from "clsx";
-import setLanguage from "next-translate/setLanguage";
-import useTranslation from "next-translate/useTranslation";
-import { useEffect, useState } from "react";
+import { useMediaQuery } from "@mantine/hooks"
+import cx from "clsx"
+import setLanguage from "next-translate/setLanguage"
+import useTranslation from "next-translate/useTranslation"
+import { useRouter } from "next/router"
+import { useEffect, useState } from "react"
 
+import { MenuData } from "@/widgets/layouts/navbar/libs.ts"
 
+import Logo from "@/shared/assets/images/icon-logo.svg"
+import IconDown from "@/shared/assets/images/icons/arrow-down.svg"
+import FlagUz from "@/shared/assets/images/icons/icon-lang.svg"
 
-import { MenuData } from "@/widgets/layouts/navbar/libs.ts";
-
-
-
-import Logo from "@/shared/assets/images/icon-logo.svg";
-import IconDown from "@/shared/assets/images/icons/arrow-down.svg";
-import FlagUz from "@/shared/assets/images/icons/icon-lang.svg";
-
-
-
-import s from "./styles.module.scss";
-
+import s from "./styles.module.scss"
 
 export const Navbar = () => {
   const matches = useMediaQuery("(max-width: 576px)")
@@ -26,22 +20,19 @@ export const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [active, setActive] = useState<string>("")
   const [isLang, setIsLang] = useState("ru")
-  const scrollTo = (id: string) => {
-    const block = document.querySelector(`#${id}`)!
-    if (block) {
-      block.scrollIntoView({ behavior: "smooth", block: "start" })
-    }
-    setActive(id)
+  const router = useRouter()
+
+  const handleNavClick = (path: string) => {
+    router.push(`/${path}`)
+    setActive(path)
     setIsOpen(false)
   }
-
 
   useEffect(() => {
     const storedLang = localStorage.getItem("lang") || "ru"
     if (storedLang !== lang) {
       setLanguage(storedLang)
     }
-
     setIsLang(storedLang)
   }, [lang])
 
@@ -52,11 +43,11 @@ export const Navbar = () => {
           <Logo />
         </Box>
         <ul className={s.menu}>
-          {MenuData?.map((item, index) => (
+          {MenuData?.map((item) => (
             <li
-              key={index}
-              className={cx(s.link, { [s.active]: item?.path_id === active })}
-              onClick={() => scrollTo(item?.path_id)}
+              key={item.path}
+              className={cx(s.link, { [s.active]: item?.path === active })}
+              onClick={() => handleNavClick(item?.path)}
             >
               {item?.text}
             </li>
@@ -65,7 +56,7 @@ export const Navbar = () => {
         <Flex className={s.navbarLeft}>
           <Select
             className={s.lang}
-            defaultValue={"Uz"}
+            defaultValue={"ru"}
             data={["ru", "uz", "en"]}
             allowDeselect={false}
             leftSection={<FlagUz />}
@@ -80,7 +71,10 @@ export const Navbar = () => {
               localStorage.setItem("lang", e)
             }}
           />
-          <Button onClick={() => scrollTo("contacts")} className={'button-black'}>
+          <Button
+            onClick={() => handleNavClick("contacts")}
+            className={"button-black"}
+          >
             Оставить заявку
           </Button>
           {matches && (
@@ -98,25 +92,31 @@ export const Navbar = () => {
           <>
             <Select
               className={s.lang}
-              defaultValue={"Uz"}
-              data={["Ru", "Uz"]}
+              defaultValue={isLang}
+              data={["ru", "uz", "en"]}
               allowDeselect={false}
               leftSection={<FlagUz />}
               rightSection={<IconDown />}
+              value={isLang}
+              onChange={(e: any) => {
+                setLanguage(e)
+                setIsLang(e)
+                localStorage.setItem("lang", e)
+              }}
             />
           </>
         }
       >
-        {MenuData?.map((item, index) => (
+        {MenuData?.map((item) => (
           <Text
-            key={index}
-            className={s.menuLink}
-            onClick={() => scrollTo(item?.path_id)}
+            key={item.path}
+            className={cx(s.menuLink, { [s.active]: item?.path === active })}
+            onClick={() => handleNavClick(item?.path)}
           >
             {item?.text}
           </Text>
         ))}
-        <Button onClick={() => scrollTo("contacts")} className={'button-black'} w={'12.5rem'}>
+        <Button className={"button-black"} w={"12.5rem"}>
           Оставить заявку
         </Button>
       </Drawer>

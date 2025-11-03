@@ -1,21 +1,16 @@
 import { Box, Flex, Text } from "@mantine/core"
-import Image from "next/image";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import { Navigation, Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
+import Image from "next/image"
+import "swiper/css"
+import "swiper/css/navigation"
+import "swiper/css/pagination"
+import { Navigation, Pagination } from "swiper/modules"
+import { Swiper, SwiperSlide } from "swiper/react"
 
+import Image1 from "@/shared/assets/images/blog/1.png"
+import Image2 from "@/shared/assets/images/blog/2.png"
+import Image3 from "@/shared/assets/images/blog/3.png"
 
-
-import Image1 from "@/shared/assets/images/blog/1.png";
-import Image2 from "@/shared/assets/images/blog/2.png";
-import Image3 from "@/shared/assets/images/blog/3.png";
-
-
-
-import s from "./styles.module.css";
-
+import s from "./styles.module.css"
 
 const slides = [
   {
@@ -53,21 +48,21 @@ const slides = [
 export const Blog = () => {
   return (
     <>
-      <Box className={s.blogContainer} mb={'0.63rem'}>
-        <Flex justify={'space-between'} mb={'3.5rem'}>
-          <Flex w={'50%'}>
-            <Text className={'title-section'} c={'#18181B'} component={"h2"}>
+      <Box className={s.blogContainer} mb={"0.63rem"}>
+        <Flex justify={"space-between"} mb={"3.5rem"}>
+          <Flex w={"50%"}>
+            <Text className={"title-section"} c={"#18181B"} component={"h2"}>
               Блог
             </Text>
           </Flex>
-          <Flex w={'50%'} direction={'column'}>
+          <Flex w={"50%"} direction={"column"}>
             <Text className={s.blogDescription} component={"p"}>
               Изучите советы экспертов и креативные идеи для улучшения вашего
               жилого пространства.
             </Text>
             <Text className={s.blogDescription} component={"p"}>
-              От современных дизайнов кухонь до уютного
-              оформления спален и инновационных концепций освещения.
+              От современных дизайнов кухонь до уютного оформления спален и
+              инновационных концепций освещения.
             </Text>
           </Flex>
         </Flex>

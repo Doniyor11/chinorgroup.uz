@@ -26,6 +26,7 @@
     "clsx": "2.0.0",
     "dayjs": "1.11.10",
     "embla-carousel-react": "7",
+    "lucide-react": "^0.552.0",
     "next": "14.0.1",
     "next-translate": "^2.6.2",
     "next-translate-plugin": "^2.6.2",
@@ -67,5 +68,6 @@
     "storybook": "7.5.2",
     "tsconfig-paths-webpack-plugin": "4.1.0",
     "typescript": "5"
-  }
+  },
+  "packageManager": "yarn@4.9.1+sha512.f95ce356460e05be48d66401c1ae64ef84d163dd689964962c6888a9810865e39097a5e9de748876c2e0bf89b232d583c33982773e9903ae7a76257270986538"
 }

@@ -17,7 +17,9 @@ export const Reviews = () => {
       <Box className={s.reviews}>
         <Flex align={"flex-start"} className={s.reviewsTop}>
           <Box w={"50%"}>
-            <Text className={'title-section'} c={'#fff'}>Отзывы клиентов</Text>
+            <Text className={"title-section"} c={"#fff"}>
+              Отзывы клиентов
+            </Text>
           </Box>
           <Box w={"50%"}>
             <Text className={s.reviewsHeadDescription}>

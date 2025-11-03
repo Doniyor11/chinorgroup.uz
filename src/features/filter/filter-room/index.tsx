@@ -11,15 +11,19 @@ import cx from "clsx"
 import React, { useState } from "react"
 
 import IconDown from "@/shared/assets/images/icons/arrow-down.svg"
+import { mockBuildings } from "@/shared/data/mock-buildings"
+import { useRoomFilters } from "@/shared/hooks/use-room-filters"
 
 import s from "./index.module.scss"
 
 export const FilterRoom = () => {
   return (
     <Box className={s.filterRoom}>
-      <Flex align={'center'} className={s.filterRoomTop}>
+      <Flex align={"center"} className={s.filterRoomTop}>
         <Box w={"50%"}>
-          <Text className={'title-section'} c={'#18181B'}>Квартиры в <br/> рассрочку</Text>
+          <Text className={"title-section"} c={"#18181B"}>
+            Квартиры в <br /> рассрочку
+          </Text>
         </Box>
         <Box w={"50%"}>
           <Text className={s.filterHeadDescription}>
@@ -32,24 +36,20 @@ export const FilterRoom = () => {
       </Flex>
       <Flex gap={"3.5rem"}>
         <TabsCustom />
-        <InfoBlock />
-        <InfoBlock
-          title={"Подходящая рассрочка"}
-          monthlyPayment={"48"}
-          number={"15 549 000"}
-          className={s.bgGreen}
-        />
       </Flex>
     </Box>
   )
 }
 
 const TabsCustom = () => {
+  const [activeTab, setActiveTab] = useState("1")
+
   return (
     <>
       <Tabs
         variant="pills"
-        defaultValue="1"
+        value={activeTab}
+        onChange={(value) => setActiveTab(value || "1")}
         classNames={{
           list: s.list,
           tab: s.tab,
@@ -63,109 +63,169 @@ const TabsCustom = () => {
         </Tabs.List>
 
         <Tabs.Panel value="1">
-          <Filter />
+          <FilterWithData rooms={1} />
         </Tabs.Panel>
 
         <Tabs.Panel value="2">
-          <Filter />
+          <FilterWithData rooms={2} />
         </Tabs.Panel>
 
         <Tabs.Panel value="3">
-          <Filter />
+          <FilterWithData rooms={3} />
         </Tabs.Panel>
       </Tabs>
     </>
   )
 }
 
-const Filter = () => {
-  const [value, setValue] = useState<[number, number]>([0, 120])
+interface FilterWithDataProps {
+  rooms: number
+}
+
+const FilterWithData = ({ rooms }: FilterWithDataProps) => {
+  const { filters, updateFilter, installmentPlans } =
+    useRoomFilters(mockBuildings)
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 300])
+  const [downPaymentPercent, setDownPaymentPercent] = useState<
+    [number, number]
+  >([0, 100])
+
+  React.useEffect(() => {
+    updateFilter("rooms", rooms)
+  }, [rooms])
+
+  React.useEffect(() => {
+    updateFilter("price", priceRange[1])
+  }, [priceRange])
+
+  React.useEffect(() => {
+    updateFilter("initialPaymentPercent", downPaymentPercent[1])
+  }, [downPaymentPercent])
+
+  const complexes = React.useMemo(() => {
+    const uniqueComplexes = new Set(
+      mockBuildings
+        .filter((b) => b.apartments.some((a) => a.rooms === rooms))
+        .map((b) => b.name),
+    )
+    return Array.from(uniqueComplexes).map((name) => ({
+      value: name,
+      label: name,
+    }))
+  }, [rooms])
+
+  const downPaymentAmount = (priceRange[1] * downPaymentPercent[1]) / 100
 
   return (
     <>
-      <Flex direction={"column"} gap={"1rem"} className={s.filterRoomInner}>
-        <Flex direction={"column"} gap={"0.5rem"}>
-          <Text className={'input-label'}>Жилой комплекс</Text>
-          <Select
-            placeholder={"Выберите"}
-            className={'select'}
-            rightSection={<IconDown />}
-          />
-        </Flex>
-        <Flex direction={"column"} gap={"0.5rem"}>
-          <Text className={s.filterLabel}>Стоимость квартиры</Text>
-          <Flex className={'filterInput'}>
-            <Flex justify={"space-between"} w={"100%"}>
-              <Text className={s.filterInputSpan}>{value[0]} млн сум</Text>
-            </Flex>
-            <RangeSlider
-              value={value}
-              onChange={setValue}
-              min={0}
-              max={300}
-              color="green"
-              thumbSize={14}
-              label={null}
-              className={'rangeSlider'}
-              classNames={{
-                track: s.track,
-              }}
-              styles={{
-                track: {
-                  height: 2,
-                  backgroundColor: "#fff",
-                },
-                bar: {
-                  backgroundColor: "green",
-                },
-                thumb: {
-                  border: "2px solid green",
-                  backgroundColor: "#fff",
-                },
-              }}
+      <Flex gap={"3.5rem"} w={"100%"}>
+        <Flex direction={"column"} gap={"1rem"} className={s.filterRoomInner}>
+          <Flex direction={"column"} gap={"0.5rem"}>
+            <Text className={"input-label"}>Жилой комплекс</Text>
+            <Select
+              placeholder={"Выберите"}
+              className={"select"}
+              rightSection={<IconDown />}
+              data={complexes}
+              value={filters.complex}
+              onChange={(value) => updateFilter("complex", value || undefined)}
             />
           </Flex>
-        </Flex>
-        <Flex direction={"column"} gap={"0.5rem"}>
-          <Text className={s.filterLabel}>Первоначальный взнос</Text>
-          <Flex className={'filterInput'}>
-            <Flex justify={"space-between"} w={"100%"}>
-              <Text className={s.filterInputSpan}>{value[0]} млн сум</Text>
-              <Text className={s.filterInputSpan} c={"#70707B"}>
-                {value[1]} %
-              </Text>
+          <Flex direction={"column"} gap={"0.5rem"}>
+            <Text className={s.filterLabel}>Стоимость квартиры</Text>
+            <Flex className={"filterInput"}>
+              <Flex justify={"space-between"} w={"100%"}>
+                <Text className={s.filterInputSpan}>
+                  {priceRange[1]} млн сум
+                </Text>
+              </Flex>
+              <RangeSlider
+                value={priceRange}
+                onChange={setPriceRange}
+                min={0}
+                max={500}
+                color="green"
+                thumbSize={14}
+                label={null}
+                className={"rangeSlider"}
+                classNames={{
+                  track: s.track,
+                }}
+                styles={{
+                  track: {
+                    height: 2,
+                    backgroundColor: "#fff",
+                  },
+                  bar: {
+                    backgroundColor: "green",
+                  },
+                  thumb: {
+                    border: "2px solid green",
+                    backgroundColor: "#fff",
+                  },
+                }}
+              />
             </Flex>
-            <RangeSlider
-              value={value}
-              onChange={setValue}
-              min={0}
-              max={300}
-              color="green"
-              thumbSize={14}
-              label={null}
-              className={'rangeSlider'}
-              classNames={{
-                track: s.track,
-              }}
-              styles={{
-                track: {
-                  height: 2,
-                  backgroundColor: "#fff",
-                },
-                bar: {
-                  backgroundColor: "green",
-                },
-                thumb: {
-                  border: "2px solid green",
-                  backgroundColor: "#fff",
-                },
-              }}
-            />
           </Flex>
+          <Flex direction={"column"} gap={"0.5rem"}>
+            <Text className={s.filterLabel}>Первоначальный взнос</Text>
+            <Flex className={"filterInput"}>
+              <Flex justify={"space-between"} w={"100%"}>
+                <Text className={s.filterInputSpan}>
+                  {downPaymentAmount.toFixed(0)} млн сум
+                </Text>
+                <Text className={s.filterInputSpan} c={"#70707B"}>
+                  {downPaymentPercent[1]} %
+                </Text>
+              </Flex>
+              <RangeSlider
+                value={downPaymentPercent}
+                onChange={setDownPaymentPercent}
+                min={0}
+                max={100}
+                color="green"
+                thumbSize={14}
+                label={null}
+                className={"rangeSlider"}
+                classNames={{
+                  track: s.track,
+                }}
+                styles={{
+                  track: {
+                    height: 2,
+                    backgroundColor: "#fff",
+                  },
+                  bar: {
+                    backgroundColor: "green",
+                  },
+                  thumb: {
+                    border: "2px solid green",
+                    backgroundColor: "#fff",
+                  },
+                }}
+              />
+            </Flex>
+          </Flex>
+          <Button className={"button-green"} mt={"0.5rem"} fullWidth>
+            Получить консультацию
+          </Button>
         </Flex>
-        <Button className={"button-green"} mt={"0.5rem"} fullWidth>
-          Получить консультацию
-        </Button>
+
+        <InfoBlock
+          title="Стандартная рассрочка"
+          monthlyPayment={installmentPlans.standard.months.toString()}
+          number={installmentPlans.standard.monthlyPayment.toLocaleString(
+            "ru-RU",
+          )}
+        />
+        <InfoBlock
+          title="Подходящая рассрочка"
+          monthlyPayment={installmentPlans.flexible.months.toString()}
+          number={installmentPlans.flexible.monthlyPayment.toLocaleString(
+            "ru-RU",
+          )}
+          className={s.bgGreen}
+        />
       </Flex>
     </>
   )

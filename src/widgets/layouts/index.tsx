@@ -11,7 +11,7 @@ interface ILayout {
 export const Layout = ({ children }: ILayout) => {
   return (
     <>
-      <Box w={'100%'} bg={'#fff'}>
+      <Box w={"100%"} bg={"#fff"}>
         <Navbar />
       </Box>
       {children ? children : <Loader />}

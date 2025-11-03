@@ -47,9 +47,6 @@ export const Footer = () => {
                   О компании
                 </Link>
                 <Link className={s.footerText} href={""}>
-                  Услуги
-                </Link>
-                <Link className={s.footerText} href={""}>
                   Портфолио
                 </Link>
                 <Link className={s.footerText} href={""}>
@@ -98,7 +95,12 @@ export const Footer = () => {
           <Text className={s.bottomText}>
             © {getCurrentYear()} All Rights Reserved
           </Text>
-          <Flex gap={"0.5rem"} className={s.bottomText} c={"#FCFCFC"} align={"center"}>
+          <Flex
+            gap={"0.5rem"}
+            className={s.bottomText}
+            c={"#FCFCFC"}
+            align={"center"}
+          >
             Back to top <IconTop />
           </Flex>
         </Flex>
