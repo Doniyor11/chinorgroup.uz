@@ -1,0 +1,53 @@
+.heroProject {
+  border-radius: 1rem;
+  background:
+    linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%),
+    url("../../../shared/assets/images/project-hero.png") lightgray -9px -356px /
+      101.268% 313.974% no-repeat;
+  padding: 7.5rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.62rem 0 0.62rem 0;
+}
+
+.heroProjectTitle {
+  color: #fff;
+  text-align: center;
+  font-size: 3.375rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%;
+  margin-bottom: 1.5rem;
+}
+
+.heroProjectDescription {
+  color: #fff;
+  text-align: center;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 155%;
+  margin-bottom: 2rem;
+}
+
+.heroProjectTab {
+  border-radius: 6.25rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.25rem;
+}
+
+.heroProjectTabItem {
+  padding: 0.25rem 0.75rem;
+  border-radius: 6.25rem;
+  color: #fafafa;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 155%;
+  cursor: pointer;
+
+  &.active {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}

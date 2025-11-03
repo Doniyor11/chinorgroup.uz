@@ -1,0 +1,248 @@
+.hero {
+  display: flex;
+  gap: 0.62rem;
+  margin: 0.62rem 0 0.62rem 0;
+}
+
+.heroLeft {
+  width: 45%;
+}
+
+.heroRight {
+  width: 55%;
+}
+
+.heroInfo {
+  border-radius: 1rem;
+  background-color: #04b14e;
+  padding: 3.125rem 4rem;
+  background-image: url("../../../shared/assets/images/bg-hero.svg");
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  position: relative;
+}
+
+.heroGifBox {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.heroTitle {
+  color: #fff;
+  font-size: 2.25rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%;
+  margin-bottom: 0.75rem;
+}
+
+.heroDescription {
+  color: #fff;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 155%;
+  margin-bottom: 2.37rem;
+}
+
+.heroButton {
+  border-radius: 6.25rem;
+  color: #18181b;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  height: 2.93rem;
+}
+
+.heroSaleDescription {
+  color: #26272b;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+  margin-bottom: 0.75rem;
+}
+
+.heroSaleTitle {
+  color: #06944c;
+  font-size: 1.75rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 140%;
+  text-transform: uppercase;
+  margin-bottom: 2.31rem;
+}
+
+.heroSlider {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 3.75rem 0 0 2.5rem;
+}
+
+.slideImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
+  z-index: 1;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  max-width: 34.875rem;
+  text-align: left;
+}
+
+.title {
+  color: #fff;
+  font-size: 54px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%;
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  color: #fff;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 155%;
+}
+
+.button {
+  display: inline-block;
+  border-radius: 6.25rem;
+  background: #f4f4f5;
+  padding: 0.875rem 1.125rem;
+  color: #18181b;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.navigationContainer {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% - 4rem);
+}
+
+.navigationWrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 0.75rem 1.25rem;
+  border-radius: 3rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.navButton {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  color: hsl(var(--primary));
+}
+
+.navButton:hover {
+  background: white;
+  transform: scale(1.1);
+}
+
+.navButton:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.navButton:disabled:hover {
+  transform: none;
+}
+
+.pagination {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.paginationBullet {
+  width: 0.5rem;
+  height: 0.5rem;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.paginationBulletActive {
+  background: white;
+  width: 2rem;
+  border-radius: 1rem;
+}
+
+@media (max-width: 768px) {
+  .navigationWrapper {
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .navButton {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .content {
+    padding: 0 1.5rem;
+  }
+
+  .title {
+    margin-bottom: 1rem;
+  }
+
+  .subtitle {
+    margin-bottom: 1.5rem;
+  }
+}

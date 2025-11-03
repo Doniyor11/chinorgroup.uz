@@ -1,0 +1,55 @@
+.aboutInfoContainer {
+  padding: 5rem;
+  border-radius: 1rem;
+  background: #fff;
+  margin: 0.62rem 0 1.25rem 0;
+}
+
+.aboutInfoDescription {
+  color: #000;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+.aboutInfoDescriptionRight {
+  color: #70707b;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 155%;
+}
+
+.aboutInfoImageBox {
+  width: 100%;
+  border-radius: 0.75rem;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+.aboutInfoImageCaptionBox {
+  padding: 1rem;
+  border-radius: 0.75rem;
+  flex: 1;
+}
+
+.aboutInfoImageCaptionTitle {
+  color: #26272b;
+  font-size: 3rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%;
+}
+
+.aboutInfoImageCaptionDescription {
+  color: #3f3f46;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 155%;
+}
