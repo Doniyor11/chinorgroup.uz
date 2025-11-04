@@ -23,17 +23,21 @@ export const Navbar = () => {
   const router = useRouter()
 
   const handleNavClick = (path: string) => {
-    router.push(`/${path}`)
+    // Исправление: добавляем локаль и используем locale опцию
+    router.push(`/${path}`, undefined, { locale: lang })
     setActive(path)
     setIsOpen(false)
   }
 
+  // Устанавливаем активный пункт меню на основе текущего пути
   useEffect(() => {
-    const storedLang = localStorage.getItem("lang") || "ru"
-    if (storedLang !== lang) {
-      setLanguage(storedLang)
-    }
-    setIsLang(storedLang)
+    const currentPath = router.pathname.split("/")[1] || ""
+    setActive(currentPath)
+  }, [router.pathname])
+
+  useEffect(() => {
+    // Убираем localStorage для языка - используем только next-translate
+    setIsLang(lang)
   }, [lang])
 
   return (
