@@ -17,7 +17,11 @@ export const Footer = () => {
             <Text className={s.leftTitle}>
               Современные строительные решения <br /> для вашего бизнеса и дома.
             </Text>
-            <Flex gap={"1.5rem"}>
+            <Flex
+              gap={{ base: "1rem", md: "1.5rem" }}
+              direction={{ base: "column", sm: "row" }}
+              wrap="wrap"
+            >
               <Flex direction={"column"} gap={"0.75rem"}>
                 <Text className={s.footerLeftLabel}>Почта</Text>
                 <Link
@@ -40,7 +44,10 @@ export const Footer = () => {
             </Flex>
           </Flex>
           <Box>
-            <Flex gap={"5rem"}>
+            <Flex
+              gap={{ base: "2rem", sm: "3rem", md: "4rem", lg: "5rem" }}
+              wrap="wrap"
+            >
               <Flex direction={"column"} gap={"1rem"}>
                 <Text className={s.menuTitle}>Навигация</Text>
                 <Link className={s.footerText} href={""}>
@@ -84,15 +91,17 @@ export const Footer = () => {
           </Box>
         </Box>
         <Flex
-          justify={"space-between"}
+          justify={{ base: "center", md: "space-between" }}
           align={"center"}
-          pt={"1rem"}
-          pb={"1rem"}
+          pt={{ base: "1.5rem", md: "1rem" }}
+          pb={{ base: "1.5rem", md: "1rem" }}
+          direction={{ base: "column", md: "row" }}
+          gap={{ base: "1rem", md: "0" }}
         >
           <Flex align={"center"}>
             <ImageLogo />
           </Flex>
-          <Text className={s.bottomText}>
+          <Text className={s.bottomText} ta={{ base: "center", md: "left" }}>
             © {getCurrentYear()} All Rights Reserved
           </Text>
           <Flex
@@ -100,6 +109,8 @@ export const Footer = () => {
             className={s.bottomText}
             c={"#FCFCFC"}
             align={"center"}
+            style={{ cursor: "pointer" }}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
             Back to top <IconTop />
           </Flex>

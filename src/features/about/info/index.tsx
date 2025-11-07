@@ -34,13 +34,17 @@ export const AboutInfo = () => {
   return (
     <>
       <Box className={s.aboutInfoContainer}>
-        <Flex mb={"3.5rem"}>
+        <Flex
+          mb={{ base: "2rem", sm: "2.5rem", md: "3rem", lg: "3.5rem" }}
+          direction={{ base: "column", lg: "row" }}
+          gap={{ base: "2rem", lg: "0" }}
+        >
           <Flex
             direction={"column"}
             align={"flex-start"}
-            gap={"2rem"}
+            gap={{ base: "1.5rem", md: "2rem" }}
             className={s.aboutInfo}
-            w={"50%"}
+            w={{ base: "100%", lg: "50%" }}
           >
             <Text className={"title-section"}>О компании</Text>
             <Text className={s.aboutInfoDescription}>
@@ -52,8 +56,9 @@ export const AboutInfo = () => {
           <Flex
             direction={"column"}
             align={"flex-start"}
+            gap={{ base: "1rem", md: "0" }}
             className={s.aboutInfo}
-            w={"50%"}
+            w={{ base: "100%", lg: "50%" }}
           >
             <Text className={s.aboutInfoDescriptionRight}>
               Мы стремимся сделать ваш опыт в сфере недвижимости плавным,
@@ -77,7 +82,11 @@ export const AboutInfo = () => {
               height={723}
             />
           </Box>
-          <Flex gap={"1.5rem"} w={"100%"}>
+          <Flex
+            gap={{ base: "0.75rem", sm: "1rem", md: "1.5rem" }}
+            w={"100%"}
+            wrap="wrap"
+          >
             <AboutInfoResult items={dataResults} />
           </Flex>
         </Flex>

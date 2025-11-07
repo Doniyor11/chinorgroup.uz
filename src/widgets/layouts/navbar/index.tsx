@@ -15,7 +15,7 @@ import FlagUz from "@/shared/assets/images/icons/icon-lang.svg"
 import s from "./styles.module.scss"
 
 export const Navbar = () => {
-  const matches = useMediaQuery("(max-width: 576px)")
+  const matches = useMediaQuery("(max-width: 768px)")
   const { lang } = useTranslation("common")
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [active, setActive] = useState<string>("")
@@ -75,12 +75,14 @@ export const Navbar = () => {
               localStorage.setItem("lang", e)
             }}
           />
-          <Button
-            onClick={() => handleNavClick("contacts")}
-            className={"button-black"}
-          >
-            Оставить заявку
-          </Button>
+          {matches || (
+            <Button
+              onClick={() => handleNavClick("contacts")}
+              className={"button-black"}
+            >
+              Оставить заявку
+            </Button>
+          )}
           {matches && (
             <Burger opened={isOpen} onClick={() => setIsOpen(true)} />
           )}
@@ -88,41 +90,50 @@ export const Navbar = () => {
       </Box>
       <Drawer
         size={"80%"}
-        padding={12}
+        padding={20}
         opened={isOpen}
         position={"right"}
         onClose={() => setIsOpen(false)}
+        classNames={{
+          body: s.drawerBody,
+          header: s.drawerHeader,
+        }}
         title={
-          <>
-            <Select
-              className={s.lang}
-              defaultValue={isLang}
-              data={["ru", "uz", "en"]}
-              allowDeselect={false}
-              leftSection={<FlagUz />}
-              rightSection={<IconDown />}
-              value={isLang}
-              onChange={(e: any) => {
-                setLanguage(e)
-                setIsLang(e)
-                localStorage.setItem("lang", e)
-              }}
-            />
-          </>
+          <Select
+            className={s.lang}
+            defaultValue={isLang}
+            data={["ru", "uz", "en"]}
+            allowDeselect={false}
+            leftSection={<FlagUz />}
+            rightSection={<IconDown />}
+            value={isLang}
+            onChange={(e: any) => {
+              setLanguage(e)
+              setIsLang(e)
+              localStorage.setItem("lang", e)
+            }}
+          />
         }
       >
-        {MenuData?.map((item) => (
-          <Text
-            key={item.path}
-            className={cx(s.menuLink, { [s.active]: item?.path === active })}
-            onClick={() => handleNavClick(item?.path)}
+        <Flex className={s.drawerContent}>
+          {MenuData?.map((item) => (
+            <Text
+              key={item.path}
+              className={cx(s.menuLink, { [s.active]: item?.path === active })}
+              onClick={() => handleNavClick(item?.path)}
+            >
+              {item?.text}
+            </Text>
+          ))}
+          <Button
+            className={"button-black"}
+            fullWidth
+            mt="lg"
+            onClick={() => handleNavClick("contacts")}
           >
-            {item?.text}
-          </Text>
-        ))}
-        <Button className={"button-black"} w={"12.5rem"}>
-          Оставить заявку
-        </Button>
+            Оставить заявку
+          </Button>
+        </Flex>
       </Drawer>
     </>
   )

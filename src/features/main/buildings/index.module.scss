@@ -3,6 +3,38 @@
   border-radius: 1rem;
   background: #fff;
   margin-bottom: 0.62rem;
+
+  // Tablet
+  @media screen and (max-width: 992px) {
+    padding: 3rem 2rem;
+  }
+
+  // Mobile
+  @media screen and (max-width: 768px) {
+    padding: 2rem 1rem;
+    border-radius: 0.5rem;
+  }
+
+  // Small mobile
+  @media screen and (max-width: 576px) {
+    padding: 1.5rem 1rem;
+  }
+}
+
+.buildingsHeader {
+  // Mobile
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 1rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  // Small mobile
+  @media screen and (max-width: 576px) {
+    gap: 0.75rem !important;
+    margin-bottom: 1.25rem !important;
+  }
 }
 
 .buildingsSelect {
@@ -23,11 +55,38 @@
       box-shadow: none;
       border: 1px solid #009540;
     }
+
+    // Tablet
+    @media screen and (max-width: 992px) {
+      height: 3.5rem;
+      width: 14rem;
+      font-size: 1.75rem;
+    }
+
+    // Mobile
+    @media screen and (max-width: 768px) {
+      height: 3rem;
+      width: auto;
+      min-width: 10rem;
+      font-size: 1.25rem;
+    }
+
+    // Small mobile
+    @media screen and (max-width: 576px) {
+      height: 2.5rem;
+      font-size: 1rem;
+    }
   }
 }
 
 .buildingsItem {
   flex: 1;
+
+  // Mobile - full width
+  @media screen and (max-width: 768px) {
+    flex: 1 1 100%;
+    min-width: 100%;
+  }
 }
 
 .buildingsYear {
@@ -35,10 +94,47 @@
   background: #f4f4f5;
   height: 2.8125rem;
   padding: 0.625rem 0.875rem;
+  font-size: 0.875rem;
+  white-space: nowrap;
 
   &:hover {
     background: #e4e4e7;
     cursor: pointer;
+  }
+
+  // Mobile
+  @media screen and (max-width: 768px) {
+    height: 2.5rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8125rem;
+    flex: 1;
+  }
+
+  // Small mobile
+  @media screen and (max-width: 576px) {
+    height: 2.25rem;
+    padding: 0.375rem 0.5rem;
+    font-size: 0.75rem;
+  }
+}
+
+// Filter wrappers
+.filterRow {
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    gap: 1rem !important;
+  }
+}
+
+.filterLabel {
+  @media screen and (max-width: 576px) {
+    font-size: 0.875rem;
+  }
+}
+
+.filterInputSpan {
+  @media screen and (max-width: 576px) {
+    font-size: 0.8125rem;
   }
 }
 
@@ -47,6 +143,17 @@
   overflow: hidden;
   height: 35rem;
   transition: all 0.3s ease;
+
+  // Tablet
+  @media screen and (max-width: 992px) {
+    height: 32rem;
+  }
+
+  // Mobile
+  @media screen and (max-width: 768px) {
+    height: auto;
+    min-height: 25rem;
+  }
 }
 
 .buildingsBoxImage {
@@ -60,6 +167,21 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  // Tablet
+  @media screen and (max-width: 992px) {
+    height: 24rem;
+  }
+
+  // Mobile
+  @media screen and (max-width: 768px) {
+    height: 18rem;
+  }
+
+  // Small mobile
+  @media screen and (max-width: 576px) {
+    height: 16rem;
   }
 }
 
@@ -83,6 +205,13 @@
     font-weight: 500;
     line-height: 1.25rem;
     letter-spacing: 0.01rem;
+
+    // Mobile
+    @media screen and (max-width: 768px) {
+      font-size: 0.875rem;
+      padding: 0.375rem 0.625rem;
+      gap: 0.375rem;
+    }
   }
 }
 
@@ -92,6 +221,16 @@
   font-style: normal;
   font-weight: 500;
   line-height: 120%;
+
+  // Mobile
+  @media screen and (max-width: 768px) {
+    font-size: 1.25rem;
+  }
+
+  // Small mobile
+  @media screen and (max-width: 576px) {
+    font-size: 1.125rem;
+  }
 }
 
 .buildingsBoxDescription {
@@ -103,6 +242,11 @@
   font-style: normal;
   font-weight: 500;
   line-height: 155%;
+
+  // Small mobile
+  @media screen and (max-width: 576px) {
+    font-size: 0.8125rem;
+  }
 }
 
 .buildingsBoxPrice {
@@ -112,6 +256,11 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+
+  // Small mobile
+  @media screen and (max-width: 576px) {
+    font-size: 0.9375rem;
+  }
 }
 
 .buildingsBoxBody {
@@ -137,6 +286,11 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+
+    // Small mobile
+    @media screen and (max-width: 576px) {
+      font-size: 0.9375rem;
+    }
   }
 
   p {
@@ -144,17 +298,34 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+
+    // Small mobile
+    @media screen and (max-width: 576px) {
+      font-size: 0.8125rem;
+    }
   }
 }
 
 .buildingsBoxFooter {
   padding: 0.75rem 0;
 
+  // Mobile - stack elements
+  @media screen and (max-width: 576px) {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 0.5rem;
+  }
+
   p {
     font-size: 0.875rem;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+
+    // Small mobile
+    @media screen and (max-width: 576px) {
+      font-size: 0.8125rem;
+    }
   }
 
   a {
@@ -166,6 +337,11 @@
     padding: 0.375rem 0.625rem;
     border-radius: 6.25rem;
     background: #f4f4f5;
+
+    // Small mobile
+    @media screen and (max-width: 576px) {
+      font-size: 0.9375rem;
+    }
   }
 }
 
@@ -176,4 +352,36 @@
 
 .buildingsBox:hover .buildingsBoxContent {
   max-height: 249px;
+}
+
+// Disable hover on mobile devices
+@media screen and (max-width: 768px) {
+  .buildingsBox:hover .buildingsBoxImage {
+    height: 18rem;
+  }
+
+  .buildingsBox:hover .buildingsBoxContent {
+    max-height: 0;
+  }
+
+  // Show content by default on mobile
+  .buildingsBoxContent {
+    max-height: none;
+    overflow: visible;
+  }
+
+  .buildingsBox {
+    height: auto !important;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .buildingsBox:hover .buildingsBoxImage {
+    height: 16rem;
+  }
+}
+
+.active {
+  background: #009540;
+  color: #fff;
 }

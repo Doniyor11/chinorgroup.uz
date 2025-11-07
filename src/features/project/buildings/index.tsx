@@ -33,7 +33,11 @@ export const BuildingsProject = () => {
 
   return (
     <Box className={s.buildings}>
-      <Flex align={"center"} gap={"1.5rem"} mb={"2.25rem"}>
+      <Flex
+        align={"center"}
+        gap={{ base: "1rem", sm: "1.5rem" }}
+        mb={{ base: "1.5rem", sm: "2rem", md: "2.25rem" }}
+      >
         <Text className={"title-section"} c={"#18181B"}>
           Новостройки
         </Text>
@@ -46,20 +50,23 @@ export const BuildingsProject = () => {
         hasActiveFilters={hasActiveFilters}
       />
 
-      <Grid>
+      <Grid gutter={{ base: "1rem", sm: "1.5rem", md: "2rem" }}>
         {filteredBuildings.map((building) => (
-          <Grid.Col key={building.id} span={4}>
+          <Grid.Col key={building.id} span={{ base: 12, sm: 6, lg: 4 }}>
             <BuildingCard building={building} />
           </Grid.Col>
         ))}
       </Grid>
       {filteredBuildings.length === 0 && (
-        <Text ta="center" c="#70707B" my="2rem">
+        <Text ta="center" c="#70707B" my={{ base: "1.5rem", sm: "2rem" }}>
           Квартиры не найдены. Попробуйте изменить параметры фильтра.
         </Text>
       )}
-      <Flex justify={"center"} mt={"3.5rem"}>
-        <Button className={"button-black"} w={"12.5rem"}>
+      <Flex
+        justify={"center"}
+        mt={{ base: "2rem", sm: "2.5rem", md: "3.5rem" }}
+      >
+        <Button className={"button-black"} w={{ base: "100%", sm: "12.5rem" }}>
           Еще больше
         </Button>
       </Flex>
@@ -105,10 +112,12 @@ const FilterBuildings = ({
     <>
       {/* Filter top  */}
       <Flex
-        align={"flex-end"}
-        gap={"0.75em"}
+        align={{ base: "stretch", md: "flex-end" }}
+        gap={{ base: "0.75rem", md: "0.75em" }}
         justify={"space-between"}
-        mb={"0.75rem"}
+        mb={{ base: "0.75rem", md: "0.75rem" }}
+        wrap={{ base: "wrap", md: "nowrap" }}
+        direction={{ base: "column", md: "row" }}
       >
         <Flex direction={"column"} gap={"0.5rem"} className={s.buildingsItem}>
           <Text className={"input-label"}>Жилой комплекс</Text>
@@ -191,10 +200,12 @@ const FilterBuildings = ({
       </Flex>
       {/* Filter bottom  */}
       <Flex
-        align={"flex-end"}
-        gap={"0.75em"}
+        align={{ base: "stretch", md: "flex-end" }}
+        gap={{ base: "0.75rem", md: "0.75em" }}
         justify={"space-between"}
-        mb={"3.5rem"}
+        mb={{ base: "2rem", sm: "2.5rem", md: "3.5rem" }}
+        wrap={{ base: "wrap", md: "nowrap" }}
+        direction={{ base: "column", md: "row" }}
       >
         <Flex direction={"column"} gap={"0.5rem"} className={s.buildingsItem}>
           <Text className={s.filterLabel}>Задайте площадь</Text>
@@ -239,7 +250,7 @@ const FilterBuildings = ({
         </Flex>
         <Flex direction={"column"} gap={"0.5rem"} className={s.buildingsItem}>
           <Text className={"input-label"}>Дата сдачи</Text>
-          <Flex gap={"0.5rem"}>
+          <Flex gap={"0.5rem"} wrap={"wrap"}>
             {["Сдан", "2025", "2026", "2027", "2028+"].map((year) => (
               <Text
                 key={year}
@@ -258,8 +269,9 @@ const FilterBuildings = ({
         <Flex
           className={s.buildingsItem}
           align={"center"}
-          justify={"flex-end"}
+          justify={{ base: "flex-start", md: "flex-end" }}
           gap={"0.5rem"}
+          wrap={"wrap"}
         >
           {hasActiveFilters && (
             <Button
@@ -270,11 +282,14 @@ const FilterBuildings = ({
                 clearFilters()
                 setSelectedYear(undefined)
               }}
+              style={{ whiteSpace: "nowrap" }}
             >
               Очистить фильтр
             </Button>
           )}
-          <Button className={"button-black"}>Найти</Button>
+          <Button className={"button-black"} w={{ base: "100%", sm: "auto" }}>
+            Найти
+          </Button>
         </Flex>
       </Flex>
       {/*  */}

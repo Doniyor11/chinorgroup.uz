@@ -49,13 +49,18 @@ export const Blog = () => {
   return (
     <>
       <Box className={s.blogContainer} mb={"0.63rem"}>
-        <Flex justify={"space-between"} mb={"3.5rem"}>
-          <Flex w={"50%"}>
+        <Flex
+          justify={"space-between"}
+          mb={{ base: "2rem", sm: "2.5rem", md: "3rem", lg: "3.5rem" }}
+          direction={{ base: "column", lg: "row" }}
+          gap={{ base: "1rem", lg: "0" }}
+        >
+          <Flex w={{ base: "100%", lg: "50%" }}>
             <Text className={"title-section"} c={"#18181B"} component={"h2"}>
               Блог
             </Text>
           </Flex>
-          <Flex w={"50%"} direction={"column"}>
+          <Flex w={{ base: "100%", lg: "50%" }} direction={"column"}>
             <Text className={s.blogDescription} component={"p"}>
               Изучите советы экспертов и креативные идеи для улучшения вашего
               жилого пространства.

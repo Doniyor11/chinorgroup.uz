@@ -20,12 +20,12 @@ export const FilterRoom = () => {
   return (
     <Box className={s.filterRoom}>
       <Flex align={"center"} className={s.filterRoomTop}>
-        <Box w={"50%"}>
+        <Box w={{ base: "100%", lg: "50%" }}>
           <Text className={"title-section"} c={"#18181B"}>
             Квартиры в <br /> рассрочку
           </Text>
         </Box>
-        <Box w={"50%"}>
+        <Box w={{ base: "100%", lg: "50%" }}>
           <Text className={s.filterHeadDescription}>
             Мы стремимся сделать ваш опыт в сфере недвижимости плавным, выгодным
             и без стресса. Наша команда преданных своему делу профессионалов,
@@ -118,7 +118,11 @@ const FilterWithData = ({ rooms }: FilterWithDataProps) => {
 
   return (
     <>
-      <Flex gap={"3.5rem"} w={"100%"}>
+      <Flex
+        gap={{ base: "1rem", sm: "1.5rem", md: "2rem", lg: "3.5rem" }}
+        w={"100%"}
+        direction={{ base: "column", lg: "row" }}
+      >
         <Flex direction={"column"} gap={"1rem"} className={s.filterRoomInner}>
           <Flex direction={"column"} gap={"0.5rem"}>
             <Text className={"input-label"}>Жилой комплекс</Text>

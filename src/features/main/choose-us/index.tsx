@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from "@mantine/core"
+import { Box, Grid, Text } from "@mantine/core"
 import React from "react"
 
 import s from "./index.module.scss"
@@ -31,20 +31,21 @@ export const ChooseUs = () => {
         <Text className={"title-section"} c={"#FFF"} ta={"center"}>
           Почему выбирают нас
         </Text>
-
-        <Flex gap={"1.87rem"}>
+        <Grid gutter={{ base: "1rem", sm: "1.5rem", md: "1.87rem" }}>
           {data.map((item, index) => (
-            <Box className={s.chooseBox} key={index}>
-              <Text className={s.chooseBoxTitle}>{item.number}</Text>
-              <Box className={s.chooseBoxInner}>
-                <Text className={s.chooseBoxInnerTitle}>{item.title}</Text>
-                <Text className={s.chooseBoxDescription}>
-                  {item.description}
-                </Text>
+            <Grid.Col span={{ base: 12, sm: 6, lg: 4 }} key={index}>
+              <Box className={s.chooseBox}>
+                <Text className={s.chooseBoxTitle}>{item.number}</Text>
+                <Box className={s.chooseBoxInner}>
+                  <Text className={s.chooseBoxInnerTitle}>{item.title}</Text>
+                  <Text className={s.chooseBoxDescription}>
+                    {item.description}
+                  </Text>
+                </Box>
               </Box>
-            </Box>
+            </Grid.Col>
           ))}
-        </Flex>
+        </Grid>
       </Box>
     </>
   )

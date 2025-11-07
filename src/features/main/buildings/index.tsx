@@ -34,7 +34,12 @@ export const Buildings = () => {
 
   return (
     <Box className={s.buildings}>
-      <Flex align={"center"} gap={"1.5rem"} mb={"2.25rem"}>
+      <Flex
+        align={"center"}
+        gap={"1.5rem"}
+        mb={"2.25rem"}
+        className={s.buildingsHeader}
+      >
         <Text className={"title-section"} c={"#18181B"}>
           Новостройки
         </Text>
@@ -60,7 +65,7 @@ export const Buildings = () => {
 
       <Grid>
         {filteredBuildings.map((building) => (
-          <Grid.Col key={building.id} span={4}>
+          <Grid.Col key={building.id} span={{ base: 12, sm: 6, md: 4 }}>
             <BuildingCard building={building} />
           </Grid.Col>
         ))}
@@ -121,6 +126,7 @@ const FilterBuildings = ({
         gap={"0.75em"}
         justify={"space-between"}
         mb={"0.75rem"}
+        className={s.filterRow}
       >
         <Flex direction={"column"} gap={"0.5rem"} className={s.buildingsItem}>
           <Text className={"input-label"}>Жилой комплекс</Text>
@@ -207,6 +213,7 @@ const FilterBuildings = ({
         gap={"0.75em"}
         justify={"space-between"}
         mb={"3.5rem"}
+        className={s.filterRow}
       >
         <Flex direction={"column"} gap={"0.5rem"} className={s.buildingsItem}>
           <Text className={s.filterLabel}>Задайте площадь</Text>

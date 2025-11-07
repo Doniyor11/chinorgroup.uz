@@ -14,15 +14,14 @@ export const HeroProject = () => {
         align="center"
         justify="center"
         className={s.heroProjectContent}
-        miw={"45.6875rem"}
-        maw={"1rem"}
+        w={{ base: "100%", md: "auto" }}
       >
         <Text className={s.heroProjectTitle}>Наши проекты</Text>
         <Text className={s.heroProjectDescription}>
           Профессиональное строительство и ремонт любой сложности. Современные
           технологии, опытная команда, гарантия качества.
         </Text>
-        <Flex className={s.heroProjectTab}>
+        <Flex className={s.heroProjectTab} gap={{ base: "0.25rem", sm: "0" }}>
           {tabs.map((tab, index) => (
             <Text
               key={index}

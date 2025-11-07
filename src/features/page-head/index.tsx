@@ -22,13 +22,22 @@ export const PageHead = ({
   return (
     <>
       <Box className={s.pageHeaderContainer}>
-        <Flex mb={"3.5rem"}>
+        <Flex
+          mb={{
+            base: search ? "2rem" : "0",
+            sm: search ? "2.5rem" : "0",
+            md: search ? "3rem" : "0",
+            lg: search ? "3.5rem" : "0",
+          }}
+          direction={{ base: "column", lg: "row" }}
+          gap={{ base: "2rem", lg: "0" }}
+        >
           <Flex
             direction={"column"}
             align={"flex-start"}
-            gap={"2rem"}
+            gap={{ base: "1.5rem", md: "2rem" }}
             className={s.pageHeader}
-            w={"50%"}
+            w={{ base: "100%", lg: "50%" }}
           >
             <Text className={"title-section"}>{title}</Text>
             <Text className={s.pageHeaderDescription}>{subtitle}</Text>
@@ -36,8 +45,9 @@ export const PageHead = ({
           <Flex
             direction={"column"}
             align={"flex-start"}
+            gap={{ base: "1rem", md: "0" }}
             className={s.pageHeader}
-            w={"50%"}
+            w={{ base: "100%", lg: "50%" }}
           >
             <Text className={s.pageHeaderDescriptionRight}>{description1}</Text>
             <Text className={s.pageHeaderDescriptionRight}>{description2}</Text>

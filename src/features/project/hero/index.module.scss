@@ -4,11 +4,31 @@
     linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%),
     url("../../../shared/assets/images/project-hero.png") lightgray -9px -356px /
       101.268% 313.974% no-repeat;
-  padding: 7.5rem 0;
+  padding: 7.5rem 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0.62rem 0 0.62rem 0;
+
+  @media (max-width: 1024px) {
+    padding: 5rem 2rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 4rem 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 3rem 1rem;
+  }
+}
+
+.heroProjectContent {
+  max-width: 45.6875rem;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
 }
 
 .heroProjectTitle {
@@ -19,6 +39,20 @@
   font-weight: 500;
   line-height: 120%;
   margin-bottom: 1.5rem;
+
+  @media (max-width: 1024px) {
+    font-size: 2.75rem;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 2.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.875rem;
+    margin-bottom: 1rem;
+  }
 }
 
 .heroProjectDescription {
@@ -29,12 +63,30 @@
   font-weight: 500;
   line-height: 155%;
   margin-bottom: 2rem;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.938rem;
+    margin-bottom: 1.25rem;
+  }
 }
 
 .heroProjectTab {
   border-radius: 6.25rem;
   background: rgba(255, 255, 255, 0.1);
   padding: 0.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+
+  @media (max-width: 480px) {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 .heroProjectTabItem {
@@ -46,6 +98,17 @@
   font-weight: 500;
   line-height: 155%;
   cursor: pointer;
+  white-space: nowrap;
+
+  @media (max-width: 768px) {
+    font-size: 0.938rem;
+    padding: 0.25rem 0.625rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.875rem;
+    padding: 0.188rem 0.5rem;
+  }
 
   &.active {
     background: rgba(255, 255, 255, 0.1);

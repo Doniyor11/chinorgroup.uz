@@ -16,12 +16,12 @@ export const Reviews = () => {
     <>
       <Box className={s.reviews}>
         <Flex align={"flex-start"} className={s.reviewsTop}>
-          <Box w={"50%"}>
+          <Box w={{ base: "100%", lg: "50%" }}>
             <Text className={"title-section"} c={"#fff"}>
               Отзывы клиентов
             </Text>
           </Box>
-          <Box w={"50%"}>
+          <Box w={{ base: "100%", lg: "50%" }}>
             <Text className={s.reviewsHeadDescription}>
               Мы стремимся сделать ваш опыт в сфере недвижимости плавным,
               выгодным и без стресса. Наша команда преданных своему делу
@@ -55,7 +55,7 @@ export const Reviews = () => {
               <Flex
                 className={s.reviewsItem}
                 direction={"column"}
-                gap={"2.25rem"}
+                gap={{ base: "1.5rem", sm: "1.75rem", md: "2.25rem" }}
               >
                 <Flex gap={"0.62rem"}>
                   <Box className={s.reviewsItemStar}>

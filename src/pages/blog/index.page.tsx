@@ -1,7 +1,12 @@
 import { Box } from "@mantine/core"
 import React from "react"
 
-import { BlogContainer, BreadcrumbCustom, PageHead } from "@/features"
+import {
+  BlogContainer,
+  BreadcrumbCustom,
+  FormBanner,
+  PageHead,
+} from "@/features"
 
 import IconHome from "@/shared/assets/images/icons/home.svg"
 
@@ -29,6 +34,14 @@ const BlogPage = () => {
           search={true}
         />
         <BlogContainer />
+        <FormBanner
+          title={"Нужна точная смета?"}
+          button={false}
+          subtitle={
+            "Свяжитесь с нами для получения детального расчета стоимости вашего проекта"
+          }
+          buttonText={"Получить консультацию"}
+        />
       </Box>
     </main>
   )

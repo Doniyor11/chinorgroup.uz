@@ -22,20 +22,30 @@ export const FormBanner: React.FC<FormBannerProps> = ({
   return (
     <Flex
       direction={"column"}
-      gap={"1.5rem"}
+      gap={{ base: "1rem", sm: "1.25rem", md: "1.5rem" }}
       className={cx(s.formBanner, className)}
       justify={"center"}
       align={"center"}
     >
       <Text className={s.title}>{title}</Text>
       <Text className={s.subtitle}>{subtitle}</Text>
-      <Flex gap={"1.5rem"}>
-        <Button className={cx("button-green")} w={"18rem"}>
+      <Flex
+        gap={{ base: "0.75rem", sm: "1rem", md: "1.5rem" }}
+        direction={{ base: "column", sm: "row" }}
+        w={{ base: "100%", sm: "auto" }}
+      >
+        <Button
+          className={cx("button-green")}
+          w={{ base: "100%", sm: "15rem", md: "18rem" }}
+        >
           {buttonText}
         </Button>
 
         {button && (
-          <Button className={cx("button-white")} w={"18rem"}>
+          <Button
+            className={cx("button-white")}
+            w={{ base: "100%", sm: "15rem", md: "18rem" }}
+          >
             Рассчитать стоимость
           </Button>
         )}
