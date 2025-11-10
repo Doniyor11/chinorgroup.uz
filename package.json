@@ -68,4 +68,4 @@
     "storybook": "7.5.2",
     "tsconfig-paths-webpack-plugin": "4.1.0",
     "typescript": "5"
-  }}
+  }
