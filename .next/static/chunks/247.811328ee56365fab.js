@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[247],{7247:function(e){e.exports={test:"test ru"}}}]);
