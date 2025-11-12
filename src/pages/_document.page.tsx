@@ -15,6 +15,7 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400..900&display=swap"
           rel="stylesheet"
         />
+        <link href="https://fonts.cdnfonts.com/css/satoshi" rel="stylesheet" />
         <ColorSchemeScript />
       </Head>
       <body>
