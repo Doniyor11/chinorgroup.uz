@@ -404,7 +404,7 @@ const BuildingCard = ({ building }: BuildingCardProps) => {
                 year: "numeric",
               })}
             </Text>
-            <Link href={`/buildings/${building.id}`}>Подробнее</Link>
+            <Link href={`/main/${building.id}`}>Подробнее</Link>
           </Flex>
         </Box>
       </Box>

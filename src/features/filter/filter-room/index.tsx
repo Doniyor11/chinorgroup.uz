@@ -18,7 +18,7 @@ import s from "./index.module.scss"
 
 export const FilterRoom = () => {
   return (
-    <Box className={s.filterRoom}>
+    <Box className={s.filterRoom} style={{ pointerEvents: "auto" }}>
       <Flex align={"center"} className={s.filterRoomTop}>
         <Box w={{ base: "100%", lg: "50%" }}>
           <Text className={"title-section"} c={"#18181B"}>
@@ -34,7 +34,7 @@ export const FilterRoom = () => {
           </Text>
         </Box>
       </Flex>
-      <Flex gap={"3.5rem"}>
+      <Flex gap={"3.5rem"} style={{ pointerEvents: "auto" }}>
         <TabsCustom />
       </Flex>
     </Box>
@@ -63,15 +63,15 @@ const TabsCustom = () => {
         </Tabs.List>
 
         <Tabs.Panel value="1">
-          <FilterWithData rooms={1} />
+          <FilterWithData rooms={1} key="1" />
         </Tabs.Panel>
 
         <Tabs.Panel value="2">
-          <FilterWithData rooms={2} />
+          <FilterWithData rooms={2} key="2" />
         </Tabs.Panel>
 
         <Tabs.Panel value="3">
-          <FilterWithData rooms={3} />
+          <FilterWithData rooms={3} key="3" />
         </Tabs.Panel>
       </Tabs>
     </>
@@ -82,7 +82,7 @@ interface FilterWithDataProps {
   rooms: number
 }
 
-const FilterWithData = ({ rooms }: FilterWithDataProps) => {
+const FilterWithData = React.memo(({ rooms }: FilterWithDataProps) => {
   const { filters, updateFilter, installmentPlans } =
     useRoomFilters(mockBuildings)
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 300])
@@ -92,15 +92,15 @@ const FilterWithData = ({ rooms }: FilterWithDataProps) => {
 
   React.useEffect(() => {
     updateFilter("rooms", rooms)
-  }, [rooms, updateFilter])
+  }, [rooms])
 
   React.useEffect(() => {
     updateFilter("price", priceRange[1])
-  }, [priceRange, updateFilter])
+  }, [priceRange[1]])
 
   React.useEffect(() => {
     updateFilter("initialPaymentPercent", downPaymentPercent[1])
-  }, [downPaymentPercent, updateFilter])
+  }, [downPaymentPercent[1]])
 
   const complexes = React.useMemo(() => {
     const uniqueComplexes = new Set(
@@ -233,7 +233,7 @@ const FilterWithData = ({ rooms }: FilterWithDataProps) => {
       </Flex>
     </>
   )
-}
+})
 
 interface InfoBlockProps {
   title?: string

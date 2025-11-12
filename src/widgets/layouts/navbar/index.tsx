@@ -6,7 +6,7 @@ import useTranslation from "next-translate/useTranslation"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 
-import { MenuData } from "@/widgets/layouts/navbar/libs.ts"
+import { MenuData } from "@/widgets/layouts/navbar/libs"
 
 import Logo from "@/shared/assets/images/icon-logo.svg"
 import IconDown from "@/shared/assets/images/icons/arrow-down.svg"
@@ -23,20 +23,30 @@ export const Navbar = () => {
   const router = useRouter()
 
   const handleNavClick = (path: string) => {
-    // Исправление: добавляем локаль и используем locale опцию
-    router.push(`/${path}`, undefined, { locale: lang })
-    setActive(path)
     setIsOpen(false)
+    router.push(`/${path}`)
   }
 
   // Устанавливаем активный пункт меню на основе текущего пути
   useEffect(() => {
-    const currentPath = router.pathname.split("/")[1] || ""
-    setActive(currentPath)
-  }, [router.pathname])
+    const handleRouteChange = (url: string) => {
+      const pathSegments = url.split("/").filter(Boolean)
+      const currentPath = pathSegments[0] || "main"
+      setActive(currentPath)
+    }
+
+    // Устанавливаем активный пункт при монтировании
+    handleRouteChange(router.pathname)
+
+    // Подписываемся на изменения роута
+    router.events.on("routeChangeComplete", handleRouteChange)
+
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange)
+    }
+  }, [router])
 
   useEffect(() => {
-    // Убираем localStorage для языка - используем только next-translate
     setIsLang(lang)
   }, [lang])
 
@@ -77,7 +87,7 @@ export const Navbar = () => {
           />
           {matches || (
             <Button
-              onClick={() => handleNavClick("contacts")}
+              onClick={() => handleNavClick("contact")}
               className={"button-black"}
             >
               Оставить заявку
@@ -129,7 +139,7 @@ export const Navbar = () => {
             className={"button-black"}
             fullWidth
             mt="lg"
-            onClick={() => handleNavClick("contacts")}
+            onClick={() => handleNavClick("contact")}
           >
             Оставить заявку
           </Button>
