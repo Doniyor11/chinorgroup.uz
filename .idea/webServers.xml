@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="c0b3037a-f755-4680-af0e-405e99812b65" name="chinogroup.uz">
+        <fileTransfer accessType="SFTP" host="95.46.96.182" port="300" sshConfigId="173d26a5-bb18-47b8-8a9e-bb91ea6d8cb8" sshConfig="root@95.46.96.182:300 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
