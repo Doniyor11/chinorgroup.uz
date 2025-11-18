@@ -15,10 +15,12 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import hero1 from "@/shared/assets/images/hero-slider/post 6.webp"
 import hero2 from "@/shared/assets/images/hero-slider/post 8.webp"
 import ImageGif from "@/shared/assets/images/rekla,a.gif"
+import { useModalStore } from "@/shared/store/modal-store"
 
 import s from "./index.module.scss"
 
 export const Hero = () => {
+  const { openModal } = useModalStore()
   return (
     <Box className={s.hero}>
       <Flex direction={"column"} gap={"0.62rem"} className={s.heroLeft}>
@@ -42,7 +44,7 @@ export const Hero = () => {
           <Text component={"h3"} className={s.heroSaleTitle}>
             Oshxona jixozlari <br /> sovg'aga beriladi!
           </Text>
-          <Button bg={"#F4F4F5"} className={s.heroButton}>
+          <Button bg={"#F4F4F5"} className={s.heroButton} onClick={openModal}>
             Ariza qoldirish
           </Button>
           <Box className={s.heroGifBox}>

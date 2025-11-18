@@ -11,6 +11,7 @@ import { MenuData } from "@/widgets/layouts/navbar/libs"
 import Logo from "@/shared/assets/images/icon-logo.svg"
 import IconDown from "@/shared/assets/images/icons/arrow-down.svg"
 import FlagUz from "@/shared/assets/images/icons/icon-lang.svg"
+import { useModalStore } from "@/shared/store/modal-store"
 
 import s from "./styles.module.scss"
 
@@ -21,6 +22,7 @@ export const Navbar = () => {
   const [active, setActive] = useState<string>("")
   const [isLang, setIsLang] = useState("ru")
   const router = useRouter()
+  const { openModal } = useModalStore()
 
   const handleNavClick = (path: string) => {
     setIsOpen(false)
@@ -86,10 +88,7 @@ export const Navbar = () => {
             }}
           />
           {matches || (
-            <Button
-              onClick={() => handleNavClick("contact")}
-              className={"button-black"}
-            >
+            <Button onClick={openModal} className={"button-black"}>
               Оставить заявку
             </Button>
           )}
@@ -139,7 +138,10 @@ export const Navbar = () => {
             className={"button-black"}
             fullWidth
             mt="lg"
-            onClick={() => handleNavClick("contact")}
+            onClick={() => {
+              setIsOpen(false)
+              openModal()
+            }}
           >
             Оставить заявку
           </Button>

@@ -2,6 +2,8 @@ import { Box, Button, Input, Text, Textarea } from "@mantine/core"
 import { notifications } from "@mantine/notifications"
 import React, { useState } from "react"
 
+import { sendToTelegram } from "@/shared/api"
+
 import s from "./styles.module.scss"
 
 export const Contact = () => {
@@ -27,36 +29,23 @@ export const Contact = () => {
     setIsLoading(true)
 
     try {
-      const response = await fetch("/api/send-to-telegram", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+      await sendToTelegram(formData)
+
+      notifications.show({
+        title: "Muvaffaqiyatli!",
+        message: "Xabaringiz yuborildi. Tez orada siz bilan bog'lanamiz!",
+        color: "green",
       })
-
-      const data = await response.json()
-
-      if (data.success) {
-        notifications.show({
-          title: "Muvaffaqiyatli!",
-          message: "Xabaringiz yuborildi. Tez orada siz bilan bog'lanamiz!",
-          color: "green",
-        })
-        // Reset form
-        setFormData({ name: "", phone: "", message: "" })
-      } else {
-        notifications.show({
-          title: "Xatolik",
-          message: data.error || "Xabar yuborishda xatolik yuz berdi",
-          color: "red",
-        })
-      }
+      // Reset form
+      setFormData({ name: "", phone: "", message: "" })
     } catch (error) {
       console.error("Error:", error)
       notifications.show({
         title: "Xatolik",
-        message: "Xabar yuborishda xatolik yuz berdi",
+        message:
+          error instanceof Error
+            ? error.message
+            : "Xabar yuborishda xatolik yuz berdi",
         color: "red",
       })
     } finally {

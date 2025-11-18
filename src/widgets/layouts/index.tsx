@@ -1,6 +1,7 @@
 import { Box, Loader } from "@mantine/core"
 import React, { ReactNode } from "react"
 
+import { ModalForm } from "@/features/modal-form"
 import { Footer } from "@/widgets/layouts/footer"
 import { Navbar } from "@/widgets/layouts/navbar"
 
@@ -22,6 +23,7 @@ export const Layout = ({ children }: ILayout) => {
       </Box>
       {children ? children : <Loader />}
       <Footer />
+      <ModalForm />
     </>
   )
 }
