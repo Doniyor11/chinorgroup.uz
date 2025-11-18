@@ -292,7 +292,6 @@ const FilterBuildings = ({
           </Button>
         </Flex>
       </Flex>
-      {/*  */}
     </>
   )
 }
@@ -400,7 +399,7 @@ const BuildingCard = ({ building }: BuildingCardProps) => {
                 year: "numeric",
               })}
             </Text>
-            <Link href={`/buildings/${building.id}`}>Подробнее</Link>
+            <Link href={`/project/${building.id}`}>Подробнее</Link>
           </Flex>
         </Box>
       </Box>

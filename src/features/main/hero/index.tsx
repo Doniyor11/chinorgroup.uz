@@ -24,26 +24,26 @@ export const Hero = () => {
       <Flex direction={"column"} gap={"0.62rem"} className={s.heroLeft}>
         <Box className={s.heroInfo}>
           <Text component={"h1"} className={s.heroTitle}>
-            При 100% оплате — скидка <br /> 20% на квартиру!
+            Korobka narxida <br /> ta'mirlangan xonadonlar!
           </Text>
-          <Text component={"h1"} className={s.heroDescription}>
-            Профессиональное строительство и ремонт любой сложности. Современные
-            технологии, опытная команда, гарантия качества.
+          <Text component={"h2"} className={s.heroDescription}>
+            Chinor Groupning yangi Jomiy Residence loyihasidan ajoyib
+            imkoniyatni qo'ldan boy ber bermang! Qulay infrotuzilma va ijtimoiy
+            obyektlarga yaqin turar joy!
           </Text>
           <Button bg={"#fff"} w={"11.375rem"} className={s.heroButton}>
-            Выбрать квартиру
+            Batafsil ma'lumot
           </Button>
         </Box>
         <Box className={s.heroInfo} bg={"#fff"}>
-          <Text component={"h1"} className={s.heroSaleDescription}>
-            До 1 декабря приобретайте наши коттеджи «Riverside» в рассрочку и
-            получите шанс выиграть
+          <Text component={"h3"} className={s.heroSaleDescription}>
+            49.000.000 so'm boshlang'ich to`lov bilan xonadon egasiga aylaning!
           </Text>
-          <Text component={"h1"} className={s.heroSaleTitle}>
-            мебель и бытовую <br /> технику в подарок!
+          <Text component={"h3"} className={s.heroSaleTitle}>
+            Oshxona jixozlari <br /> sovg'aga beriladi!
           </Text>
           <Button bg={"#F4F4F5"} className={s.heroButton}>
-            Получить консультацию
+            Ariza qoldirish
           </Button>
           <Box className={s.heroGifBox}>
             <Image src={ImageGif} alt={"gif"} width={213} height={156} />
@@ -60,15 +60,15 @@ export const Hero = () => {
 const slides = [
   {
     image: hero1,
-    title: "Строим будущее вместе с вами",
+    title: "Ildizi mustahkam, fayzli uylar quramiz",
     subtitle:
-      "Профессиональное строительство и ремонт любой сложности. Современные технологии, опытная команда, гарантия качества.",
+      "Chinor Group 10 yillik tajribaga ega qurilish kompaniyasi bo'lib, sifat va ishonchlilikni birinchi o'ringa qo'yadi.",
   },
   {
     image: hero2,
-    title: "Строим будущее вместе с вами",
+    title: "Yoqrin kelajak uchun sifatli uy-joylar",
     subtitle:
-      "Профессиональное строительство и ремонт любой сложности. Современные технологии, опытная команда, гарантия качества.",
+      "Chinor Group shu kungacha 7ta loyihani qurib o'z egalariga topshirgan. O'zbeskitonda 1000 dan ortiq ishchi o'rinlari yaratgan",
   },
 ]
 
@@ -115,7 +115,7 @@ const HeroSlider = () => {
 
       <Box className={s.navigationContainer}>
         <Link href={""} className={s.button}>
-          Подробнее
+          Batafsil
         </Link>
         <Flex className={s.navigationWrapper}>
           <Button

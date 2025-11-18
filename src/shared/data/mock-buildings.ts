@@ -9,7 +9,7 @@ export const mockBuildings: Building[] = [
   {
     id: "1",
     name: "«Chinor» TJM",
-    location: "Мирабад, Ташкентская область",
+    location: "Bektemir tumani, Husayn Boyqaro 29G",
     city: "Ташкент",
     image: Image1.src,
     priceFrom: 245000000,

@@ -22,15 +22,14 @@ export const FilterRoom = () => {
       <Flex align={"center"} className={s.filterRoomTop}>
         <Box w={{ base: "100%", lg: "50%" }}>
           <Text className={"title-section"} c={"#18181B"}>
-            Квартиры в <br /> рассрочку
+            Bo'lib to'lashga <br /> zamonaviy uylar
           </Text>
         </Box>
         <Box w={{ base: "100%", lg: "50%" }}>
           <Text className={s.filterHeadDescription}>
-            Мы стремимся сделать ваш опыт в сфере недвижимости плавным, выгодным
-            и без стресса. Наша команда преданных своему делу профессионалов,
-            обладающая многолетним опытом, поможет вам уверенно ориентироваться
-            на рынке недвижимости.
+            Bizning interaktiv filtr yordamida o'zingizga mos xonadonni tanlang.
+            Xonalar soni, narxi va dastlabki to'lov miqdorini belgilab, siz
+            uchun eng yaxshi variantlarni ko'rib chiqing.
           </Text>
         </Box>
       </Flex>

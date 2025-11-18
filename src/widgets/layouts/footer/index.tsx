@@ -33,13 +33,18 @@ export const Footer = () => {
               </Flex>
               <Flex direction={"column"} gap={"0.75rem"}>
                 <Text className={s.footerLeftLabel}>Номер телефона</Text>
-                <Link className={s.footerText} href={"tel:+998 90 999 99 99"}>
-                  +998 90 999 99 99
+                <Link className={s.footerText} href={"tel:+998(99)813-00-07"}>
+                  +998(99)813-00-07
+                </Link>
+                <Link className={s.footerText} href={"tel:+998(99)943-00-07"}>
+                  +998(99)943-00-07
                 </Link>
               </Flex>
               <Flex direction={"column"} gap={"0.75rem"}>
                 <Text className={s.footerLeftLabel}>Адрес</Text>
-                <Text className={s.footerText}>г. Ташкент, Узбекистан</Text>
+                <Text className={s.footerText}>
+                  Manzil: Usta-Shirin 117 (Yandex: Jomiy Residence)
+                </Text>
               </Flex>
             </Flex>
           </Flex>
@@ -57,7 +62,7 @@ export const Footer = () => {
                   Портфолио
                 </Link>
                 <Link className={s.footerText} href={""}>
-                  Блог
+                  Blog
                 </Link>
               </Flex>
               <Flex direction={"column"} gap={"1rem"}>

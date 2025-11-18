@@ -57,17 +57,16 @@ export const Blog = () => {
         >
           <Flex w={{ base: "100%", lg: "50%" }}>
             <Text className={"title-section"} c={"#18181B"} component={"h2"}>
-              Блог
+              Blog
             </Text>
           </Flex>
           <Flex w={{ base: "100%", lg: "50%" }} direction={"column"}>
             <Text className={s.blogDescription} component={"p"}>
-              Изучите советы экспертов и креативные идеи для улучшения вашего
-              жилого пространства.
+              Yangiliklar va maslahatlar dunyosiga sho'ng'ing!
             </Text>
             <Text className={s.blogDescription} component={"p"}>
-              От современных дизайнов кухонь до уютного оформления спален и
-              инновационных концепций освещения.
+              Xonadoningizni yangilash, zamonaviy dizayn tendentsiyalari va
+              interyer ilhomlari bilan tanishing.
             </Text>
           </Flex>
         </Flex>

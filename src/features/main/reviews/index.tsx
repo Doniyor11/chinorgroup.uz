@@ -11,6 +11,34 @@ import ImageUser from "@/shared/assets/images/user-image.png"
 
 import s from "./index.module.scss"
 
+const reviews = [
+  {
+    id: 1,
+    star: 5,
+    description:
+      "Qurilish jarayonlarini o'zim yaqindan kuzatganman va uylar sifatli qurilganiga amin bo'lganman. Hozirgi paytda ham xonalar shinam va issiq, bolalar uchun ham maydonchalar mavjud.",
+    name: "Dilshod",
+    position: "Mijoz",
+  },
+  {
+    id: 2,
+    star: 5,
+    description:
+      "Uy olishdan oldin rosa surishtirganmiz, bizga bolalarimiz xafsizligi va begonalar bezovta qilmasligi juda muhim edi." +
+      "Qolaversa, ko'p qurilish kompaniyalarning hujjatlari joyida emas ekan. Chinor Group esa barcha hujjatlari tartibli va shaffof ekan.",
+    name: "Zulfiya",
+    position: "Mijoz",
+  },
+  {
+    id: 3,
+    star: 5,
+    description:
+      "Qulay shartlarda xonadon xarid qilishimga yordam berishdi, va 100% to'lov qilganim uchun juda katta chegirma qilib berishdi",
+    name: "Xazrat Xaqqulov",
+    position: "Mijoz",
+  },
+]
+
 export const Reviews = () => {
   return (
     <>
@@ -18,15 +46,15 @@ export const Reviews = () => {
         <Flex align={"flex-start"} className={s.reviewsTop}>
           <Box w={{ base: "100%", lg: "50%" }}>
             <Text className={"title-section"} c={"#fff"}>
-              Отзывы клиентов
+              Mijozlarimizning fikrlari
             </Text>
           </Box>
           <Box w={{ base: "100%", lg: "50%" }}>
             <Text className={s.reviewsHeadDescription}>
-              Мы стремимся сделать ваш опыт в сфере недвижимости плавным,
-              выгодным и без стресса. Наша команда преданных своему делу
-              профессионалов, обладающая многолетним опытом, поможет вам
-              уверенно ориентироваться на рынке недвижимости.
+              Chinor Group bilan hamkorlik qilgan mijozlarimizning
+              fikr-mulohazalari va tajribalarini o'qing. Ularning so'zlari
+              bizning sifatli xizmatlarimiz va mijozlarga bo'lgan sodiqligimizni
+              aks ettiradi.
             </Text>
           </Box>
         </Flex>
@@ -50,8 +78,8 @@ export const Reviews = () => {
             },
           }}
         >
-          {[1, 2, 3, 4, 5].map((index) => (
-            <SwiperSlide key={index}>
+          {reviews.map((index, id) => (
+            <SwiperSlide key={id}>
               <Flex
                 className={s.reviewsItem}
                 direction={"column"}
@@ -64,8 +92,7 @@ export const Reviews = () => {
                 </Flex>
 
                 <Text className={s.reviewsDescription}>
-                  Chinor Group выполнили строительство нашего офисного здания
-                  точно в срок и с высоким качеством. Профессиональная команда!
+                  {index.description}
                 </Text>
 
                 <Flex gap={"0.75rem"} align={"center"}>
@@ -73,9 +100,9 @@ export const Reviews = () => {
                     <Image src={ImageUser} alt={""} />
                   </Box>
                   <Flex direction={"column"} gap={"0.12rem"}>
-                    <Text className={s.reviewsAuthor}>Алишер Каримов</Text>
+                    <Text className={s.reviewsAuthor}>{index.name}</Text>
                     <Text className={s.reviewsAuthorPosition}>
-                      Директор компании
+                      {index.position}
                     </Text>
                   </Flex>
                 </Flex>

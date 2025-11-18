@@ -5,22 +5,22 @@ import s from "./index.module.scss"
 
 const data = [
   {
-    number: "Причина 01",
-    title: "Качество",
+    number: "Sabab 1",
+    title: "Sifat",
     description:
-      "Once you've found properties that catch your eye, save them to your account or make a shortlist. This allows you to compare and revisit your favorites as you make your decision.",
+      "Chinor Group uylari zamonaviy arxitektura va yuqori sifatli materiallardan foydalanish bilan ajralib turadi. Har bir detalga e'tibor beriladi, bu esa sizga qulay va bardoshli uy ta'minlaydi.",
   },
   {
-    number: "Причина 02",
-    title: "Опыт",
+    number: "Sabab 2",
+    title: "Tajriba",
     description:
-      "Once you've found properties that catch your eye, save them to your account or make a shortlist. This allows you to compare and revisit your favorites as you make your decision.",
+      "Kompaniyamiz 10 yildan ortiq tajribaga ega bo'lib, ko'plab muvaffaqiyatli loyihalarni amalga oshirdi. Biz mijozlarimizning ehtiyojlarini tushunamiz va ularning orzularini ro'yobga chiqarishga yordam beramiz.",
   },
   {
-    number: "Причина 03",
-    title: "Надежность",
+    number: "Sabab 3",
+    title: "Ishonch",
     description:
-      "Once you've found properties that catch your eye, save them to your account or make a shortlist. This allows you to compare and revisit your favorites as you make your decision.",
+      "Chinor Group mijozlari bilan uzoq muddatli munosabatlarni o'rnatishga intiladi. Bizning maqsadimiz - sizning ishonchingizni qozonish va sizga eng yaxshi xizmatni taqdim etish.",
   },
 ]
 
@@ -29,7 +29,7 @@ export const ChooseUs = () => {
     <>
       <Box className={s.choose}>
         <Text className={"title-section"} c={"#FFF"} ta={"center"}>
-          Почему выбирают нас
+          Nega bizni tanlashadi?
         </Text>
         <Grid gutter={{ base: "1rem", sm: "1.5rem", md: "1.87rem" }}>
           {data.map((item, index) => (

@@ -46,12 +46,12 @@ export const AboutInfo = () => {
             className={s.aboutInfo}
             w={{ base: "100%", lg: "50%" }}
           >
-            <Text className={"title-section"}>О компании</Text>
+            <Text className={"title-section"}>Kompaniya haqida</Text>
             <Text className={s.aboutInfoDescription}>
-              Полный спектр строительных услуг для <br /> реализации проектов
-              любой сложности
+              Qurilish sohasida 10+ yillik tajriba <br /> va 2000+ mamnun
+              mijozlar
             </Text>
-            <Button className={"button-green"}>Остваить заявку</Button>
+            <Button className={"button-green"}>Biz bilan bog'laning</Button>
           </Flex>
           <Flex
             direction={"column"}
@@ -61,14 +61,17 @@ export const AboutInfo = () => {
             w={{ base: "100%", lg: "50%" }}
           >
             <Text className={s.aboutInfoDescriptionRight}>
-              Мы стремимся сделать ваш опыт в сфере недвижимости плавным,
-              выгодным и без стресса. Наша команда преданных своему делу
-              профессионалов, обладающая многолетним опытом, поможет вам
-              уверенно ориентироваться на рынке недвижимости.
+              Chinor Group-da biz mijozlarimizning orzularini amalga oshirishga
+              bag'ishlanganmiz. Biz ko'chmas mulk bozorida ishonchli hamkor
+              sifatida tanilganmiz, mijozlarimizga eng yaxshi xizmatlarni taqdim
+              etamiz va ularning ehtiyojlarini birinchi o'ringa qo'yamiz.
             </Text>
+            <br />
             <Text className={s.aboutInfoDescriptionRight}>
-              Будь то покупка, продажа или аренда — мы рядом, чтобы предложить
-              индивидуальный подход и помочь вам достичь ваших целей.
+              Bizning jamoamiz yuqori malakali mutaxassislardan iborat bo'lib,
+              ular har bir loyihani diqqat bilan boshqaradi va mijozlarimizga
+              individual yondashuvni ta'minlaydi. Bizning maqsadimiz - sizning
+              ishonchingizni qozonish va sizga eng yaxshi xizmatni taqdim etish.
             </Text>
           </Flex>
         </Flex>
