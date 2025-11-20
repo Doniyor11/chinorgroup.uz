@@ -17,7 +17,7 @@ import s from "./styles.module.scss"
 
 export const Navbar = () => {
   const matches = useMediaQuery("(max-width: 768px)")
-  const { lang } = useTranslation("common")
+  const { t, lang } = useTranslation("common")
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [active, setActive] = useState<string>("")
   const [isLang, setIsLang] = useState("ru")
@@ -33,7 +33,15 @@ export const Navbar = () => {
   useEffect(() => {
     const handleRouteChange = (url: string) => {
       const pathSegments = url.split("/").filter(Boolean)
-      const currentPath = pathSegments[0] || "main"
+      // Проверяем, является ли первый сегмент языком
+      const languages = ["ru", "uz", "en"]
+      const isFirstSegmentLanguage = languages.includes(pathSegments[0])
+
+      // Если первый сегмент - язык, берем второй сегмент как путь
+      const currentPath = isFirstSegmentLanguage
+        ? pathSegments[1] || "main"
+        : pathSegments[0] || "main"
+
       setActive(currentPath)
     }
 
@@ -65,7 +73,7 @@ export const Navbar = () => {
               className={cx(s.link, { [s.active]: item?.path === active })}
               onClick={() => handleNavClick(item?.path)}
             >
-              {item?.text}
+              {t(item?.text)}
             </li>
           ))}
         </ul>
@@ -89,7 +97,7 @@ export const Navbar = () => {
           />
           {matches || (
             <Button onClick={openModal} className={"button-black"}>
-              Оставить заявку
+              {t("nav_request")}
             </Button>
           )}
           {matches && (
@@ -131,7 +139,7 @@ export const Navbar = () => {
               className={cx(s.menuLink, { [s.active]: item?.path === active })}
               onClick={() => handleNavClick(item?.path)}
             >
-              {item?.text}
+              {t(item?.text)}
             </Text>
           ))}
           <Button
@@ -143,7 +151,7 @@ export const Navbar = () => {
               openModal()
             }}
           >
-            Оставить заявку
+            {t("nav_request")}
           </Button>
         </Flex>
       </Drawer>

@@ -1,35 +1,35 @@
 import { Box, Grid, Text } from "@mantine/core"
+import useTranslation from "next-translate/useTranslation"
 import React from "react"
 
 import s from "./index.module.scss"
 
-const data = [
-  {
-    number: "Sabab 1",
-    title: "Sifat",
-    description:
-      "Chinor Group uylari zamonaviy arxitektura va yuqori sifatli materiallardan foydalanish bilan ajralib turadi. Har bir detalga e'tibor beriladi, bu esa sizga qulay va bardoshli uy ta'minlaydi.",
-  },
-  {
-    number: "Sabab 2",
-    title: "Tajriba",
-    description:
-      "Kompaniyamiz 10 yildan ortiq tajribaga ega bo'lib, ko'plab muvaffaqiyatli loyihalarni amalga oshirdi. Biz mijozlarimizning ehtiyojlarini tushunamiz va ularning orzularini ro'yobga chiqarishga yordam beramiz.",
-  },
-  {
-    number: "Sabab 3",
-    title: "Ishonch",
-    description:
-      "Chinor Group mijozlari bilan uzoq muddatli munosabatlarni o'rnatishga intiladi. Bizning maqsadimiz - sizning ishonchingizni qozonish va sizga eng yaxshi xizmatni taqdim etish.",
-  },
-]
-
 export const ChooseUs = () => {
+  const { t } = useTranslation("common")
+
+  const data = [
+    {
+      number: t("choose_us_reason_1"),
+      title: t("choose_us_reason_1_title"),
+      description: t("choose_us_reason_1_desc"),
+    },
+    {
+      number: t("choose_us_reason_2"),
+      title: t("choose_us_reason_2_title"),
+      description: t("choose_us_reason_2_desc"),
+    },
+    {
+      number: t("choose_us_reason_3"),
+      title: t("choose_us_reason_3_title"),
+      description: t("choose_us_reason_3_desc"),
+    },
+  ]
+
   return (
     <>
       <Box className={s.choose}>
         <Text className={"title-section"} c={"#FFF"} ta={"center"}>
-          Nega bizni tanlashadi?
+          {t("choose_us_title")}
         </Text>
         <Grid gutter={{ base: "1rem", sm: "1.5rem", md: "1.87rem" }}>
           {data.map((item, index) => (

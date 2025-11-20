@@ -1,29 +1,12 @@
 import { Box, Button, Flex, Text } from "@mantine/core"
+import useTranslation from "next-translate/useTranslation"
 import Image from "next/image"
 import React from "react"
 
-import ImageAbout from "@/shared/assets/images/about.png"
+import ImageAbout from "@/shared/assets/images/about.jpg"
+import { useModalStore } from "@/shared/store/modal-store.ts"
 
 import s from "./index.module.scss"
-
-const dataResults = [
-  {
-    title: "12",
-    description: "Месяцев средний срок строительства",
-  },
-  {
-    title: "7+",
-    description: "Лет гарантии на построенный дом",
-  },
-  {
-    title: "180+",
-    description: "Домов построили с 2012 года",
-  },
-  {
-    title: "180+",
-    description: "Домов построили с 2012 года",
-  },
-]
 
 type ResultItem = {
   title: string
@@ -31,6 +14,28 @@ type ResultItem = {
 }
 
 export const AboutInfo = () => {
+  const { t } = useTranslation("common")
+  const { openModal } = useModalStore()
+
+  const dataResults = [
+    {
+      title: t("about_stat_1_title"),
+      description: t("about_stat_1_desc"),
+    },
+    {
+      title: t("about_stat_2_title"),
+      description: t("about_stat_2_desc"),
+    },
+    {
+      title: t("about_stat_3_title"),
+      description: t("about_stat_3_desc"),
+    },
+    {
+      title: t("about_stat_4_title"),
+      description: t("about_stat_4_desc"),
+    },
+  ]
+
   return (
     <>
       <Box className={s.aboutInfoContainer}>
@@ -46,12 +51,14 @@ export const AboutInfo = () => {
             className={s.aboutInfo}
             w={{ base: "100%", lg: "50%" }}
           >
-            <Text className={"title-section"}>Kompaniya haqida</Text>
-            <Text className={s.aboutInfoDescription}>
-              Qurilish sohasida 10+ yillik tajriba <br /> va 2000+ mamnun
-              mijozlar
-            </Text>
-            <Button className={"button-green"}>Biz bilan bog'laning</Button>
+            <Text className={"title-section"}>{t("about_title")}</Text>
+            <Text
+              className={s.aboutInfoDescription}
+              dangerouslySetInnerHTML={{ __html: t("about_subtitle") }}
+            />
+            <Button className={"button-green"} onClick={openModal}>
+              {t("about_contact_button")}
+            </Button>
           </Flex>
           <Flex
             direction={"column"}
@@ -61,17 +68,11 @@ export const AboutInfo = () => {
             w={{ base: "100%", lg: "50%" }}
           >
             <Text className={s.aboutInfoDescriptionRight}>
-              Chinor Group-da biz mijozlarimizning orzularini amalga oshirishga
-              bag'ishlanganmiz. Biz ko'chmas mulk bozorida ishonchli hamkor
-              sifatida tanilganmiz, mijozlarimizga eng yaxshi xizmatlarni taqdim
-              etamiz va ularning ehtiyojlarini birinchi o'ringa qo'yamiz.
+              {t("about_description_1")}
             </Text>
             <br />
             <Text className={s.aboutInfoDescriptionRight}>
-              Bizning jamoamiz yuqori malakali mutaxassislardan iborat bo'lib,
-              ular har bir loyihani diqqat bilan boshqaradi va mijozlarimizga
-              individual yondashuvni ta'minlaydi. Bizning maqsadimiz - sizning
-              ishonchingizni qozonish va sizga eng yaxshi xizmatni taqdim etish.
+              {t("about_description_2")}
             </Text>
           </Flex>
         </Flex>

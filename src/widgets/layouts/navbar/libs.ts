@@ -1,26 +1,26 @@
 export const MenuData = [
   {
-    text: "Главная",
+    text: "nav_home",
     path: "main",
   },
   {
-    text: "О компании",
+    text: "nav_about",
     path: "about",
   },
   {
-    text: "Наши проекты",
+    text: "nav_projects",
     path: "project",
   },
   {
-    text: "Цены",
+    text: "nav_prices",
     path: "price",
   },
   {
-    text: "Блог",
+    text: "nav_blog",
     path: "blog",
   },
   {
-    text: "Контакты",
+    text: "nav_contacts",
     path: "contact",
   },
 ]

@@ -68,7 +68,12 @@ export const ModalForm = () => {
       }
       centered
       size="45rem"
-      p={"2.5rem"}
+      zIndex={1001}
+      overlayProps={{
+        backgroundOpacity: 0.55,
+        blur: 3,
+      }}
+      transitionProps={{ transition: "fade", duration: 200 }}
     >
       <Box
         component="form"
