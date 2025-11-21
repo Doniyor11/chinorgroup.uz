@@ -1,4 +1,5 @@
 import { Box } from "@mantine/core"
+import useTranslation from "next-translate/useTranslation"
 import React from "react"
 
 import {
@@ -12,12 +13,14 @@ import {
 import IconHome from "@/shared/assets/images/icons/home.svg"
 
 const ProjectPage = () => {
+  const { t } = useTranslation("common")
+
   return (
     <main>
       <BreadcrumbCustom
         items={[
-          { label: "Главная", href: "/", icon: <IconHome /> },
-          { label: "Наши проекты" },
+          { label: t("breadcrumb_home"), href: "/", icon: <IconHome /> },
+          { label: t("breadcrumb_projects") },
         ]}
       />
       <Box className={"container"}>
