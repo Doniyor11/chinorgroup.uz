@@ -8,6 +8,7 @@ import {
   Text,
 } from "@mantine/core"
 import cx from "clsx"
+import useTranslation from "next-translate/useTranslation"
 import Image from "next/image"
 import Link from "next/link"
 import React, { useState } from "react"
@@ -24,6 +25,7 @@ import type { Building, BuildingFilters } from "@/shared/types/buildings.ts"
 import s from "./index.module.scss"
 
 export const Buildings = () => {
+  const { t } = useTranslation("common")
   const {
     filters,
     filteredBuildings,
@@ -41,16 +43,22 @@ export const Buildings = () => {
         className={s.buildingsHeader}
       >
         <Text className={"title-section"} c={"#18181B"}>
-          Новостройки
+          {t("buildings_title")}
         </Text>
         <Select
           className={s.buildingsSelect}
           data={[
-            { value: "Ташкент", label: "в Ташкенте" },
-            { value: "Самарканд", label: "в Самарканде" },
+            {
+              value: t("buildings_city_tashkent"),
+              label: t("buildings_city_in_tashkent"),
+            },
+            {
+              value: t("buildings_city_samarkand"),
+              label: t("buildings_city_in_samarkand"),
+            },
           ]}
-          value={filters.city || "Ташкент"}
-          defaultValue="Ташкент"
+          value={filters.city || t("buildings_city_tashkent")}
+          defaultValue={t("buildings_city_tashkent")}
           onChange={(value) => updateFilter("city", value || undefined)}
           rightSection={<IconArrow />}
         />
@@ -61,23 +69,24 @@ export const Buildings = () => {
         updateFilter={updateFilter}
         clearFilters={clearFilters}
         hasActiveFilters={hasActiveFilters}
+        t={t}
       />
 
       <Grid>
         {filteredBuildings.map((building) => (
           <Grid.Col key={building.id} span={{ base: 12, sm: 6, md: 4 }}>
-            <BuildingCard building={building} />
+            <BuildingCard building={building} t={t} />
           </Grid.Col>
         ))}
       </Grid>
       {filteredBuildings.length === 0 && (
         <Text ta="center" c="#70707B" my="2rem">
-          Квартиры не найдены. Попробуйте изменить параметры фильтра.
+          {t("buildings_not_found")}
         </Text>
       )}
       <Flex justify={"center"} mt={"3.5rem"}>
         <Button className={"button-black"} w={"12.5rem"}>
-          Подробнее
+          {t("buildings_more_button")}
         </Button>
       </Flex>
     </Box>
@@ -92,6 +101,7 @@ interface FilterBuildingsProps {
   ) => void
   clearFilters: () => void
   hasActiveFilters: boolean
+  t: (key: string) => string
 }
 
 const FilterBuildings = ({
@@ -99,19 +109,20 @@ const FilterBuildings = ({
   updateFilter,
   clearFilters,
   hasActiveFilters,
+  t,
 }: FilterBuildingsProps) => {
   const [selectedYear, setSelectedYear] = useState<string | undefined>()
 
   const complexes = React.useMemo(() => {
     const uniqueComplexes = new Set(mockBuildings.map((b) => b.name))
     return [
-      { value: "", label: "Все" },
+      { value: "", label: t("buildings_filter_all") },
       ...Array.from(uniqueComplexes).map((name) => ({
         value: name,
         label: name,
       })),
     ]
-  }, [])
+  }, [t])
 
   const handleYearClick = (year: string) => {
     setSelectedYear(year)
@@ -129,9 +140,9 @@ const FilterBuildings = ({
         className={s.filterRow}
       >
         <Flex direction={"column"} gap={"0.5rem"} className={s.buildingsItem}>
-          <Text className={"input-label"}>Жилой комплекс</Text>
+          <Text className={"input-label"}>{t("buildings_filter_complex")}</Text>
           <Select
-            placeholder={"Выберите"}
+            placeholder={t("buildings_filter_select")}
             className={"select"}
             rightSection={<IconDown />}
             data={complexes}
@@ -140,16 +151,16 @@ const FilterBuildings = ({
           />
         </Flex>
         <Flex direction={"column"} gap={"0.5rem"} className={s.buildingsItem}>
-          <Text className={"input-label"}>Количество комнат</Text>
+          <Text className={"input-label"}>{t("buildings_filter_rooms")}</Text>
           <Select
-            placeholder={"Выберите"}
+            placeholder={t("buildings_filter_select")}
             className={"select"}
             rightSection={<IconDown />}
             data={[
-              { value: "", label: "Все" },
-              { value: "1", label: "1 комната" },
-              { value: "2", label: "2 комнаты" },
-              { value: "3", label: "3 комнаты" },
+              { value: "", label: t("buildings_filter_all") },
+              { value: "1", label: t("buildings_filter_rooms_1") },
+              { value: "2", label: t("buildings_filter_rooms_2") },
+              { value: "3", label: t("buildings_filter_rooms_3") },
             ]}
             value={filters.rooms?.toString()}
             onChange={(value) =>
@@ -158,23 +169,23 @@ const FilterBuildings = ({
           />
         </Flex>
         <Flex direction={"column"} gap={"0.5rem"} className={s.buildingsItem}>
-          <Text className={s.filterLabel}>Задайте стоимость</Text>
+          <Text className={s.filterLabel}>{t("buildings_filter_price")}</Text>
           <Flex className={"filterInput"}>
             <Flex justify={"space-between"} w={"100%"}>
               <Flex justify={"space-between"} gap={"0.75rem"}>
                 <Text className={s.filterInputSpan} c={"#70707B"}>
-                  от
+                  {t("buildings_filter_from")}
                 </Text>
                 <Text className={s.filterInputSpan}>
-                  {filters.priceRange[0]} млн сум
+                  {filters.priceRange[0]} {t("buildings_price_mln")}
                 </Text>
               </Flex>
               <Flex justify={"space-between"} gap={"0.75rem"}>
                 <Text className={s.filterInputSpan} c={"#70707B"}>
-                  до
+                  {t("buildings_filter_to")}
                 </Text>
                 <Text className={s.filterInputSpan}>
-                  {filters.priceRange[1]} млн сум
+                  {filters.priceRange[1]} {t("buildings_price_mln")}
                 </Text>
               </Flex>
             </Flex>
@@ -216,12 +227,12 @@ const FilterBuildings = ({
         className={s.filterRow}
       >
         <Flex direction={"column"} gap={"0.5rem"} className={s.buildingsItem}>
-          <Text className={s.filterLabel}>Задайте площадь</Text>
+          <Text className={s.filterLabel}>{t("buildings_filter_area")}</Text>
           <Flex className={"filterInput"}>
             <Flex justify={"space-between"} w={"100%"}>
               <Flex justify={"space-between"} gap={"0.75rem"}>
                 <Text className={s.filterInputSpan} c={"#70707B"}>
-                  Площадь до
+                  {t("buildings_filter_area_up_to")}
                 </Text>
                 <Text className={s.filterInputSpan}>
                   {filters.areaRange[1]} м²
@@ -257,19 +268,27 @@ const FilterBuildings = ({
           </Flex>
         </Flex>
         <Flex direction={"column"} gap={"0.5rem"} className={s.buildingsItem}>
-          <Text className={"input-label"}>Дата сдачи</Text>
+          <Text className={"input-label"}>
+            {t("buildings_filter_completion")}
+          </Text>
           <Flex gap={"0.5rem"}>
-            {["Сдан", "2025", "2026", "2027", "2028+"].map((year) => (
+            {[
+              { key: t("buildings_year_completed"), value: "Сдан" },
+              { key: "2025", value: "2025" },
+              { key: "2026", value: "2026" },
+              { key: "2027", value: "2027" },
+              { key: "2028+", value: "2028+" },
+            ].map((year) => (
               <Text
-                key={year}
+                key={year.value}
                 component={"span"}
                 className={cx(s.buildingsYear, {
-                  [s.active]: selectedYear === year,
+                  [s.active]: selectedYear === year.value,
                 })}
-                onClick={() => handleYearClick(year)}
+                onClick={() => handleYearClick(year.value)}
                 style={{ cursor: "pointer" }}
               >
-                {year}
+                {year.key}
               </Text>
             ))}
           </Flex>
@@ -290,10 +309,12 @@ const FilterBuildings = ({
                 setSelectedYear(undefined)
               }}
             >
-              Очистить фильтр
+              {t("buildings_filter_clear")}
             </Button>
           )}
-          <Button className={"button-black"}>Найти</Button>
+          <Button className={"button-black"}>
+            {t("buildings_filter_find")}
+          </Button>
         </Flex>
       </Flex>
       {/*  */}
@@ -303,9 +324,10 @@ const FilterBuildings = ({
 
 interface BuildingCardProps {
   building: Building
+  t: (key: string) => string
 }
 
-const BuildingCard = ({ building }: BuildingCardProps) => {
+const BuildingCard = ({ building, t }: BuildingCardProps) => {
   return (
     <>
       <Box className={s.buildingsBox}>
@@ -313,7 +335,7 @@ const BuildingCard = ({ building }: BuildingCardProps) => {
           <Flex className={s.buildingsTags} gap={"0.5rem"}>
             {building.tags?.map((tag) => (
               <Text key={tag} component={"span"}>
-                {tag === "Последняя квартира" && <IconHome />}
+                {tag === t("buildings_tag_last_apartment") && <IconHome />}
                 {tag}
               </Text>
             ))}
@@ -340,7 +362,8 @@ const BuildingCard = ({ building }: BuildingCardProps) => {
             </Text>
           </Flex>
           <Text className={s.buildingsBoxPrice}>
-            от {Math.round(building.priceFrom / 1000000)} млн сум
+            {t("buildings_price_from")}{" "}
+            {Math.round(building.priceFrom / 1000000)} {t("buildings_price_mln")}
           </Text>
         </Flex>
 
@@ -351,7 +374,7 @@ const BuildingCard = ({ building }: BuildingCardProps) => {
             className={s.buildingsBoxInfo}
           >
             <Text component={"h3"}>
-              {building.availableApartments} квартир в продаже
+              {building.availableApartments} {t("buildings_apartments_on_sale")}
             </Text>
             {[1, 2, 3].map((rooms) => {
               const count = building.apartments.filter(
@@ -371,18 +394,22 @@ const BuildingCard = ({ building }: BuildingCardProps) => {
                 minPrice === Infinity
                   ? "-"
                   : minPrice === maxPrice
-                  ? `${Math.round(minPrice / 1000000)} млн`
+                  ? `${Math.round(minPrice / 1000000)} ${t(
+                      "buildings_price_mln_short",
+                    )}`
                   : `${Math.round(minPrice / 1000000)}-${Math.round(
                       maxPrice / 1000000,
-                    )} млн`
+                    )} ${t("buildings_price_mln_short")}`
 
               return (
                 <Flex key={rooms} justify={"space-between"}>
                   <Text component={"p"} c={count > 0 ? "#009540" : "#70707B"}>
-                    {rooms}-комн
+                    {rooms}-{t("buildings_room_count")}
                   </Text>
                   <Text component={"p"} c={"#70707B"}>
-                    {count > 0 ? `${count} шт` : "нет"}
+                    {count > 0
+                      ? `${count} ${t("buildings_pieces")}`
+                      : t("buildings_none")}
                   </Text>
                   <Text component={"p"} c={"#26272B"}>
                     {priceText}
@@ -397,14 +424,16 @@ const BuildingCard = ({ building }: BuildingCardProps) => {
             align={"center"}
           >
             <Text component={"p"} c={"#70707B"}>
-              Дата сдачи до{" "}
+              {t("buildings_completion_date")}{" "}
               {new Date(building.completionDate).toLocaleDateString("ru-RU", {
                 day: "2-digit",
                 month: "2-digit",
                 year: "numeric",
               })}
             </Text>
-            <Link href={`/main/${building.id}`}>Подробнее</Link>
+            <Link href={`/main/${building.id}`}>
+              {t("buildings_more_details")}
+            </Link>
           </Flex>
         </Box>
       </Box>

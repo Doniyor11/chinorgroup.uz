@@ -1,5 +1,6 @@
 import { Box, Button, Flex, Text } from "@mantine/core"
 import { ChevronLeft, ChevronRight } from "lucide-react"
+import useTranslation from "next-translate/useTranslation"
 import Image from "next/image"
 import Link from "next/link"
 import React from "react"
@@ -20,32 +21,35 @@ import { useModalStore } from "@/shared/store/modal-store"
 import s from "./index.module.scss"
 
 export const Hero = () => {
+  const { t } = useTranslation("common")
   const { openModal } = useModalStore()
   return (
     <Box className={s.hero}>
       <Flex direction={"column"} gap={"0.62rem"} className={s.heroLeft}>
         <Box className={s.heroInfo}>
-          <Text component={"h1"} className={s.heroTitle}>
-            Korobka narxida <br /> ta'mirlangan xonadonlar!
-          </Text>
+          <Text
+            component={"h1"}
+            className={s.heroTitle}
+            dangerouslySetInnerHTML={{ __html: t("hero_title") }}
+          />
           <Text component={"h2"} className={s.heroDescription}>
-            Chinor Groupning yangi Jomiy Residence loyihasidan ajoyib
-            imkoniyatni qo'ldan boy ber bermang! Qulay infrotuzilma va ijtimoiy
-            obyektlarga yaqin turar joy!
+            {t("hero_description")}
           </Text>
           <Button bg={"#fff"} w={"11.375rem"} className={s.heroButton}>
-            Batafsil ma'lumot
+            {t("hero_button_details")}
           </Button>
         </Box>
         <Box className={s.heroInfo} bg={"#fff"}>
           <Text component={"h3"} className={s.heroSaleDescription}>
-            49.000.000 so'm boshlang'ich to`lov bilan xonadon egasiga aylaning!
+            {t("hero_sale_description")}
           </Text>
-          <Text component={"h3"} className={s.heroSaleTitle}>
-            Oshxona jixozlari <br /> sovg'aga beriladi!
-          </Text>
+          <Text
+            component={"h3"}
+            className={s.heroSaleTitle}
+            dangerouslySetInnerHTML={{ __html: t("hero_sale_title") }}
+          />
           <Button bg={"#F4F4F5"} className={s.heroButton} onClick={openModal}>
-            Ariza qoldirish
+            {t("hero_button_request")}
           </Button>
           <Box className={s.heroGifBox}>
             <Image src={ImageGif} alt={"gif"} width={213} height={156} />
@@ -59,24 +63,23 @@ export const Hero = () => {
   )
 }
 
-const slides = [
-  {
-    image: hero1,
-    title: "Ildizi mustahkam, fayzli uylar quramiz",
-    subtitle:
-      "Chinor Group 10 yillik tajribaga ega qurilish kompaniyasi bo'lib, sifat va ishonchlilikni birinchi o'ringa qo'yadi.",
-  },
-  {
-    image: hero2,
-    title: "Yoqrin kelajak uchun sifatli uy-joylar",
-    subtitle:
-      "Chinor Group shu kungacha 7ta loyihani qurib o'z egalariga topshirgan. O'zbeskitonda 1000 dan ortiq ishchi o'rinlari yaratgan",
-  },
-]
-
 const HeroSlider = () => {
+  const { t } = useTranslation("common")
   const swiperRef = useRef<SwiperType>()
   const [activeIndex, setActiveIndex] = useState(0)
+
+  const slides = [
+    {
+      image: hero1,
+      title: t("hero_slider_1_title"),
+      subtitle: t("hero_slider_1_subtitle"),
+    },
+    {
+      image: hero2,
+      title: t("hero_slider_2_title"),
+      subtitle: t("hero_slider_2_subtitle"),
+    },
+  ]
 
   return (
     <div className={s.heroSlider}>
@@ -117,7 +120,7 @@ const HeroSlider = () => {
 
       <Box className={s.navigationContainer}>
         <Link href={""} className={s.button}>
-          Batafsil
+          {t("hero_slider_button")}
         </Link>
         <Flex className={s.navigationWrapper}>
           <Button
