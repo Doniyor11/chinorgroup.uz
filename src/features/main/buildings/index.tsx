@@ -363,7 +363,8 @@ const BuildingCard = ({ building, t }: BuildingCardProps) => {
           </Flex>
           <Text className={s.buildingsBoxPrice}>
             {t("buildings_price_from")}{" "}
-            {Math.round(building.priceFrom / 1000000)} {t("buildings_price_mln")}
+            {Math.round(building.priceFrom / 1000000)}{" "}
+            {t("buildings_price_mln")}
           </Text>
         </Flex>
 
