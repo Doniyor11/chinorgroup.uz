@@ -91,15 +91,15 @@ const FilterWithData = React.memo(({ rooms }: FilterWithDataProps) => {
 
   React.useEffect(() => {
     updateFilter("rooms", rooms)
-  }, [rooms])
+  }, [rooms, updateFilter])
 
   React.useEffect(() => {
     updateFilter("price", priceRange[1])
-  }, [priceRange[1]])
+  }, [priceRange, updateFilter])
 
   React.useEffect(() => {
     updateFilter("initialPaymentPercent", downPaymentPercent[1])
-  }, [downPaymentPercent[1]])
+  }, [downPaymentPercent, updateFilter])
 
   const complexes = React.useMemo(() => {
     const uniqueComplexes = new Set(

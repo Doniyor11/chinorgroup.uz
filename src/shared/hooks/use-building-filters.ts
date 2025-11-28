@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import { useCallback, useMemo, useState } from "react"
 
 import type { Building, BuildingFilters } from "../types/buildings"
 
@@ -80,22 +80,22 @@ export const useBuildingFilters = (buildings: Building[]) => {
     })
   }, [buildings, filters])
 
-  const updateFilter = <K extends keyof BuildingFilters>(
-    key: K,
-    value: BuildingFilters[K],
-  ) => {
-    setFilters((prev) => ({ ...prev, [key]: value }))
-  }
+  const updateFilter = useCallback(
+    <K extends keyof BuildingFilters>(key: K, value: BuildingFilters[K]) => {
+      setFilters((prev) => ({ ...prev, [key]: value }))
+    },
+    [],
+  )
 
-  const clearFilters = () => {
+  const clearFilters = useCallback(() => {
     setFilters({
       city: "Ташкент",
       priceRange: [0, 300],
       areaRange: [0, 150],
     })
-  }
+  }, [])
 
-  const hasActiveFilters = () => {
+  const hasActiveFilters = useMemo(() => {
     return !!(
       filters.city ||
       (filters.complex && filters.complex !== "") ||
@@ -106,13 +106,13 @@ export const useBuildingFilters = (buildings: Building[]) => {
       filters.areaRange[1] !== 150 ||
       filters.completionYear
     )
-  }
+  }, [filters])
 
   return {
     filters,
     filteredBuildings,
     updateFilter,
     clearFilters,
-    hasActiveFilters: hasActiveFilters(),
+    hasActiveFilters,
   }
 }

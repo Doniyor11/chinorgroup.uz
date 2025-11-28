@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import { useCallback, useMemo, useState } from "react"
 
 import type { Apartment, Building, RoomFilters } from "../types/buildings"
 
@@ -37,28 +37,28 @@ export const useRoomFilters = (buildings: Building[]) => {
     return apartments
   }, [buildings, filters])
 
-  const updateFilter = <K extends keyof RoomFilters>(
-    key: K,
-    value: RoomFilters[K],
-  ) => {
-    setFilters((prev) => {
-      const newFilters = { ...prev, [key]: value }
+  const updateFilter = useCallback(
+    <K extends keyof RoomFilters>(key: K, value: RoomFilters[K]) => {
+      setFilters((prev) => {
+        const newFilters = { ...prev, [key]: value }
 
-      // Автоматически пересчитываем первоначальный взнос при изменении цены или процента
-      if (key === "price" || key === "initialPaymentPercent") {
-        const price =
-          key === "price" ? (value as number) : newFilters.price || 0
-        const percent =
-          key === "initialPaymentPercent"
-            ? (value as number)
-            : newFilters.initialPaymentPercent || 0
+        // Автоматически пересчитываем первоначальный взнос при изменении цены или процента
+        if (key === "price" || key === "initialPaymentPercent") {
+          const price =
+            key === "price" ? (value as number) : newFilters.price || 0
+          const percent =
+            key === "initialPaymentPercent"
+              ? (value as number)
+              : newFilters.initialPaymentPercent || 0
 
-        newFilters.initialPaymentAmount = (price * percent) / 100
-      }
+          newFilters.initialPaymentAmount = (price * percent) / 100
+        }
 
-      return newFilters
-    })
-  }
+        return newFilters
+      })
+    },
+    [],
+  )
 
   // Рассчитываем стандартную и подходящую рассрочку
   const calculateInstallment = (apartmentPrice: number) => {

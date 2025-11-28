@@ -2,7 +2,7 @@ import { Box } from "@mantine/core"
 import Head from "next/head"
 import React from "react"
 
-import { BreadcrumbCustom } from "@/features"
+import { BreadcrumbCustom, BuildingsInner } from "@/features"
 
 import IconHome from "@/shared/assets/images/icons/home.svg"
 
@@ -10,7 +10,9 @@ const BuildingInnerPage = () => {
   return (
     <>
       <Head>
-        <title>Test</title>
+        <title>
+          Новостройки в Ташкенте от Chinor Group | ЖК «Jomiy residence»
+        </title>
       </Head>
 
       <main>
@@ -18,14 +20,11 @@ const BuildingInnerPage = () => {
           items={[
             { label: "Главная", href: "/", icon: <IconHome /> },
             { label: "Наши проекты", href: "/", icon: <IconHome /> },
-            { label: "Коттеджы “Riverside”" },
+            { label: "ЖК «Jomiy residence»" },
           ]}
         />
         <Box className={"container"}>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquam
-          autem beatae doloribus, earum, eligendi enim eos iusto magni maiores
-          nemo neque nobis perspiciatis quasi reprehenderit sit voluptate
-          voluptates voluptatibus?
+          <BuildingsInner />
         </Box>
       </main>
     </>
