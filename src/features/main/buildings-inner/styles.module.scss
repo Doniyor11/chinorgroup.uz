@@ -1,0 +1,181 @@
+.filterBox {
+  padding: 5rem;
+  border-radius: 1rem;
+  background: #fff;
+  margin: 0.62rem 0 1.25rem 0;
+}
+
+.list {
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    margin-bottom: 1.25rem;
+    gap: 0.375rem;
+  }
+}
+
+.tab {
+  color: #70707b;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  align-items: center;
+  gap: 0.5rem;
+
+  span {
+    height: 2.9375rem;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    flex: 1;
+    &.activeTab {
+      background: #009540;
+      color: #fff;
+    }
+  }
+}
+// -----
+.header {
+  padding: 16px;
+  background: #ffffff;
+  border-bottom: 1px solid #efefef;
+}
+
+.title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+}
+
+.planContainer {
+  padding: 16px;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 180px;
+}
+
+.planImage {
+  max-width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.planPlaceholder {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f0f0;
+  border-radius: 4px;
+  color: #999;
+  font-size: 14px;
+}
+
+.blockHeader {
+  padding: 12px 16px;
+  background: #f5e6d3;
+  border-bottom: 1px solid #ead9c3;
+}
+
+.blockName {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #faf5f0;
+}
+
+.table thead {
+  background: #f5e6d3;
+}
+
+.table th {
+  padding: 10px 8px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 1px solid #ead9c3;
+  white-space: nowrap;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid #ead9c3;
+}
+
+.table tbody tr:hover {
+  background-color: #f0e5d8;
+}
+
+.table td {
+  padding: 10px 8px;
+  font-size: 12px;
+  color: #555;
+}
+
+.roomName {
+  font-weight: 500;
+  color: #333;
+}
+
+.area {
+  text-align: center;
+}
+
+.dimensions {
+  text-align: center;
+}
+
+.totalArea {
+  padding: 16px;
+  background: #f5e6d3;
+  border-top: 1px solid #ead9c3;
+  text-align: center;
+}
+
+.totalLabel {
+  margin: 0 0 4px 0;
+  font-size: 12px;
+  color: #666;
+}
+
+.totalValue {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #333;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .container {
+    max-width: 100%;
+  }
+
+  .table th,
+  .table td {
+    font-size: 11px;
+    padding: 8px 6px;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+}
