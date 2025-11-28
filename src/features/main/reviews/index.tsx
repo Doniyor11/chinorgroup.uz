@@ -1,6 +1,7 @@
 import { Box, Flex, Text } from "@mantine/core"
 import Image from "next/image"
-import React from "react"
+import useTranslation from "next-translate/useTranslation"
+import React, { useMemo } from "react"
 // Import Swiper styles
 import "swiper/css"
 import { Navigation } from "swiper/modules"
@@ -11,50 +12,48 @@ import ImageUser from "@/shared/assets/images/user-image.png"
 
 import s from "./index.module.scss"
 
-const reviews = [
-  {
-    id: 1,
-    star: 5,
-    description:
-      "Qurilish jarayonlarini o'zim yaqindan kuzatganman va uylar sifatli qurilganiga amin bo'lganman. Hozirgi paytda ham xonalar shinam va issiq, bolalar uchun ham maydonchalar mavjud.",
-    name: "Dilshod",
-    position: "Mijoz",
-  },
-  {
-    id: 2,
-    star: 5,
-    description:
-      "Uy olishdan oldin rosa surishtirganmiz, bizga bolalarimiz xafsizligi va begonalar bezovta qilmasligi juda muhim edi." +
-      "Qolaversa, ko'p qurilish kompaniyalarning hujjatlari joyida emas ekan. Chinor Group esa barcha hujjatlari tartibli va shaffof ekan.",
-    name: "Zulfiya",
-    position: "Mijoz",
-  },
-  {
-    id: 3,
-    star: 5,
-    description:
-      "Qulay shartlarda xonadon xarid qilishimga yordam berishdi, va 100% to'lov qilganim uchun juda katta chegirma qilib berishdi",
-    name: "Xazrat Xaqqulov",
-    position: "Mijoz",
-  },
-]
-
 export const Reviews = () => {
+  const { t } = useTranslation("common")
+
+  const reviews = useMemo(
+    () => [
+      {
+        id: 1,
+        star: 5,
+        description: t("reviews_1_description"),
+        name: t("reviews_1_name"),
+        position: t("reviews_client"),
+      },
+      {
+        id: 2,
+        star: 5,
+        description: t("reviews_2_description"),
+        name: t("reviews_2_name"),
+        position: t("reviews_client"),
+      },
+      {
+        id: 3,
+        star: 5,
+        description: t("reviews_3_description"),
+        name: t("reviews_3_name"),
+        position: t("reviews_client"),
+      },
+    ],
+    [t],
+  )
+
   return (
     <>
       <Box className={s.reviews}>
         <Flex align={"flex-start"} className={s.reviewsTop}>
           <Box w={{ base: "100%", lg: "50%" }}>
             <Text className={"title-section"} c={"#fff"}>
-              Mijozlarimizning fikrlari
+              {t("reviews_title")}
             </Text>
           </Box>
           <Box w={{ base: "100%", lg: "50%" }}>
             <Text className={s.reviewsHeadDescription}>
-              Chinor Group bilan hamkorlik qilgan mijozlarimizning
-              fikr-mulohazalari va tajribalarini o'qing. Ularning so'zlari
-              bizning sifatli xizmatlarimiz va mijozlarga bo'lgan sodiqligimizni
-              aks ettiradi.
+              {t("reviews_description")}
             </Text>
           </Box>
         </Flex>

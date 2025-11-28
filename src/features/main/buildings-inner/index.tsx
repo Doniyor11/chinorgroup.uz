@@ -1,5 +1,6 @@
 import { Box, Flex, Grid, Select, Text } from "@mantine/core"
 import cx from "clsx"
+import useTranslation from "next-translate/useTranslation"
 import Image, { type StaticImageData } from "next/image"
 import React, { useMemo, useState } from "react"
 
@@ -285,21 +286,28 @@ const apartmentsData: ApartmentData[] = [
   },
 ]
 
-const dataBlocks = [
-  { value: "block-a", label: "A-blok" },
-  { value: "block-b", label: "B-blok" },
-  { value: "block-c", label: "C-blok" },
-]
-
-const tabsData = [
-  { value: 1, label: "1 комнатные" },
-  { value: 2, label: "2 комнатные" },
-  { value: 3, label: "3 комнатные" },
-]
-
 export const BuildingsInner = () => {
+  const { t } = useTranslation("common")
   const [selectedBlock, setSelectedBlock] = useState<string>("block-a")
   const [selectedRooms, setSelectedRooms] = useState<number>(1)
+
+  const dataBlocks = useMemo(
+    () => [
+      { value: "block-a", label: "A-blok" },
+      { value: "block-b", label: "B-blok" },
+      { value: "block-c", label: "C-blok" },
+    ],
+    [],
+  )
+
+  const tabsData = useMemo(
+    () => [
+      { value: 1, label: t("buildings_inner_tab_1") },
+      { value: 2, label: t("buildings_inner_tab_2") },
+      { value: 3, label: t("buildings_inner_tab_3") },
+    ],
+    [t],
+  )
 
   const filteredApartments = useMemo(() => {
     const blockName = selectedBlock.replace("block-", "Blok-").toUpperCase()
@@ -316,9 +324,11 @@ export const BuildingsInner = () => {
         <Flex gap={"1rem"} align={"flex-end"}>
           <Box w={"50%"}>
             <Flex direction={"column"} gap={"0.5rem"}>
-              <Text className={"input-label"}>Blokni tanlang</Text>
+              <Text className={"input-label"}>
+                {t("buildings_inner_select_block")}
+              </Text>
               <Select
-                placeholder={"Blokni tanlang"}
+                placeholder={t("buildings_inner_select_block_placeholder")}
                 className={"select"}
                 rightSection={<IconDown />}
                 data={dataBlocks}
@@ -355,13 +365,14 @@ export const BuildingsInner = () => {
                 blockName={apartment.blockName}
                 specifications={apartment.specifications}
                 totalArea={apartment.totalArea}
+                rooms={apartment.rooms}
               />
             </Grid.Col>
           ))}
           {filteredApartments.length === 0 && (
             <Grid.Col span={12}>
               <Text ta="center" c="#70707B" my="2rem">
-                Квартиры не найдены для выбранных параметров
+                {t("buildings_inner_not_found")}
               </Text>
             </Grid.Col>
           )}
@@ -377,10 +388,11 @@ interface ApartmentLayoutProps {
   planImage?: StaticImageData
   specifications?: Specification[]
   totalArea?: string
+  rooms?: number
 }
 
 const ApartmentLayout = ({
-  title = "2 xonali xonadon",
+  // title = "2 xonali xonadon",
   blockName = "Blok-A",
   planImage,
   specifications = [
@@ -394,21 +406,26 @@ const ApartmentLayout = ({
     { name: "Ayvan", sqm: "-", dimensions: "- " },
   ],
   totalArea = "65.85m²",
+  rooms = 2,
 }: ApartmentLayoutProps) => {
+  const { t } = useTranslation("common")
+
+  const apartmentTitle = t(`buildings_inner_apartment_${rooms}`)
+
   return (
     <div className={s.container}>
       {/* Header */}
       <div className={s.header}>
-        <h2 className={s.title}>{title}</h2>
+        <h2 className={s.title}>{apartmentTitle}</h2>
       </div>
 
       {/* Plan Image */}
       <div className={s.planContainer}>
         {planImage ? (
-          <Image src={planImage} alt={title} className={s.planImage} />
+          <Image src={planImage} alt={apartmentTitle} className={s.planImage} />
         ) : (
           <div className={s.planPlaceholder}>
-            <p>Планы здесь</p>
+            <p>{t("buildings_inner_plan_placeholder")}</p>
           </div>
         )}
       </div>
@@ -422,9 +439,9 @@ const ApartmentLayout = ({
       <table className={s.table}>
         <thead>
           <tr>
-            <th>Хона номи</th>
-            <th>Майдон</th>
-            <th>Размер</th>
+            <th>{t("buildings_inner_table_room_name")}</th>
+            <th>{t("buildings_inner_table_area")}</th>
+            <th>{t("buildings_inner_table_size")}</th>
           </tr>
         </thead>
         <tbody>
@@ -440,7 +457,7 @@ const ApartmentLayout = ({
 
       {/* Total Area */}
       <div className={s.totalArea}>
-        <p className={s.totalLabel}>Umumiy maydon</p>
+        <p className={s.totalLabel}>{t("buildings_inner_total_area")}</p>
         <p className={s.totalValue}>{totalArea}</p>
       </div>
     </div>
