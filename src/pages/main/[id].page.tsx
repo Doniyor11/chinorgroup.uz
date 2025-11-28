@@ -1,6 +1,6 @@
 import { Box } from "@mantine/core"
-import Head from "next/head"
 import useTranslation from "next-translate/useTranslation"
+import Head from "next/head"
 import React from "react"
 
 import {

@@ -1,6 +1,6 @@
 import { Box, Flex, Text } from "@mantine/core"
-import Image from "next/image"
 import useTranslation from "next-translate/useTranslation"
+import Image from "next/image"
 import React, { useMemo } from "react"
 // Import Swiper styles
 import "swiper/css"

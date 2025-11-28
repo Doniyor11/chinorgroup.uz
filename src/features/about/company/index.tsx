@@ -1,6 +1,6 @@
 import { Box, Grid, Text } from "@mantine/core"
-import Image from "next/image"
 import useTranslation from "next-translate/useTranslation"
+import Image from "next/image"
 import React from "react"
 
 import Image1 from "@/shared/assets/images/about2.jpg"
