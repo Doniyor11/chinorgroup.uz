@@ -100,6 +100,10 @@
   &:hover {
     background: #e4e4e7;
     cursor: pointer;
+    &.active {
+      background: #009540;
+      color: #fff;
+    }
   }
 
   // Mobile

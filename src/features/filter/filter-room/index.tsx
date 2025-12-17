@@ -143,7 +143,7 @@ const FilterWithData = React.memo(({ rooms }: FilterWithDataProps) => {
   const formatPrice = (price: number): string => {
     if (price >= 1000) {
       const billions = (price / 1000).toFixed(3)
-      return `${billions} млрд`
+      return `${billions} ${t("filter_room_mlrd_sum")}`
     }
     return `${price} ${t("filter_room_mln_sum")}`
   }
@@ -152,10 +152,20 @@ const FilterWithData = React.memo(({ rooms }: FilterWithDataProps) => {
   const formatDownPayment = (amount: number): string => {
     if (amount >= 1000) {
       const billions = (amount / 1000).toFixed(3)
-      return `${billions} млрд`
+      return `${billions} ${t("filter_room_mlrd_sum")}`
     }
     return `${amount.toFixed(0)} ${t("filter_room_mln_sum")}`
   }
+
+  // Проверка на отсутствие квартир для Chinor и Bobur TJM
+  const isChinorOrBobur =
+    filters.complex === "«Chinor» TJM" || filters.complex === "'Bobur' TJM"
+  const hasNoApartments =
+    isChinorOrBobur &&
+    mockBuildings
+      .find((b) => b.name === filters.complex)
+      ?.apartments.filter((a) => a.rooms === rooms && a.isAvailable).length ===
+      0
 
   return (
     <>
@@ -259,14 +269,34 @@ const FilterWithData = React.memo(({ rooms }: FilterWithDataProps) => {
           </Button>
         </Flex>
 
-        <FlexibleInstallmentBlock
-          title={t("filter_room_standard_installment")}
-        />
-        <SuitableInstallmentBlock
-          title={t("filter_room_flexible_installment")}
-          totalPrice={priceRange[1]}
-          className={s.bgGreen}
-        />
+        {hasNoApartments ? (
+          <Flex
+            direction={"column"}
+            justify={"center"}
+            align={"center"}
+            className={cx(s.filterInfo, s.filterRoomInner)}
+            style={{ gridColumn: "span 2" }}
+          >
+            <Text
+              className={s.filterInfoTitle}
+              fz={{ base: "1.5rem", md: "2rem" }}
+              ta={"center"}
+            >
+              {t("filter_room_no_apartments")} 😊
+            </Text>
+          </Flex>
+        ) : (
+          <>
+            <FlexibleInstallmentBlock
+              title={t("filter_room_standard_installment")}
+            />
+            <SuitableInstallmentBlock
+              title={t("filter_room_flexible_installment")}
+              totalPrice={priceRange[1]}
+              className={s.bgGreen}
+            />
+          </>
+        )}
       </Flex>
     </>
   )
@@ -335,7 +365,7 @@ const SuitableInstallmentBlock = ({
   // Форматирование с учетом миллионов/миллиардов
   const formatPayment = (amount: number): string => {
     if (amount >= 1000) {
-      return `${(amount / 1000).toFixed(3)} млрд`
+      return `${(amount / 1000).toFixed(3)} ${t("filter_room_mlrd_sum")}`
     }
     return `${amount.toFixed(1)} ${t("filter_room_mln_sum")}`
   }

@@ -30,6 +30,7 @@ export const Buildings = () => {
     filters,
     filteredBuildings,
     updateFilter,
+    applyFilters,
     clearFilters,
     hasActiveFilters,
   } = useBuildingFilters(mockBuildings)
@@ -67,6 +68,7 @@ export const Buildings = () => {
       <FilterBuildings
         filters={filters}
         updateFilter={updateFilter}
+        applyFilters={applyFilters}
         clearFilters={clearFilters}
         hasActiveFilters={hasActiveFilters}
         t={t}
@@ -99,6 +101,7 @@ interface FilterBuildingsProps {
     key: K,
     value: BuildingFilters[K],
   ) => void
+  applyFilters: () => void
   clearFilters: () => void
   hasActiveFilters: boolean
   t: (key: string) => string
@@ -107,26 +110,24 @@ interface FilterBuildingsProps {
 const FilterBuildings = ({
   filters,
   updateFilter,
+  applyFilters,
   clearFilters,
   hasActiveFilters,
   t,
 }: FilterBuildingsProps) => {
   const [selectedYear, setSelectedYear] = useState<string | undefined>()
 
-  const complexes = React.useMemo(() => {
-    const uniqueComplexes = new Set(mockBuildings.map((b) => b.name))
-    return [
-      { value: "", label: t("buildings_filter_all") },
-      ...Array.from(uniqueComplexes).map((name) => ({
-        value: name,
-        label: name,
-      })),
-    ]
-  }, [t])
-
   const handleYearClick = (year: string) => {
     setSelectedYear(year)
     updateFilter("completionYear", year)
+  }
+
+  // Форматирование цены: если >= 1000 млн, показываем в млрд
+  const formatPrice = (price: number): string => {
+    if (price >= 1000) {
+      return `${(price / 1000).toFixed(1)} ${t("buildings_price_mlrd")}`
+    }
+    return `${price} ${t("buildings_price_mln")}`
   }
 
   return (
@@ -139,17 +140,6 @@ const FilterBuildings = ({
         mb={"0.75rem"}
         className={s.filterRow}
       >
-        <Flex direction={"column"} gap={"0.5rem"} className={s.buildingsItem}>
-          <Text className={"input-label"}>{t("buildings_filter_complex")}</Text>
-          <Select
-            placeholder={t("buildings_filter_select")}
-            className={"select"}
-            rightSection={<IconDown />}
-            data={complexes}
-            value={filters.complex}
-            onChange={(value) => updateFilter("complex", value || undefined)}
-          />
-        </Flex>
         <Flex direction={"column"} gap={"0.5rem"} className={s.buildingsItem}>
           <Text className={"input-label"}>{t("buildings_filter_rooms")}</Text>
           <Select
@@ -177,7 +167,7 @@ const FilterBuildings = ({
                   {t("buildings_filter_from")}
                 </Text>
                 <Text className={s.filterInputSpan}>
-                  {filters.priceRange[0]} {t("buildings_price_mln")}
+                  {formatPrice(filters.priceRange[0])}
                 </Text>
               </Flex>
               <Flex justify={"space-between"} gap={"0.75rem"}>
@@ -185,15 +175,56 @@ const FilterBuildings = ({
                   {t("buildings_filter_to")}
                 </Text>
                 <Text className={s.filterInputSpan}>
-                  {filters.priceRange[1]} {t("buildings_price_mln")}
+                  {formatPrice(filters.priceRange[1])}
                 </Text>
               </Flex>
             </Flex>
             <RangeSlider
               value={filters.priceRange}
               onChange={(value) => updateFilter("priceRange", value)}
-              min={0}
-              max={2000}
+              min={430}
+              max={1500}
+              color="green"
+              thumbSize={14}
+              label={null}
+              className={"rangeSlider"}
+              classNames={{
+                track: s.track,
+              }}
+              styles={{
+                track: {
+                  height: 2,
+                  backgroundColor: "#fff",
+                },
+                bar: {
+                  backgroundColor: "green",
+                },
+                thumb: {
+                  border: "2px solid green",
+                  backgroundColor: "#fff",
+                },
+              }}
+            />
+          </Flex>
+        </Flex>
+        <Flex direction={"column"} gap={"0.5rem"} className={s.buildingsItem}>
+          <Text className={s.filterLabel}>{t("buildings_filter_area")}</Text>
+          <Flex className={"filterInput"}>
+            <Flex justify={"space-between"} w={"100%"}>
+              <Flex justify={"space-between"} gap={"0.75rem"}>
+                <Text className={s.filterInputSpan} c={"#70707B"}>
+                  {t("buildings_filter_area_up_to")}
+                </Text>
+                <Text className={s.filterInputSpan}>
+                  {filters.areaRange[1]} м²
+                </Text>
+              </Flex>
+            </Flex>
+            <RangeSlider
+              value={filters.areaRange}
+              onChange={(value) => updateFilter("areaRange", value)}
+              min={33}
+              max={150}
               color="green"
               thumbSize={14}
               label={null}
@@ -227,47 +258,6 @@ const FilterBuildings = ({
         className={s.filterRow}
       >
         <Flex direction={"column"} gap={"0.5rem"} className={s.buildingsItem}>
-          <Text className={s.filterLabel}>{t("buildings_filter_area")}</Text>
-          <Flex className={"filterInput"}>
-            <Flex justify={"space-between"} w={"100%"}>
-              <Flex justify={"space-between"} gap={"0.75rem"}>
-                <Text className={s.filterInputSpan} c={"#70707B"}>
-                  {t("buildings_filter_area_up_to")}
-                </Text>
-                <Text className={s.filterInputSpan}>
-                  {filters.areaRange[1]} м²
-                </Text>
-              </Flex>
-            </Flex>
-            <RangeSlider
-              value={filters.areaRange}
-              onChange={(value) => updateFilter("areaRange", value)}
-              min={0}
-              max={200}
-              color="green"
-              thumbSize={14}
-              label={null}
-              className={"rangeSlider"}
-              classNames={{
-                track: s.track,
-              }}
-              styles={{
-                track: {
-                  height: 2,
-                  backgroundColor: "#fff",
-                },
-                bar: {
-                  backgroundColor: "green",
-                },
-                thumb: {
-                  border: "2px solid green",
-                  backgroundColor: "#fff",
-                },
-              }}
-            />
-          </Flex>
-        </Flex>
-        <Flex direction={"column"} gap={"0.5rem"} className={s.buildingsItem}>
           <Text className={"input-label"}>
             {t("buildings_filter_completion")}
           </Text>
@@ -276,8 +266,7 @@ const FilterBuildings = ({
               { key: t("buildings_year_completed"), value: "Сдан" },
               { key: "2025", value: "2025" },
               { key: "2026", value: "2026" },
-              { key: "2027", value: "2027" },
-              { key: "2028+", value: "2028+" },
+              { key: "2028", value: "2028" },
             ].map((year) => (
               <Text
                 key={year.value}
@@ -312,7 +301,7 @@ const FilterBuildings = ({
               {t("buildings_filter_clear")}
             </Button>
           )}
-          <Button className={"button-black"}>
+          <Button className={"button-black"} onClick={applyFilters}>
             {t("buildings_filter_find")}
           </Button>
         </Flex>

@@ -2,33 +2,41 @@ import { useCallback, useMemo, useState } from "react"
 
 import type { Building, BuildingFilters } from "../types/buildings"
 
+// Тип возвращаемого значения хука
+
 export const useBuildingFilters = (buildings: Building[]) => {
   const [filters, setFilters] = useState<BuildingFilters>({
     city: "Ташкент",
-    priceRange: [0, 2000],
-    areaRange: [0, 150],
+    priceRange: [430, 1500],
+    areaRange: [33, 90],
+  })
+
+  const [appliedFilters, setAppliedFilters] = useState<BuildingFilters>({
+    city: "Ташкент",
+    priceRange: [430, 1500],
+    areaRange: [33, 90],
   })
 
   const filteredBuildings = useMemo(() => {
     return buildings.filter((building) => {
       // Фильтр по городу
-      if (filters.city && building.city !== filters.city) {
+      if (appliedFilters.city && building.city !== appliedFilters.city) {
         return false
       }
 
       // Фильтр по комплексу
       if (
-        filters.complex &&
-        filters.complex !== "" &&
-        building.name !== filters.complex
+        appliedFilters.complex &&
+        appliedFilters.complex !== "" &&
+        building.name !== appliedFilters.complex
       ) {
         return false
       }
 
       // Фильтр по количеству комнат
-      if (filters.rooms) {
+      if (appliedFilters.rooms) {
         const hasRooms = building.apartments.some(
-          (apt) => apt.rooms === filters.rooms && apt.isAvailable,
+          (apt) => apt.rooms === appliedFilters.rooms && apt.isAvailable,
         )
         if (!hasRooms) return false
       }
@@ -36,8 +44,8 @@ export const useBuildingFilters = (buildings: Building[]) => {
       // Фильтр по цене
       const minPrice = Math.min(...building.apartments.map((apt) => apt.price))
       if (
-        minPrice < filters.priceRange[0] * 1000000 ||
-        minPrice > filters.priceRange[1] * 1000000
+        minPrice < appliedFilters.priceRange[0] * 1000000 ||
+        minPrice > appliedFilters.priceRange[1] * 1000000
       ) {
         return false
       }
@@ -49,36 +57,47 @@ export const useBuildingFilters = (buildings: Building[]) => {
       if (availableApartments.length > 0) {
         const hasMatchingArea = availableApartments.some(
           (apt) =>
-            apt.area >= filters.areaRange[0] &&
-            apt.area <= filters.areaRange[1],
+            apt.area >= appliedFilters.areaRange[0] &&
+            apt.area <= appliedFilters.areaRange[1],
         )
         if (!hasMatchingArea) return false
       }
 
-      // Фильтр по дате сдачи
-      if (filters.completionYear) {
-        const buildingYear = new Date(building.completionDate).getFullYear()
-        const filterYear = filters.completionYear
+      // Специальный фильтр: если площадь > 90м², показываем только Bag'ishamal
+      if (
+        appliedFilters.areaRange[0] > 90 ||
+        appliedFilters.areaRange[1] > 90
+      ) {
+        const maxArea = Math.max(
+          appliedFilters.areaRange[0],
+          appliedFilters.areaRange[1],
+        )
+        if (maxArea > 90 && !building.name.includes("Bag'ishamal")) {
+          return false
+        }
+      }
 
-        if (filterYear === "Сдан" && buildingYear > new Date().getFullYear()) {
-          return false
-        } else if (
-          filterYear !== "Сдан" &&
-          !filterYear.includes("+") &&
-          buildingYear !== parseInt(filterYear)
-        ) {
-          return false
-        } else if (
-          filterYear.includes("+") &&
-          buildingYear < parseInt(filterYear.replace("+", ""))
-        ) {
-          return false
+      // Фильтр по дате сдачи
+      if (appliedFilters.completionYear) {
+        const buildingYear = new Date(building.completionDate).getFullYear()
+        const filterYear = appliedFilters.completionYear
+
+        if (filterYear === "Сдан") {
+          // Показываем только сданные объекты (год <= текущий год)
+          if (buildingYear > new Date().getFullYear()) {
+            return false
+          }
+        } else {
+          // Для конкретного года показываем только объекты с этим годом сдачи
+          if (buildingYear !== parseInt(filterYear)) {
+            return false
+          }
         }
       }
 
       return true
     })
-  }, [buildings, filters])
+  }, [buildings, appliedFilters])
 
   const updateFilter = useCallback(
     <K extends keyof BuildingFilters>(key: K, value: BuildingFilters[K]) => {
@@ -87,31 +106,37 @@ export const useBuildingFilters = (buildings: Building[]) => {
     [],
   )
 
+  const applyFilters = useCallback(() => {
+    setAppliedFilters(filters)
+  }, [filters])
+
   const clearFilters = useCallback(() => {
-    setFilters({
+    const initialFilters = {
       city: "Ташкент",
-      priceRange: [0, 2000],
-      areaRange: [0, 150],
-    })
+      priceRange: [430, 1500] as [number, number],
+      areaRange: [33, 90] as [number, number],
+    }
+    setFilters(initialFilters)
+    setAppliedFilters(initialFilters)
   }, [])
 
   const hasActiveFilters = useMemo(() => {
     return !!(
-      filters.city ||
-      (filters.complex && filters.complex !== "") ||
-      filters.rooms ||
-      filters.priceRange[0] !== 0 ||
-      filters.priceRange[1] !== 2000 ||
-      filters.areaRange[0] !== 0 ||
-      filters.areaRange[1] !== 150 ||
-      filters.completionYear
+      (appliedFilters.complex && appliedFilters.complex !== "") ||
+      appliedFilters.rooms ||
+      appliedFilters.priceRange[0] !== 430 ||
+      appliedFilters.priceRange[1] !== 1500 ||
+      appliedFilters.areaRange[0] !== 33 ||
+      appliedFilters.areaRange[1] !== 90 ||
+      appliedFilters.completionYear
     )
-  }, [filters])
+  }, [appliedFilters])
 
   return {
     filters,
     filteredBuildings,
     updateFilter,
+    applyFilters,
     clearFilters,
     hasActiveFilters,
   }
