@@ -4,6 +4,7 @@ import {
   Flex,
   RangeSlider,
   Select,
+  Slider,
   Tabs,
   Text,
 } from "@mantine/core"
@@ -87,23 +88,41 @@ interface FilterWithDataProps {
 
 const FilterWithData = React.memo(({ rooms }: FilterWithDataProps) => {
   const { t } = useTranslation("common")
-  const { filters, updateFilter, installmentPlans } =
-    useRoomFilters(mockBuildings)
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 300])
-  const [downPaymentPercent, setDownPaymentPercent] = useState<
-    [number, number]
-  >([0, 100])
+  const { filters, updateFilter } = useRoomFilters(mockBuildings)
+
+  // Определяем диапазоны цен в зависимости от количества комнат (в миллионах)
+  const getPriceRange = (roomCount: number): [number, number] => {
+    switch (roomCount) {
+      case 1:
+        return [430, 816] // 430-816 млн
+      case 2:
+        return [754, 1139] // 754-1139 млн
+      case 3:
+        return [1001, 1530] // 1001-1530 млн
+      default:
+        return [430, 816]
+    }
+  }
+
+  const roomPriceRange = React.useMemo(() => getPriceRange(rooms), [rooms])
+  const [priceRange, setPriceRange] = useState<[number, number]>(roomPriceRange)
+  const [downPaymentPercent, setDownPaymentPercent] = useState<number>(25) // Минимум 25%
 
   React.useEffect(() => {
     updateFilter("rooms", rooms)
   }, [rooms, updateFilter])
 
   React.useEffect(() => {
+    // Сбрасываем диапазон цен при смене комнат
+    setPriceRange(roomPriceRange)
+  }, [roomPriceRange])
+
+  React.useEffect(() => {
     updateFilter("price", priceRange[1])
   }, [priceRange, updateFilter])
 
   React.useEffect(() => {
-    updateFilter("initialPaymentPercent", downPaymentPercent[1])
+    updateFilter("initialPaymentPercent", downPaymentPercent)
   }, [downPaymentPercent, updateFilter])
 
   const complexes = React.useMemo(() => {
@@ -118,7 +137,25 @@ const FilterWithData = React.memo(({ rooms }: FilterWithDataProps) => {
     }))
   }, [rooms])
 
-  const downPaymentAmount = (priceRange[1] * downPaymentPercent[1]) / 100
+  const downPaymentAmount = (priceRange[1] * downPaymentPercent) / 100
+
+  // Форматирование цены: если >= 1000 млн, показываем в млрд
+  const formatPrice = (price: number): string => {
+    if (price >= 1000) {
+      const billions = (price / 1000).toFixed(3)
+      return `${billions} млрд`
+    }
+    return `${price} ${t("filter_room_mln_sum")}`
+  }
+
+  // Форматирование первоначального взноса
+  const formatDownPayment = (amount: number): string => {
+    if (amount >= 1000) {
+      const billions = (amount / 1000).toFixed(3)
+      return `${billions} млрд`
+    }
+    return `${amount.toFixed(0)} ${t("filter_room_mln_sum")}`
+  }
 
   return (
     <>
@@ -145,14 +182,14 @@ const FilterWithData = React.memo(({ rooms }: FilterWithDataProps) => {
             <Flex className={"filterInput"}>
               <Flex justify={"space-between"} w={"100%"}>
                 <Text className={s.filterInputSpan}>
-                  {priceRange[1]} {t("filter_room_mln_sum")}
+                  {formatPrice(priceRange[0])} - {formatPrice(priceRange[1])}
                 </Text>
               </Flex>
               <RangeSlider
                 value={priceRange}
                 onChange={setPriceRange}
-                min={0}
-                max={500}
+                min={roomPriceRange[0]}
+                max={roomPriceRange[1]}
                 color="green"
                 thumbSize={14}
                 label={null}
@@ -183,16 +220,16 @@ const FilterWithData = React.memo(({ rooms }: FilterWithDataProps) => {
             <Flex className={"filterInput"}>
               <Flex justify={"space-between"} w={"100%"}>
                 <Text className={s.filterInputSpan}>
-                  {downPaymentAmount.toFixed(0)} {t("filter_room_mln_sum")}
+                  {formatDownPayment(downPaymentAmount)}
                 </Text>
                 <Text className={s.filterInputSpan} c={"#70707B"}>
-                  {downPaymentPercent[1]} %
+                  {downPaymentPercent} %
                 </Text>
               </Flex>
-              <RangeSlider
+              <Slider
                 value={downPaymentPercent}
                 onChange={setDownPaymentPercent}
-                min={0}
+                min={25}
                 max={100}
                 color="green"
                 thumbSize={14}
@@ -222,19 +259,12 @@ const FilterWithData = React.memo(({ rooms }: FilterWithDataProps) => {
           </Button>
         </Flex>
 
-        <InfoBlock
+        <FlexibleInstallmentBlock
           title={t("filter_room_standard_installment")}
-          monthlyPayment={installmentPlans.standard.months.toString()}
-          number={installmentPlans.standard.monthlyPayment.toLocaleString(
-            "ru-RU",
-          )}
         />
-        <InfoBlock
+        <SuitableInstallmentBlock
           title={t("filter_room_flexible_installment")}
-          monthlyPayment={installmentPlans.flexible.months.toString()}
-          number={installmentPlans.flexible.monthlyPayment.toLocaleString(
-            "ru-RU",
-          )}
+          totalPrice={priceRange[1]}
           className={s.bgGreen}
         />
       </Flex>
@@ -242,20 +272,73 @@ const FilterWithData = React.memo(({ rooms }: FilterWithDataProps) => {
   )
 })
 
-interface InfoBlockProps {
+// Гибкая рассрочка (Flexible Installment)
+interface FlexibleInstallmentBlockProps {
   title?: string
-  number?: string
-  monthlyPayment?: string
   className?: string
 }
 
-const InfoBlock = ({
-  title = "Стандартная рассрочка",
-  monthlyPayment = "60",
-  number = "12 549 000",
+const FlexibleInstallmentBlock = ({
+  title = "Гибкая рассрочка",
   className,
-}: InfoBlockProps) => {
+}: FlexibleInstallmentBlockProps) => {
   const { t } = useTranslation("common")
+
+  return (
+    <>
+      <Flex
+        direction={"column"}
+        justify={"space-between"}
+        className={cx(s.filterInfo, s.filterRoomInner, className)}
+      >
+        <Text className={s.filterInfoTitle}>{title}</Text>
+        <Flex direction={"column"} gap={"0.5rem"}>
+          <Text className={s.filterInfoLabel}>
+            {t("filter_room_payment_structure")}
+          </Text>
+          <Flex direction={"column"} gap={"0.25rem"}>
+            <Text className={s.filterInfoNumber} fz={"0.875rem"}>
+              • {t("filter_room_initial_payment_30")}
+            </Text>
+            <Text className={s.filterInfoNumber} fz={"0.875rem"}>
+              • {t("filter_room_monthly_payment_40")}
+            </Text>
+            <Text className={s.filterInfoNumber} fz={"0.875rem"}>
+              • {t("filter_room_cadastral_payment_30")}
+            </Text>
+          </Flex>
+        </Flex>
+      </Flex>
+    </>
+  )
+}
+
+// Подходящая рассрочка (Suitable Installment)
+interface SuitableInstallmentBlockProps {
+  title?: string
+  totalPrice: number // in millions
+  className?: string
+}
+
+const SuitableInstallmentBlock = ({
+  title = "Подходящая рассрочка",
+  totalPrice,
+  className,
+}: SuitableInstallmentBlockProps) => {
+  const { t } = useTranslation("common")
+
+  // Расчет: 40% от общей суммы / 30 месяцев
+  const months = 30
+  const fortyPercentAmount = totalPrice * 0.4 // totalPrice уже в миллионах
+  const monthlyPayment = fortyPercentAmount / months
+
+  // Форматирование с учетом миллионов/миллиардов
+  const formatPayment = (amount: number): string => {
+    if (amount >= 1000) {
+      return `${(amount / 1000).toFixed(3)} млрд`
+    }
+    return `${amount.toFixed(1)} ${t("filter_room_mln_sum")}`
+  }
 
   return (
     <>
@@ -270,7 +353,7 @@ const InfoBlock = ({
             {t("filter_room_installment_term")}
           </Text>
           <Text className={s.filterInfoNumber}>
-            {monthlyPayment} {t("filter_room_months")}
+            {months} {t("filter_room_months")}
           </Text>
         </Flex>
         <Flex direction={"column"} gap={"0.37rem"}>
@@ -279,7 +362,7 @@ const InfoBlock = ({
               {t("filter_room_monthly_payment")}
             </Text>
             <Text className={s.filterInfoNumber}>
-              {number} {t("filter_room_sum")}
+              {formatPayment(monthlyPayment)}
             </Text>
           </Flex>
           <Text className={s.filterInfoNumber} c={"#51525C"} fz={"0.875rem"}>

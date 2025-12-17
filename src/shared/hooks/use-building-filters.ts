@@ -5,7 +5,7 @@ import type { Building, BuildingFilters } from "../types/buildings"
 export const useBuildingFilters = (buildings: Building[]) => {
   const [filters, setFilters] = useState<BuildingFilters>({
     city: "Ташкент",
-    priceRange: [0, 300],
+    priceRange: [0, 2000],
     areaRange: [0, 150],
   })
 
@@ -90,7 +90,7 @@ export const useBuildingFilters = (buildings: Building[]) => {
   const clearFilters = useCallback(() => {
     setFilters({
       city: "Ташкент",
-      priceRange: [0, 300],
+      priceRange: [0, 2000],
       areaRange: [0, 150],
     })
   }, [])
@@ -101,7 +101,7 @@ export const useBuildingFilters = (buildings: Building[]) => {
       (filters.complex && filters.complex !== "") ||
       filters.rooms ||
       filters.priceRange[0] !== 0 ||
-      filters.priceRange[1] !== 300 ||
+      filters.priceRange[1] !== 2000 ||
       filters.areaRange[0] !== 0 ||
       filters.areaRange[1] !== 150 ||
       filters.completionYear

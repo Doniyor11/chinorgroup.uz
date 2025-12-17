@@ -193,7 +193,7 @@ const FilterBuildings = ({
               value={filters.priceRange}
               onChange={(value) => updateFilter("priceRange", value)}
               min={0}
-              max={500}
+              max={2000}
               color="green"
               thumbSize={14}
               label={null}
