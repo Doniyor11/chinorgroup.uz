@@ -67,13 +67,11 @@ export const AboutInfo = () => {
             className={s.aboutInfo}
             w={{ base: "100%", lg: "50%" }}
           >
-            <Text className={s.aboutInfoDescriptionRight}>
-              {t("about_description_1")}
-            </Text>
+            <Text
+              className={s.aboutInfoDescriptionRight}
+              dangerouslySetInnerHTML={{ __html: t("about_description_1") }}
+            />
             <br />
-            <Text className={s.aboutInfoDescriptionRight}>
-              {t("about_description_2")}
-            </Text>
           </Flex>
         </Flex>
         {/*  */}

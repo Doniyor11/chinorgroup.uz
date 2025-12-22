@@ -8,6 +8,8 @@ import { Navigation } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 
 import IconStar from "@/shared/assets/images/icons/reviews-start.svg"
+import ImageUser2 from "@/shared/assets/images/user-image-2.png"
+import ImageUser3 from "@/shared/assets/images/user-image-3.png"
 import ImageUser from "@/shared/assets/images/user-image.png"
 
 import s from "./index.module.scss"
@@ -23,6 +25,7 @@ export const Reviews = () => {
         description: t("reviews_1_description"),
         name: t("reviews_1_name"),
         position: t("reviews_client"),
+        image: ImageUser,
       },
       {
         id: 2,
@@ -30,6 +33,7 @@ export const Reviews = () => {
         description: t("reviews_2_description"),
         name: t("reviews_2_name"),
         position: t("reviews_client"),
+        image: ImageUser2,
       },
       {
         id: 3,
@@ -37,6 +41,7 @@ export const Reviews = () => {
         description: t("reviews_3_description"),
         name: t("reviews_3_name"),
         position: t("reviews_client"),
+        image: ImageUser3,
       },
     ],
     [t],
@@ -76,27 +81,40 @@ export const Reviews = () => {
               spaceBetween: 24,
             },
           }}
+          style={{
+            alignItems: "stretch",
+          }}
         >
           {reviews.map((index, id) => (
-            <SwiperSlide key={id}>
-              <Flex
-                className={s.reviewsItem}
-                direction={"column"}
-                gap={{ base: "1.5rem", sm: "1.75rem", md: "2.25rem" }}
-              >
-                <Flex gap={"0.62rem"}>
-                  <Box className={s.reviewsItemStar}>
-                    <IconStar />
-                  </Box>
-                </Flex>
+            <SwiperSlide style={{ height: "auto" }} key={id}>
+              <Flex className={s.reviewsItem}>
+                <Box>
+                  <Flex gap={"0.62rem"}>
+                    <Box className={s.reviewsItemStar}>
+                      <IconStar />
+                    </Box>
+                    <Box className={s.reviewsItemStar}>
+                      <IconStar />
+                    </Box>
+                    <Box className={s.reviewsItemStar}>
+                      <IconStar />
+                    </Box>
+                    <Box className={s.reviewsItemStar}>
+                      <IconStar />
+                    </Box>
+                    <Box className={s.reviewsItemStar}>
+                      <IconStar />
+                    </Box>
+                  </Flex>
 
-                <Text className={s.reviewsDescription}>
-                  {index.description}
-                </Text>
+                  <Text className={s.reviewsDescription}>
+                    {index.description}
+                  </Text>
+                </Box>
 
                 <Flex gap={"0.75rem"} align={"center"}>
                   <Box className={s.reviewsUserImage}>
-                    <Image src={ImageUser} alt={""} />
+                    <Image src={index.image} alt={index.name} />
                   </Box>
                   <Flex direction={"column"} gap={"0.12rem"}>
                     <Text className={s.reviewsAuthor}>{index.name}</Text>

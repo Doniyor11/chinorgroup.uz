@@ -7,16 +7,14 @@ import s from "./index.module.scss"
 interface PageHeadProps {
   title: string
   subtitle: string
-  description1: string
-  description2: string
+  description: string
   search?: boolean
 }
 
 export const PageHead = ({
   title,
   subtitle,
-  description1,
-  description2,
+  description,
   search = false,
 }: PageHeadProps) => {
   return (
@@ -30,7 +28,7 @@ export const PageHead = ({
             lg: search ? "3.5rem" : "0",
           }}
           direction={{ base: "column", lg: "row" }}
-          gap={{ base: "2rem", lg: "0" }}
+          gap={{ base: "2rem", lg: "1.2rem" }}
         >
           <Flex
             direction={"column"}
@@ -49,8 +47,12 @@ export const PageHead = ({
             className={s.pageHeader}
             w={{ base: "100%", lg: "50%" }}
           >
-            <Text className={s.pageHeaderDescriptionRight}>{description1}</Text>
-            <Text className={s.pageHeaderDescriptionRight}>{description2}</Text>
+            {description && (
+              <Text
+                className={s.pageHeaderDescriptionRight}
+                dangerouslySetInnerHTML={{ __html: description }}
+              />
+            )}
           </Flex>
         </Flex>
         {search && (

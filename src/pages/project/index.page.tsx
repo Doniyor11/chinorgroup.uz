@@ -4,7 +4,7 @@ import React from "react"
 
 import {
   BreadcrumbCustom,
-  BuildingsProject,
+  Buildings,
   Contact,
   FormBanner,
   HeroProject,
@@ -25,7 +25,7 @@ const ProjectPage = () => {
       />
       <Box className={"container"}>
         <HeroProject />
-        <BuildingsProject />
+        <Buildings />
         <FormBanner />
         <Contact />
       </Box>

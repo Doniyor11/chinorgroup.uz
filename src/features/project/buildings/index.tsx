@@ -316,6 +316,15 @@ interface BuildingCardProps {
 }
 
 const BuildingCard = ({ building, t }: BuildingCardProps) => {
+  const { lang } = useTranslation("common")
+
+  // Проверяем, есть ли доступные квартиры (1, 2, 3 комнатные)
+  const hasAvailableApartments = [1, 2, 3].some((rooms) => {
+    return building.apartments.some(
+      (apt) => apt.rooms === rooms && apt.isAvailable,
+    )
+  })
+
   return (
     <>
       <Box className={s.buildingsBox}>
@@ -350,9 +359,13 @@ const BuildingCard = ({ building, t }: BuildingCardProps) => {
             </Text>
           </Flex>
           <Text className={s.buildingsBoxPrice}>
-            {t("buildings_price_from")}{" "}
-            {Math.round(building.priceFrom / 1000000)}{" "}
-            {t("buildings_price_mln")}
+            {lang === "uz"
+              ? `${Math.round(building.priceFrom / 1000000)} ${t(
+                  "buildings_price_mln_from",
+                )}`
+              : `${t("buildings_price_from")} ${Math.round(
+                  building.priceFrom / 1000000,
+                )} ${t("buildings_price_mln")}`}
           </Text>
         </Flex>
 
@@ -362,50 +375,76 @@ const BuildingCard = ({ building, t }: BuildingCardProps) => {
             gap={"0.75rem"}
             className={s.buildingsBoxInfo}
           >
-            <Text component={"h3"}>
-              {building.availableApartments} {t("buildings_apartments_on_sale")}
-            </Text>
-            {[1, 2, 3].map((rooms) => {
-              const count = building.apartments.filter(
-                (apt) => apt.rooms === rooms && apt.isAvailable,
-              ).length
-              const minPrice = Math.min(
-                ...building.apartments
-                  .filter((apt) => apt.rooms === rooms && apt.isAvailable)
-                  .map((apt) => apt.price),
-              )
-              const maxPrice = Math.max(
-                ...building.apartments
-                  .filter((apt) => apt.rooms === rooms && apt.isAvailable)
-                  .map((apt) => apt.price),
-              )
-              const priceText =
-                minPrice === Infinity
-                  ? "-"
-                  : minPrice === maxPrice
-                  ? `${Math.round(minPrice / 1000000)} ${t(
-                      "buildings_price_mln_short",
-                    )}`
-                  : `${Math.round(minPrice / 1000000)}-${Math.round(
-                      maxPrice / 1000000,
-                    )} ${t("buildings_price_mln_short")}`
+            {hasAvailableApartments ? (
+              <>
+                <Text component={"h3"}>
+                  {building.availableApartments}{" "}
+                  {t("buildings_apartments_on_sale")}
+                </Text>
+                {[1, 2, 3].map((rooms) => {
+                  const count = building.apartments.filter(
+                    (apt) => apt.rooms === rooms && apt.isAvailable,
+                  ).length
+                  const minPrice = Math.min(
+                    ...building.apartments
+                      .filter((apt) => apt.rooms === rooms && apt.isAvailable)
+                      .map((apt) => apt.price),
+                  )
+                  const maxPrice = Math.max(
+                    ...building.apartments
+                      .filter((apt) => apt.rooms === rooms && apt.isAvailable)
+                      .map((apt) => apt.price),
+                  )
+                  const priceText =
+                    minPrice === Infinity
+                      ? "-"
+                      : minPrice === maxPrice
+                      ? `${Math.round(minPrice / 1000000)} ${t(
+                          "buildings_price_mln_short",
+                        )}`
+                      : `${Math.round(minPrice / 1000000)}-${Math.round(
+                          maxPrice / 1000000,
+                        )} ${t("buildings_price_mln_short")}`
 
-              return (
-                <Flex key={rooms} justify={"space-between"}>
-                  <Text component={"p"} c={count > 0 ? "#009540" : "#70707B"}>
-                    {rooms}-{t("buildings_room_count")}
-                  </Text>
-                  <Text component={"p"} c={"#70707B"}>
-                    {count > 0
-                      ? `${count} ${t("buildings_pieces")}`
-                      : t("buildings_none")}
-                  </Text>
-                  <Text component={"p"} c={"#26272B"}>
-                    {priceText}
-                  </Text>
-                </Flex>
-              )
-            })}
+                  return (
+                    <Flex key={rooms} justify={"space-between"}>
+                      <Text
+                        component={"p"}
+                        c={count > 0 ? "#009540" : "#70707B"}
+                      >
+                        {rooms}-{t("buildings_room_count")}
+                      </Text>
+                      <Text component={"p"} c={"#70707B"}>
+                        {count > 0
+                          ? `${count} ${t("buildings_pieces")}`
+                          : t("buildings_none")}
+                      </Text>
+                      <Text component={"p"} c={"#26272B"}>
+                        {priceText}
+                      </Text>
+                    </Flex>
+                  )
+                })}
+              </>
+            ) : (
+              <Flex
+                align={"center"}
+                justify={"center"}
+                style={{
+                  minHeight: "150px",
+                  padding: "2rem",
+                  textAlign: "center",
+                }}
+              >
+                <Text
+                  fz={{ base: "1rem", sm: "1.125rem" }}
+                  c={"#70707B"}
+                  fw={500}
+                >
+                  {t("buildings_sold_out")}
+                </Text>
+              </Flex>
+            )}
           </Flex>
           <Flex
             justify={"space-between"}

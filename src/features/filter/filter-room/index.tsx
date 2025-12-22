@@ -105,7 +105,10 @@ const FilterWithData = React.memo(({ rooms }: FilterWithDataProps) => {
   }
 
   const roomPriceRange = React.useMemo(() => getPriceRange(rooms), [rooms])
-  const [priceRange, setPriceRange] = useState<[number, number]>(roomPriceRange)
+  const [priceRange, setPriceRange] = useState<[number, number]>([
+    roomPriceRange[0],
+    roomPriceRange[0],
+  ])
   const [downPaymentPercent, setDownPaymentPercent] = useState<number>(25) // Минимум 25%
 
   React.useEffect(() => {
@@ -114,7 +117,7 @@ const FilterWithData = React.memo(({ rooms }: FilterWithDataProps) => {
 
   React.useEffect(() => {
     // Сбрасываем диапазон цен при смене комнат
-    setPriceRange(roomPriceRange)
+    setPriceRange([roomPriceRange[0], roomPriceRange[0]])
   }, [roomPriceRange])
 
   React.useEffect(() => {
@@ -142,19 +145,21 @@ const FilterWithData = React.memo(({ rooms }: FilterWithDataProps) => {
   // Форматирование цены: если >= 1000 млн, показываем в млрд
   const formatPrice = (price: number): string => {
     if (price >= 1000) {
-      const billions = (price / 1000).toFixed(3)
-      return `${billions} ${t("filter_room_mlrd_sum")}`
+      const formattedPrice = (price / 1000).toFixed(3).replace(".", ",")
+      return `${formattedPrice} ${t("filter_room_milliard_sum")}`
     }
-    return `${price} ${t("filter_room_mln_sum")}`
+    const formattedPrice = price.toString().replace(".", ",")
+    return `${formattedPrice} ${t("filter_room_million_sum")}`
   }
 
   // Форматирование первоначального взноса
   const formatDownPayment = (amount: number): string => {
     if (amount >= 1000) {
-      const billions = (amount / 1000).toFixed(3)
-      return `${billions} ${t("filter_room_mlrd_sum")}`
+      const formattedAmount = (amount / 1000).toFixed(3).replace(".", ",")
+      return `${formattedAmount} ${t("filter_room_milliard_sum")}`
     }
-    return `${amount.toFixed(0)} ${t("filter_room_mln_sum")}`
+    const formattedAmount = amount.toFixed(0).replace(".", ",")
+    return `${formattedAmount} ${t("filter_room_million_sum")}`
   }
 
   // Проверка на отсутствие квартир для Chinor и Bobur TJM
@@ -357,17 +362,54 @@ const SuitableInstallmentBlock = ({
 }: SuitableInstallmentBlockProps) => {
   const { t } = useTranslation("common")
 
-  // Расчет: 40% от общей суммы / 30 месяцев
-  const months = 30
+  // Расчет оставшихся месяцев (автоматически уменьшается каждый месяц)
+  const calculateRemainingMonths = (): number => {
+    const STORAGE_KEY = "installment_start_date"
+    const totalMonths = 28
+    const currentDate = new Date()
+    const currentYearMonth = `${currentDate.getFullYear()}-${currentDate.getMonth()}`
+
+    // Получаем сохраненную дату начала из localStorage
+    const storedStartDate =
+      typeof window !== "undefined" ? localStorage.getItem(STORAGE_KEY) : null
+
+    // Если даты нет, сохраняем текущую дату как начальную
+    if (!storedStartDate && typeof window !== "undefined") {
+      localStorage.setItem(STORAGE_KEY, currentYearMonth)
+      return totalMonths
+    }
+
+    // Парсим сохраненную дату
+    if (storedStartDate) {
+      const [startYear, startMonth] = storedStartDate.split("-").map(Number)
+
+      // Вычисляем количество прошедших месяцев
+      const monthsPassed =
+        (currentDate.getFullYear() - startYear) * 12 +
+        (currentDate.getMonth() - startMonth)
+
+      // Оставшиеся месяцы
+      const remainingMonths = totalMonths - monthsPassed
+
+      // Минимум 1 месяц
+      return Math.max(1, remainingMonths)
+    }
+
+    return totalMonths
+  }
+
+  const months = calculateRemainingMonths()
   const fortyPercentAmount = totalPrice * 0.4 // totalPrice уже в миллионах
   const monthlyPayment = fortyPercentAmount / months
 
   // Форматирование с учетом миллионов/миллиардов
   const formatPayment = (amount: number): string => {
     if (amount >= 1000) {
-      return `${(amount / 1000).toFixed(3)} ${t("filter_room_mlrd_sum")}`
+      const formattedAmount = (amount / 1000).toFixed(3).replace(".", ",")
+      return `${formattedAmount} ${t("filter_room_milliard_sum")}`
     }
-    return `${amount.toFixed(1)} ${t("filter_room_mln_sum")}`
+    const formattedAmount = amount.toFixed(1).replace(".", ",")
+    return `${formattedAmount} ${t("filter_room_million_sum")}`
   }
 
   return (
@@ -395,9 +437,6 @@ const SuitableInstallmentBlock = ({
               {formatPayment(monthlyPayment)}
             </Text>
           </Flex>
-          <Text className={s.filterInfoNumber} c={"#51525C"} fz={"0.875rem"}>
-            {t("filter_room_whole_period")}
-          </Text>
         </Flex>
       </Flex>
     </>

@@ -20,12 +20,8 @@ export const Company = () => {
           <Text
             className={s.companyDescription}
             mb={{ base: "1rem", md: "1.5rem" }}
-          >
-            {t("company_description_1")}
-          </Text>
-          <Text className={s.companyDescription}>
-            {t("company_description_2")}
-          </Text>
+            dangerouslySetInnerHTML={{ __html: t("company_description_1") }}
+          />
         </Grid.Col>
         <Grid.Col span={{ base: 12, md: 6 }}>
           <Box className={s.companyImage}>

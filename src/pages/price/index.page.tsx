@@ -1,4 +1,5 @@
 import { Box } from "@mantine/core"
+import useTranslation from "next-translate/useTranslation"
 import React from "react"
 
 import { BreadcrumbCustom, FilterPrice, FormBanner, PageHead } from "@/features"
@@ -6,6 +7,7 @@ import { BreadcrumbCustom, FilterPrice, FormBanner, PageHead } from "@/features"
 import IconHome from "@/shared/assets/images/icons/home.svg"
 
 const PricePage = () => {
+  const { t } = useTranslation("common")
   return (
     <main>
       <BreadcrumbCustom
@@ -16,16 +18,9 @@ const PricePage = () => {
       />
       <Box className={"container"}>
         <PageHead
-          title={"Цены на услуги"}
-          subtitle={
-            "Прозрачное ценообразование и индивидуальный подход к каждому проекту"
-          }
-          description1={
-            "Мы стремимся сделать ваш опыт в сфере недвижимости плавным, выгодным и без стресса. Наша команда преданных своему делу профессионалов, обладающая многолетним опытом, поможет вам уверенно ориентироваться на рынке недвижимости."
-          }
-          description2={
-            "Будь то покупка, продажа или аренда — мы рядом, чтобы предложить индивидуальный подход и помочь вам достичь ваших целей."
-          }
+          title={t("price_page_title")}
+          subtitle={t("price_page_subtitle")}
+          description={t("price_page_description")}
         />
         <FilterPrice />
         <FormBanner

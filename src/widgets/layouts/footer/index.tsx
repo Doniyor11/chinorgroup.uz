@@ -44,9 +44,14 @@ export const Footer = () => {
                 <Text className={s.footerLeftLabel}>
                   {t("contact_address")}
                 </Text>
-                <Text className={s.footerText}>
-                  {t("contact_address_full")}
-                </Text>
+                <Anchor
+                  href={"https://yandex.uz/maps/-/CLD1r0YS"}
+                  target={"_blank"}
+                  className={s.footerText}
+                  dangerouslySetInnerHTML={{
+                    __html: t("contact_address_full"),
+                  }}
+                />
               </Flex>
             </Flex>
           </Flex>
@@ -54,42 +59,54 @@ export const Footer = () => {
             <Flex gap={{ base: "2rem", sm: "3rem", md: "4rem", lg: "5rem" }}>
               <Flex direction={"column"} gap={"1rem"}>
                 <Text className={s.menuTitle}>{t("nav_navigation")}</Text>
-                <Link className={s.footerText} href={""}>
+                <Link className={s.footerText} href={"/about"}>
                   {t("footer_nav_about")}
                 </Link>
-                <Link className={s.footerText} href={""}>
+                <Link className={s.footerText} href={"/project"}>
                   {t("footer_nav_portfolio")}
                 </Link>
-                <Link className={s.footerText} href={""}>
+                <Link className={s.footerText} href={"/blog"}>
                   {t("nav_blog")}
                 </Link>
               </Flex>
-              <Flex direction={"column"} gap={"1rem"}>
-                <Text className={s.menuTitle}>
-                  {t("footer_services_title")}
-                </Text>
-                <Link className={s.footerText} href={""}>
-                  {t("footer_services_residential")}
-                </Link>
-                <Link className={s.footerText} href={""}>
-                  {t("footer_services_commercial")}
-                </Link>
-                <Link className={s.footerText} href={""}>
-                  {t("footer_services_renovation")}
-                </Link>
-                <Link className={s.footerText} href={""}>
-                  {t("footer_services_design")}
-                </Link>
-              </Flex>
+              {/*<Flex direction={"column"} gap={"1rem"}>*/}
+              {/*  <Text className={s.menuTitle}>*/}
+              {/*    {t("footer_services_title")}*/}
+              {/*  </Text>*/}
+              {/*  <Link className={s.footerText} href={""}>*/}
+              {/*    {t("footer_services_residential")}*/}
+              {/*  </Link>*/}
+              {/*  <Link className={s.footerText} href={""}>*/}
+              {/*    {t("footer_services_commercial")}*/}
+              {/*  </Link>*/}
+              {/*  <Link className={s.footerText} href={""}>*/}
+              {/*    {t("footer_services_renovation")}*/}
+              {/*  </Link>*/}
+              {/*  <Link className={s.footerText} href={""}>*/}
+              {/*    {t("footer_services_design")}*/}
+              {/*  </Link>*/}
+              {/*</Flex>*/}
               <Flex direction={"column"} gap={"1rem"}>
                 <Text className={s.menuTitle}>{t("footer_follow_us")}</Text>
-                <Link className={s.footerText} href={""}>
+                <Link
+                  className={s.footerText}
+                  href={"https://www.facebook.com/Chinor.Group"}
+                  target={"_blank"}
+                >
                   Facebook
                 </Link>
-                <Link className={s.footerText} href={""}>
+                <Link
+                  className={s.footerText}
+                  href={"https://www.instagram.com/chinor.gd"}
+                  target={"_blank"}
+                >
                   Instagram
                 </Link>
-                <Link className={s.footerText} href={""}>
+                <Link
+                  className={s.footerText}
+                  href={"https://t.me/jomiy_chinor_group"}
+                  target={"_blank"}
+                >
                   Telegram
                 </Link>
               </Flex>
