@@ -8,6 +8,7 @@ interface PageHeadProps {
   title: string
   subtitle: string
   description: string
+  description2?: string
   search?: boolean
 }
 
@@ -15,6 +16,7 @@ export const PageHead = ({
   title,
   subtitle,
   description,
+  description2,
   search = false,
 }: PageHeadProps) => {
   return (
@@ -51,6 +53,12 @@ export const PageHead = ({
               <Text
                 className={s.pageHeaderDescriptionRight}
                 dangerouslySetInnerHTML={{ __html: description }}
+              />
+            )}
+            {description2 && (
+              <Text
+                className={s.pageHeaderDescriptionRight}
+                dangerouslySetInnerHTML={{ __html: description2 }}
               />
             )}
           </Flex>
