@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Checkbox,
   Flex,
   Grid,
   RangeSlider,
@@ -9,6 +8,7 @@ import {
   Text,
 } from "@mantine/core"
 import cx from "clsx"
+import useTranslation from "next-translate/useTranslation"
 import Image from "next/image"
 import Link from "next/link"
 import React from "react"
@@ -23,17 +23,21 @@ import type { Building } from "@/shared/types/buildings.ts"
 import s from "./index.module.scss"
 
 export const FilterPrice = () => {
+  const { t } = useTranslation("common")
   const { filteredBuildings } = useBuildingFilters(mockBuildings)
   return (
     <Box className={s.filterRoom}>
       <Flex gap={"3.5rem"} direction={"column"}>
         <FilterWithData />
         <Flex direction={"column"} gap={"1rem"}>
-          <Text className={s.filterCardTitle}>Подходящие квартиры</Text>
+          <Text
+            className={s.filterCardTitle}
+            dangerouslySetInnerHTML={{
+              __html: t("price_page_matching_apartments"),
+            }}
+          />
           <Text className={s.filterCardDescription}>
-            Вот коллекция интересных статей, которые вы, возможно, еще не
-            видели. Не упустите важную информацию и последние тенденции, которые
-            могут расширить ваши знания.
+            {t("price_page_matching_description")}
           </Text>
         </Flex>
         <Box className={s.buildings}>
@@ -56,6 +60,51 @@ export const FilterPrice = () => {
 }
 
 const FilterWithData = () => {
+  const { t } = useTranslation("common")
+  const { filters, updateFilter, filteredBuildings } =
+    useBuildingFilters(mockBuildings)
+
+  // Get unique building names for the project name filter
+  const projectNames = React.useMemo(() => {
+    const names = Array.from(new Set(mockBuildings.map((b) => b.name)))
+    return names.map((name) => ({ value: name, label: name }))
+  }, [])
+
+  // Calculate approximate price based on filters
+  const calculatedPrice = React.useMemo(() => {
+    if (filteredBuildings.length === 0) return 0
+
+    // Get all matching apartments from filtered buildings
+    const matchingApartments = filteredBuildings.flatMap((building) =>
+      building.apartments.filter((apt) => {
+        const matchesRooms = filters.rooms ? apt.rooms === filters.rooms : true
+        const matchesArea =
+          apt.area >= filters.areaRange[0] && apt.area <= filters.areaRange[1]
+        return apt.isAvailable && matchesRooms && matchesArea
+      }),
+    )
+
+    if (matchingApartments.length === 0) return 0
+
+    // Calculate average price
+    const totalPrice = matchingApartments.reduce(
+      (sum, apt) => sum + apt.price,
+      0,
+    )
+    const avgPrice = totalPrice / matchingApartments.length
+
+    // Return in millions
+    return Math.round(avgPrice / 1000000)
+  }, [filteredBuildings, filters.rooms, filters.areaRange])
+
+  // Format price: if >= 1000 (4 digits), show in billions, otherwise in millions
+  const formatPrice = (price: number): string => {
+    if (price >= 1000) {
+      return `${(price / 1000).toFixed(1)} ${t("filter_room_mlrd_sum")}`
+    }
+    return `${price} ${t("filter_room_mln_sum")}`
+  }
+
   return (
     <>
       <Flex w={"100%"}>
@@ -67,16 +116,18 @@ const FilterWithData = () => {
               direction={"column"}
               gap={"1.5rem"}
             >
-              <Box>
-                <Text className={s.filterHeadTitle}>
-                  Калькулятор <br /> стоимости
-                </Text>
-              </Box>
-              <Box>
-                <Text className={s.filterHeadDescription}>
-                  Рассчитайте примерную <br /> стоимость вашего проекта
-                </Text>
-              </Box>
+              <Text
+                className={s.filterHeadTitle}
+                dangerouslySetInnerHTML={{
+                  __html: t("price_page_calculator_title"),
+                }}
+              />
+              <Text
+                className={s.filterHeadDescription}
+                dangerouslySetInnerHTML={{
+                  __html: t("price_page_calculator_description"),
+                }}
+              />
             </Flex>
           </Grid.Col>
           <Grid.Col span={5}>
@@ -88,27 +139,56 @@ const FilterWithData = () => {
               <Grid align={"flex-end"}>
                 <Grid.Col span={6}>
                   <Flex direction={"column"} gap={"0.5rem"}>
-                    <Text className={"input-label"}>Тип работ</Text>
+                    <Text className={"input-label"}>
+                      {t("buildings_filter_rooms")}
+                    </Text>
                     <Select
-                      placeholder={"Выберите"}
+                      placeholder={t("buildings_filter_select")}
                       className={"select"}
                       rightSection={<IconDown />}
+                      data={[
+                        { value: "", label: t("buildings_filter_all") },
+                        { value: "1", label: t("buildings_filter_rooms_1") },
+                        { value: "2", label: t("buildings_filter_rooms_2") },
+                        { value: "3", label: t("buildings_filter_rooms_3") },
+                      ]}
+                      value={filters.rooms?.toString() || ""}
+                      onChange={(value) =>
+                        updateFilter(
+                          "rooms",
+                          value ? parseInt(value) : undefined,
+                        )
+                      }
                     />
                   </Flex>
                 </Grid.Col>
                 <Grid.Col span={6}>
                   <Flex direction={"column"} gap={"0.5rem"}>
-                    <Text className={s.filterLabel}>Тип материалов</Text>
+                    <Text className={s.filterLabel}>{t("buildings_area")}</Text>
                     <Flex className={"filterInput"}>
-                      <Flex gap={"0.5rem"} w={"100%"}>
-                        <Text className={s.filterInputSpan} c={"#70707B"}>
-                          Площадь до
-                        </Text>
-                        <Text className={s.filterInputSpan}>120 м²</Text>
+                      <Flex justify={"space-between"} w={"100%"}>
+                        <Flex gap={"0.5rem"}>
+                          <Text className={s.filterInputSpan} c={"#70707B"}>
+                            {t("buildings_filter_from")}
+                          </Text>
+                          <Text className={s.filterInputSpan}>
+                            {filters.areaRange[0]} м²
+                          </Text>
+                        </Flex>
+                        <Flex gap={"0.5rem"}>
+                          <Text className={s.filterInputSpan} c={"#70707B"}>
+                            {t("buildings_filter_to")}
+                          </Text>
+                          <Text className={s.filterInputSpan}>
+                            {filters.areaRange[1]} м²
+                          </Text>
+                        </Flex>
                       </Flex>
                       <RangeSlider
-                        min={0}
-                        max={500}
+                        value={filters.areaRange}
+                        onChange={(value) => updateFilter("areaRange", value)}
+                        min={33}
+                        max={150}
                         color="green"
                         thumbSize={14}
                         label={null}
@@ -135,45 +215,58 @@ const FilterWithData = () => {
                 </Grid.Col>
                 <Grid.Col span={12}>
                   <Flex direction={"column"} gap={"0.5rem"}>
-                    <Text className={"input-label"}>Тип работ</Text>
+                    <Text className={"input-label"}>
+                      {t("price_page_project_name")}
+                    </Text>
                     <Select
-                      placeholder={"Выберите"}
+                      placeholder={t("buildings_filter_select")}
                       className={"select"}
                       rightSection={<IconDown />}
+                      data={[
+                        { value: "", label: t("price_page_all_projects") },
+                        ...projectNames,
+                      ]}
+                      value={filters.complex || ""}
+                      onChange={(value) =>
+                        updateFilter("complex", value || undefined)
+                      }
                     />
                   </Flex>
                 </Grid.Col>
               </Grid>
 
-              <Flex direction={"column"} gap={"0.5rem"}>
-                <Text mb={"0.25rem"} className={s.titleCheckbox}>
-                  Дополнительные услуги
-                </Text>
-                <Checkbox
-                  label={"Проектирование (+$50/м²)"}
-                  className={s.filterCheckbox}
-                />
-                <Checkbox
-                  label={"Инженерные системы (+$80/м²)"}
-                  className={s.filterCheckbox}
-                />
-                <Checkbox
-                  label={"Ландшафтный дизайн (+$40/м²)"}
-                  className={s.filterCheckbox}
-                />
-                <Checkbox
-                  label={"Отделочные работы (+$150/м²)"}
-                  className={s.filterCheckbox}
-                />
-              </Flex>
+              {/*<Flex direction={"column"} gap={"0.5rem"}>*/}
+              {/*  <Text mb={"0.25rem"} className={s.titleCheckbox}>*/}
+              {/*    Дополнительные услуги*/}
+              {/*  </Text>*/}
+              {/*  <Checkbox*/}
+              {/*    label={"Проектирование (+$50/м²)"}*/}
+              {/*    className={s.filterCheckbox}*/}
+              {/*  />*/}
+              {/*  <Checkbox*/}
+              {/*    label={"Инженерные системы (+$80/м²)"}*/}
+              {/*    className={s.filterCheckbox}*/}
+              {/*  />*/}
+              {/*  <Checkbox*/}
+              {/*    label={"Ландшафтный дизайн (+$40/м²)"}*/}
+              {/*    className={s.filterCheckbox}*/}
+              {/*  />*/}
+              {/*  <Checkbox*/}
+              {/*    label={"Отделочные работы (+$150/м²)"}*/}
+              {/*    className={s.filterCheckbox}*/}
+              {/*  />*/}
+              {/*</Flex>*/}
 
               <Button className={"button-green"} mt={"0.5rem"} fullWidth>
-                Рассчитать стоимость
+                {t("price_page_calculate_button")}
               </Button>
             </Flex>
           </Grid.Col>
           <Grid.Col span={4}>
-            <InfoBlock title="Подходящая рассрочка" monthlyPayment={"349"} />
+            <InfoBlock
+              title={t("price_page_project_cost")}
+              monthlyPayment={formatPrice(calculatedPrice)}
+            />
           </Grid.Col>
         </Grid>
       </Flex>
@@ -189,6 +282,7 @@ interface InfoBlockProps {
 }
 
 const InfoBlock = ({ monthlyPayment, className }: InfoBlockProps) => {
+  const { t } = useTranslation("common")
   return (
     <>
       <Flex
@@ -197,15 +291,22 @@ const InfoBlock = ({ monthlyPayment, className }: InfoBlockProps) => {
         className={cx(s.filterInfo, className)}
       >
         <Flex direction={"column"} gap={"1.5rem"}>
-          <Text className={s.filterInfoLabel}>
-            Примерная стоимость <br /> проекта:
-          </Text>
-          <Text className={s.filterInfoNumber}>{monthlyPayment} млн сум</Text>
+          <Text
+            className={s.filterInfoLabel}
+            dangerouslySetInnerHTML={{
+              __html: t("price_page_approximate_cost"),
+            }}
+          />
+          <Text className={s.filterInfoNumber}>{monthlyPayment}</Text>
         </Flex>
         <Flex direction={"column"} gap={"0.37rem"}>
-          <Text className={s.filterInfoNumber} fz={"0.875rem"}>
-            * Окончательная стоимость <br /> определяется после осмот
-          </Text>
+          <Text
+            className={s.filterInfoNumber}
+            fz={"0.875rem"}
+            dangerouslySetInnerHTML={{
+              __html: t("price_page_final_cost_note"),
+            }}
+          />
         </Flex>
       </Flex>
     </>
@@ -217,6 +318,7 @@ interface BuildingCardProps {
 }
 
 const BuildingCard = ({ building }: BuildingCardProps) => {
+  const { t, lang } = useTranslation("common")
   return (
     <>
       <Box className={s.buildingsBox}>
@@ -224,7 +326,7 @@ const BuildingCard = ({ building }: BuildingCardProps) => {
           <Flex className={s.buildingsTags} gap={"0.5rem"}>
             {building.tags?.map((tag) => (
               <Text key={tag} component={"span"}>
-                {tag === "Последняя квартира" && <IconHome />}
+                {tag === t("buildings_tag_last_apartment") && <IconHome />}
                 {tag}
               </Text>
             ))}
@@ -251,7 +353,13 @@ const BuildingCard = ({ building }: BuildingCardProps) => {
             </Text>
           </Flex>
           <Text className={s.buildingsBoxPrice}>
-            от {Math.round(building.priceFrom / 1000000)} млн сум
+            {lang === "uz"
+              ? `${Math.round(building.priceFrom / 1000000)} ${t(
+                  "buildings_price_mln_from",
+                )}`
+              : `${t("buildings_price_from")} ${Math.round(
+                  building.priceFrom / 1000000,
+                )} ${t("buildings_price_mln")}`}
           </Text>
         </Flex>
 
@@ -262,7 +370,7 @@ const BuildingCard = ({ building }: BuildingCardProps) => {
             className={s.buildingsBoxInfo}
           >
             <Text component={"h3"}>
-              {building.availableApartments} квартир в продаже
+              {building.availableApartments} {t("buildings_apartments_on_sale")}
             </Text>
             {[1, 2, 3].map((rooms) => {
               const count = building.apartments.filter(
@@ -282,18 +390,22 @@ const BuildingCard = ({ building }: BuildingCardProps) => {
                 minPrice === Infinity
                   ? "-"
                   : minPrice === maxPrice
-                  ? `${Math.round(minPrice / 1000000)} млн`
+                  ? `${Math.round(minPrice / 1000000)} ${t(
+                      "buildings_price_mln_short",
+                    )}`
                   : `${Math.round(minPrice / 1000000)}-${Math.round(
                       maxPrice / 1000000,
-                    )} млн`
+                    )} ${t("buildings_price_mln_short")}`
 
               return (
                 <Flex key={rooms} justify={"space-between"}>
                   <Text component={"p"} c={count > 0 ? "#009540" : "#70707B"}>
-                    {rooms}-комн
+                    {rooms}-{t("buildings_room_count")}
                   </Text>
                   <Text component={"p"} c={"#70707B"}>
-                    {count > 0 ? `${count} шт` : "нет"}
+                    {count > 0
+                      ? `${count} ${t("buildings_pieces")}`
+                      : t("buildings_none")}
                   </Text>
                   <Text component={"p"} c={"#26272B"}>
                     {priceText}
@@ -308,14 +420,16 @@ const BuildingCard = ({ building }: BuildingCardProps) => {
             align={"center"}
           >
             <Text component={"p"} c={"#70707B"}>
-              Дата сдачи до{" "}
+              {t("buildings_completion_date")}{" "}
               {new Date(building.completionDate).toLocaleDateString("ru-RU", {
                 day: "2-digit",
                 month: "2-digit",
                 year: "numeric",
               })}
             </Text>
-            <Link href={`/buildings/${building.id}`}>Подробнее</Link>
+            <Link href={`/buildings/${building.id}`}>
+              {t("buildings_more_details")}
+            </Link>
           </Flex>
         </Box>
       </Box>

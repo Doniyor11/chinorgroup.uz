@@ -67,6 +67,7 @@
   "buildings_filter_rooms": "Number of Rooms",
   "buildings_filter_price": "Set Price",
   "buildings_filter_area": "Set Area",
+  "buildings_area": "Apartment area",
   "buildings_filter_completion": "Completion Date",
   "buildings_filter_clear": "Clear Filter",
   "buildings_filter_find": "Find",
@@ -179,5 +180,18 @@
   "company_description_1": "Chinor Group Development is a reliable and modern construction company in the Tashkent real estate market. Our goal is to provide you not only with a home, but also with residential complexes that will allow you to live a comfortable and peaceful life in the future. <br /> <br /> Our major project, Jami Residence, is located in a promising area of the city and includes 14 and 16-story buildings and apartments in various areas. They are built using monolithic-frame technology, which ensures the house's durability and longevity. <br /> <br /> Spacious rooms and high ceilings make your home look more modern and luxurious. Energy-efficient materials and advanced infrastructure will help reduce the costs of your home. Due to the complex's proximity to the city center, you can easily get to work, education,            and recreation areas. <br />            <br />            We offer terms with a 25% down payment and an interest-free            installment plan of 28 months, as well as timely delivery of            objects. <br /> <br />            We will turn the life you dream of into reality.",
   "price_page_title": "Service prices",
   "price_page_subtitle": "When choosing a house, don't let the price come first!",
-  "price_page_description": "Many people measure the purchase of a house primarily by price. This is\n        a wrong decision. <br /> <br />\n        The real value of the house is not in the price. Its real value is\n        reflected in living comfort, safety, and future expenses. Construction\n        quality, materials used, utility bills, repair needs, and surrounding\n        infrastructure are more important than price. <br /> <br />\n        That's why a cheap house is often expensive. The question should be\n        asked differently: is this house safe for my family, is it protected\n        from cold and heat, is it comfortable, and will it be easier to sell?\n        <br /> <br />\n        We don't start projects with a price. First, we will consider your needs\n        and your life."
+  "price_page_description": "Many people measure the purchase of a house primarily by price. This is\n        a wrong decision. <br /> <br />\n        The real value of the house is not in the price. Its real value is\n        reflected in living comfort, safety, and future expenses. Construction\n        quality, materials used, utility bills, repair needs, and surrounding\n        infrastructure are more important than price. <br /> <br />\n        That's why a cheap house is often expensive. The question should be\n        asked differently: is this house safe for my family, is it protected\n        from cold and heat, is it comfortable, and will it be easier to sell?\n        <br /> <br />\n        We don't start projects with a price. First, we will consider your needs\n        and your life.",
+  "price_page_calculator_title": "Price <br /> Calculator",
+  "price_page_calculator_description": "Calculate the approximate <br /> cost of your project",
+  "price_page_project_name": "Project name",
+  "price_page_all_projects": "All projects",
+  "price_page_calculate_button": "Calculate cost",
+  "price_page_project_cost": "Approximate project cost",
+  "price_page_approximate_cost": "Approximate cost <br /> of the project:",
+  "price_page_final_cost_note": "* Final cost <br /> determined after inspection",
+  "price_page_matching_apartments": "The following projects may be suitable for you",
+  "price_page_matching_description": "Here is a collection of interesting articles you may not have seen yet. Don't miss important information and the latest trends that can expand your knowledge.",
+  "price_page_form_banner_title": "Need an accurate estimate?",
+  "price_page_form_banner_subtitle": "Contact us for a detailed calculation of your project cost",
+  "price_page_form_banner_button": "Get consultation"
 }

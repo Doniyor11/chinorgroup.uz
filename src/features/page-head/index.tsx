@@ -6,7 +6,7 @@ import s from "./index.module.scss"
 
 interface PageHeadProps {
   title: string
-  subtitle: string
+  subtitle?: string
   description: string
   description2?: string
   search?: boolean
@@ -40,7 +40,9 @@ export const PageHead = ({
             w={{ base: "100%", lg: "50%" }}
           >
             <Text className={"title-section"}>{title}</Text>
-            <Text className={s.pageHeaderDescription}>{subtitle}</Text>
+            {subtitle && (
+              <Text className={s.pageHeaderDescription}>{subtitle}</Text>
+            )}
           </Flex>
           <Flex
             direction={"column"}

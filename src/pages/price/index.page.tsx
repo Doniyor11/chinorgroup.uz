@@ -12,24 +12,21 @@ const PricePage = () => {
     <main>
       <BreadcrumbCustom
         items={[
-          { label: "Главная", href: "/", icon: <IconHome /> },
-          { label: "Цены на услуги" },
+          { label: t("breadcrumb_home"), href: "/", icon: <IconHome /> },
+          { label: t("price_page_breadcrumb") },
         ]}
       />
       <Box className={"container"}>
         <PageHead
-          title={t("price_page_title")}
-          subtitle={t("price_page_subtitle")}
+          title={t("price_page_subtitle")}
           description={t("price_page_description")}
         />
         <FilterPrice />
         <FormBanner
-          title={"Нужна точная смета?"}
+          title={t("price_page_form_banner_title")}
           button={false}
-          subtitle={
-            "Свяжитесь с нами для получения детального расчета стоимости вашего проекта"
-          }
-          buttonText={"Получить консультацию"}
+          subtitle={t("price_page_form_banner_subtitle")}
+          buttonText={t("price_page_form_banner_button")}
         />
       </Box>
     </main>
